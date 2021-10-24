@@ -1,2 +1,3 @@
 # ProjectCSharpScripts
-C# Scripts used with the Unity project.
+.cs scripts used with the Unity project are in /Assets
+
