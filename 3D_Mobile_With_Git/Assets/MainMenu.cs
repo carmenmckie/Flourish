@@ -14,13 +14,13 @@ public class MainMenu : MonoBehaviour
     public void LoadScene(string sceneName){ 
         // Call Unity's in-built method to load the Scene: 
         SceneManager.LoadScene(sceneName);
-        // Debug.Log(scenesPreviouslyVisited.Count);
-        // Debug.Log(scenesPreviouslyVisited[scenesPreviouslyVisited.Count - 1]); // This loads the PREVIOUS scene 
+        
     }
 
     public void LoadSettings(string previousSceneVisited){
         previousScene = previousSceneVisited;
         SceneManager.LoadScene("Settings");
+        
     }
 
     public void LoadPreviousScene() {
@@ -41,11 +41,6 @@ public class MainMenu : MonoBehaviour
     public void BackToHome(){
         // Load the scene "LandingPage" / the home page 
         SceneManager.LoadScene("LandingPage"); 
-    }
-
-    // Directs the Player to the Settings page 
-    public void OpenSettingsPage(){
-        SceneManager.LoadScene("Settings"); 
     }
 
     // Directs the Player to the Start Game / Load Game page 
