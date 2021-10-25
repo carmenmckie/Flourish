@@ -34,7 +34,9 @@ public class MainMenu : MonoBehaviour
     // Method to change Game Scene / start the game 
     public void StartGame(){ 
         // Load the Game Scene (Start of the game)
-        SceneManager.LoadScene("GameBegin"); 
+        // SceneManager.LoadScene("GameBegin"); 
+        // Temporarily changed name of scene:
+        SceneManager.LoadScene("TestScene");
     }
 
     // Directs the Player back to the LandingPage
