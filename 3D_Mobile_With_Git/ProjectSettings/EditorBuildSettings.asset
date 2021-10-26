@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScene.unity
     guid: 13666d5979d4b4a74bb337c1a1eacb83
+  - enabled: 1
+    path: Assets/Scenes/DragDropTest.unity
+    guid: a5ad1e147ed7f495fb7907f0a2743df0
   m_configObjects: {}
