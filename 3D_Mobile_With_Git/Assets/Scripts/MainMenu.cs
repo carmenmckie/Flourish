@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     // the scene they entered Settings from: 
     private static string previousScene;
 
+
     public void LoadScene(string sceneName){ 
         // Call Unity's in-built method to load the Scene: 
         SceneManager.LoadScene(sceneName);
@@ -19,11 +20,21 @@ public class MainMenu : MonoBehaviour
 
     public void LoadSettings(string previousSceneVisited){
         previousScene = previousSceneVisited;
+        // // ***
+        // // Get the current scene index: 
+        // currentSceneIndex = SceneManager.GetActiveScene().buildIndex; 
+        // // Save the currentSceneIndex using PlayerPrefs: 
+        // // Allows to save and hold data between scenes: 
+        // PlayerPrefs.SetInt("SavedScene", currentSceneIndex); 
+        // ***
         SceneManager.LoadScene("Settings");
-        
     }
 
     public void LoadPreviousScene() {
+        // // ***
+        // sceneToContinue = PlayerPrefs.GetInt("SavedScene");
+        // SceneManager.LoadScene(sceneToContinue); 
+        // ***
         // Load the previous scene which is passed 
         // to this class when the user presses 'Settings'
         // (The going back functionality is only needed
@@ -56,3 +67,36 @@ public class MainMenu : MonoBehaviour
     }
 }
 
+
+
+
+
+
+
+
+    // // ***
+    // public static MainMenu instance; 
+    
+    // // Method to be attached to GameObjects so that 
+    // // Switching to the Settings menu doesn't cause
+    // // Objects to restart (i.e. so their positions
+    // // are saved etc rather than going back to default
+    // // positions)
+    // public void dontDestroyObject(){
+    //     if (instance != null){
+    //         Destroy(this.gameObject); 
+    //         return; 
+    //     }
+    //     instance = this; 
+    //     GameObject.DontDestroyOnLoad(this.gameObject);
+
+    // }
+
+
+       
+    // // Used to go back to the scene that Settigs was 
+    // // called from
+    // // ****
+    // private int currentSceneIndex; 
+
+    // private int sceneToContinue; 

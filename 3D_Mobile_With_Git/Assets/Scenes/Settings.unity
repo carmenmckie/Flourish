@@ -1269,7 +1269,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The current resolution is: Medium'
+  m_Text: ' '
 --- !u!222 &243610631
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1965,7 +1965,7 @@ GameObject:
   - component: {fileID: 802530774}
   - component: {fileID: 802530773}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2486,6 +2486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 2011c0a8eb87a4879a98339dea112043, type: 2}
   currentResolution: {fileID: 243610630}
+  settingsMenuCanvas: {fileID: 0}
 --- !u!1 &1493950881
 GameObject:
   m_ObjectHideFlags: 0
