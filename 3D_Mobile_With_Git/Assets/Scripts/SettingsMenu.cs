@@ -41,8 +41,6 @@ public class SettingsMenu : MonoBehaviour
         currentResolution.text = resolutionText; 
     }
 
-
-
     
     // public method so it can be triggered from Slider object: 
     public void AdjustVolume(float volume){
@@ -127,9 +125,6 @@ public class SettingsMenu : MonoBehaviour
         Time.timeScale = 0f; 
         settingsOpen = true; 
     }
-
-
-
 
 
 
