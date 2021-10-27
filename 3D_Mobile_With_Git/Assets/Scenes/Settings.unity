@@ -1160,7 +1160,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 229139085}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1313986584}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+        m_MethodName: musicOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &229139085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11466182, guid: d2c67c9f8ecea45ad946dc423474b514, type: 3}
       propertyPath: m_Value
-      value: 2
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 11466182, guid: d2c67c9f8ecea45ad946dc423474b514, type: 3}
       propertyPath: m_MaxValue
@@ -1567,6 +1579,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 429338909}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &429338911 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11466182, guid: d2c67c9f8ecea45ad946dc423474b514,
+    type: 3}
+  m_PrefabInstance: {fileID: 429338909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &575357968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2486,7 +2510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 2011c0a8eb87a4879a98339dea112043, type: 2}
   currentResolution: {fileID: 243610630}
-  settingsMenuCanvas: {fileID: 0}
+  settingsMenuCanvas: {fileID: 1313986578}
+  musicSlider: {fileID: 429338911}
 --- !u!1 &1493950881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3099,9 +3124,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: BackToHome
+      - m_Target: {fileID: 1313986584}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+        m_MethodName: musicOn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

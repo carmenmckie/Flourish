@@ -32,6 +32,11 @@ public class SettingsMenu : MonoBehaviour
     // To know whether the game has Settings open or not 
     public static bool settingsOpen = false;
 
+    // Reference to Slider so that if the user presses "music on" / "music off"
+    // The slider updates so that the change is visible to the user
+    // And the slider doesn't represent an old value 
+    public Slider musicSlider;
+
    
     // Update resolutionText every frame, so the user's choice updates the field. 
     // Then, apply this text to Text currentResolution
@@ -39,6 +44,16 @@ public class SettingsMenu : MonoBehaviour
     // (e.g. Text currentResolution itself cannot be static)
     public void Update(){
         currentResolution.text = resolutionText; 
+        // Dynamically update the musicSlider to display the current volume
+        // Of the Audio Mixer (so it doesn't reset between scenes)
+        float value; 
+        bool result = audioMixer.GetFloat("Volume", out value); 
+        if (result){
+            // Update musicSlider to display value 
+            musicSlider.value = value; 
+        } else {
+            return; 
+        }
     }
 
     
@@ -48,6 +63,33 @@ public class SettingsMenu : MonoBehaviour
         // Attribute passed to this method: 
         audioMixer.SetFloat("Volume", volume); 
         // Debug.Log(volume); 
+    }
+
+    // To be clicked when the user presses "Music Off" 
+    public void musicOff(){
+        // Set audioMixer's level to -80 
+        // In Unity, audio levels go from (-80 -> +20) 
+        // Rather than 0 - 100 
+        audioMixer.SetFloat("Volume", -80); 
+        // Update slider to display new change: 
+        musicSlider.value = -80; 
+    }
+
+    // To be clicked when user presses "Music On" 
+    public void musicOn(){
+        // If the music is already on, do nothing
+        if (musicSlider.value > -80){ 
+            Debug.Log("Music is already on");
+            return; 
+        }
+        // Upon clicking "musicOn" - put music 
+        // To be half-way. Not full volume because 
+        // This could be alarming for the user 
+        // (Halfway between (-80 -> +20) is -30 
+        audioMixer.SetFloat("Volume", -30);
+        // Update slider to display new change: 
+        musicSlider.value = -30; 
+        Debug.Log("Music now turned on"); 
     }
 
 
@@ -126,12 +168,7 @@ public class SettingsMenu : MonoBehaviour
         settingsOpen = true; 
     }
 
-
-
-
-
-   }
-
+}
 
     // // When Settings is called from within the game, it has to be on a panel / canvas
     // // Not a seperate scene 
@@ -141,13 +178,6 @@ public class SettingsMenu : MonoBehaviour
 
     // }
    // }
-
-
-
-
-
-
-
 
 // public void setResolutionQuality(int dropDownChoiceIndex){
 //         // Because the first index (0) is a choice saying "choose" 
