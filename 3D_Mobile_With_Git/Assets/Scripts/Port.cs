@@ -1,16 +1,26 @@
+// *Need Method for increasing turnRound 
+// That also sets all remaining objects back to normal
+// i.e. not greyed over, not kinematic
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// To change the instructions UI element 
+using UnityEngine.UI; 
 
 // Could make this a Singleton? 
 public class Port : MonoBehaviour
 {
     GardenObject currentObject; 
     // namesOfObjects at the start of the scene 
-                private string[] namesOfObjects = new string[4]; 
+    // Changed to string[] = faster than List<string> 
+    private string[] namesOfObjects = new string[4]; 
 
-    // Try make it List instead of array 
-    // private List<string> namesOfObjects = new List<string>(); 
+    //*** Test
+    private bool startOfGame = true; 
+
 
     GameObjectsManager gameObjectsManagerRef; 
 
@@ -20,19 +30,44 @@ public class Port : MonoBehaviour
 
     // Start at 1 so it makes more sense to the player
     // Rather then Step 0, say Step 1 
-    private int turnRound = 1; 
+    // FRI 13.25 made static so that portInstructionsText could use it 
+     private static int turnRound = 1; 
+
+    // **** Same ting done in Settings.cs 
+    // The text that will be updated by user input and then used to set 
+    // the 'Text portInstructions'. 
+    // It's static so it saves between scenes 
+    // Based on the user's input
+    //  By default at the start of the game, instructions are: 
+     public static string portInstructionsText = "Welcome to the game! Step " + turnRound + ": try drag the plant pot to the square!"; 
+
+
+    // Text changed to display the current instructions
+    // The text has to be changed via a static string rather than 
+    // making the text field Static otherwise Unity throws an error 
+    public Text portInstructions;
 
     private void Start() {
         // Instantiate the namesOfObjects array 
         namesOfObjects[0] = "Plant Pot"; 
         namesOfObjects[1] = "Soil"; 
         namesOfObjects[2] = "Seed"; 
-        namesOfObjects[3] = "Watering Can"; 
-        // namesOfObjects.Add("Plant Pot"); 
-        // namesOfObjects.Add("Soil"); 
-        // namesOfObjects.Add("Seed"); 
-        // namesOfObjects.Add("Watering Can"); 
+        namesOfObjects[3] = "Watering Can";
+        // At the start of the game, make sure turnRound is equal to 1 
+        // More commonsensical to say Turn 1 rather than Turn 0 
+        turnRound = 1;  
+        // Set the UI element 'portInstructions' (Text object) to the String in portInstructionsText: 
+        portInstructions.text = portInstructionsText;
         // Debug.Log("Step one: drag the plant pot to the square!");
+    }
+
+    // Called once per frame
+    // Based on the gameplay, the string 'portInstructionsText' is assigned new 
+    // values. So, as soon as the text is changed based on the game-play, 
+    // Set the Text element on the UI here so that the user 
+    // Can read the updated text on the Text element: 
+    private void Update(){
+        portInstructions.text = portInstructionsText; 
     }
 
 
@@ -41,17 +76,49 @@ public class Port : MonoBehaviour
         // If the game is finished, don't begin the game again 
         // currentIndexOfGame can only be LESS than the array count 
          if (currentIndexOfGame >= namesOfObjects.Length){
-                Debug.Log("Well done, the game is already finished!");
+                portInstructionsText = "Well done, the game is already finished!";
+                    // Debug.Log("Well done, the game is already finished!");
                 return; 
                 // Could make a panel visible that says you've completed the game? 
         }
         // Get here if the game is not finished yet 
         if (!(other.tag == namesOfObjects[currentIndexOfGame])){
-              Debug.Log("Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " try again!" );
+            // To fix bug where it automatically started with "woops, that's not a plant pot, try again"
+            if(currentIndexOfGame == 0){
+                if(startOfGame){ 
+                    Debug.Log("got here");
+                    portInstructionsText = "Welcome to the game! Step " + turnRound + ", try drag the plant pot to the square!";
+                    // Debug.Log("Welcome to the game! Step " + turnRound + ", try drag the plant pot to the square!"); 
+                    startOfGame = false; 
+                    return; 
+                }
+            }
+            if (!startOfGame) { 
+                portInstructionsText = "Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " let's try again!"; 
+                                        
+                                        // *Testing* - Didn't work 
+                                            // float hoverForce = 15f; 
+                                            // other.GetComponent<Rigidbody>().AddForce(Vector3.up * hoverForce, ForceMode.Acceleration);
+
+                if(other.GetComponent<GardenObject>()){
+                // *****************************************
+                    // Next: Try to get the object to slowly move back to original place
+                    // Currently .moveBackToStartPosition() instantly teleports the object back 
+                // **********************************************************
+                    // ****** Test 
+                    // other.GetComponent<GardenObject>().transform.position = other.GetComponent<GardenObject>().startPosition; 
+                    // **** Working ... shows the correct positions 
+                        Debug.Log(other.GetComponent<GardenObject>().startPosition + ", " + other.GetComponent<GardenObject>().transform.position);
+                    // Call method here 
+                    other.GetComponent<GardenObject>().moveBackToStartPosition(); 
+                }
+            //   Debug.Log("Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " let's try again!" );
+            }
         }
         if (other.tag == namesOfObjects[currentIndexOfGame]){
             if (currentIndexOfGame >= namesOfObjects.Length){
-                Debug.Log("Yay you did it! The game is finished!");
+                portInstructionsText = "Yay you did it! The game is finished!"; 
+                // Debug.Log("Yay you did it! The game is finished!");
                 return; 
             }
             // Only incrememt the index if the correct object was found 
@@ -64,262 +131,18 @@ public class Port : MonoBehaviour
                 // a[3] is less than a[4] 
                 // but then incrementing a[3] to be a[4] will be IndexOutOfBoundsException 
                 if (currentIndexOfGame < namesOfObjects.Length - 1){
-                  Debug.Log("Yay! You did it! Now step " + ++turnRound +  " to find the " + namesOfObjects[++currentIndexOfGame]);
+                    // Destroy (hide) the object 1 second after it touching the port 
+                    // So that the user sees the number of objects going down 
+                    // Hide object as it's already been used 
+                    Destroy(other.gameObject,1f); 
+                    portInstructionsText = "Yay! You did it! Now step " + ++turnRound +  " to find the " + namesOfObjects[++currentIndexOfGame];
+                //   Debug.Log("Yay! You did it! Now step " + ++turnRound +  " to find the " + namesOfObjects[++currentIndexOfGame]);
                 } else {
-                    Debug.Log("Well done! The game is finished");
+                    portInstructionsText = "Well done! The game is finished";
+                    // Debug.Log("Well done! The game is finished");
                 }
             }
         }
      }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Friday 29 October 2021 - 11.54 
-// private void OnTriggerEnter(Collider other) {
-//          // Didn't work, still displaying "woops... that's not a plant pot" at the start of the game 
-//         // Debug.Log("Step " + turnRound + ": drag the plant pot to the square!");
-
-//          // Need to put this array check here 
-//          // Otherwise line 40 will throw IndexOutOfBoundsException
-//          if (currentIndexOfGame >= namesOfObjects.Count){
-//                 Debug.Log("Game finished");
-//                 return; 
-//                 // Could make a panel visible that says you've completed the game? 
-//         }
-//         // Check it's not the object first (before incrementing the currentIndexOfGame): 
-//         if (!(other.tag == namesOfObjects[currentIndexOfGame])){
-//             if (currentIndexOfGame < namesOfObjects.Count){
-//               Debug.Log("Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " try again!" );
-//             }
-//         }
-//         if (other.tag == namesOfObjects[currentIndexOfGame]){
-//             if (currentIndexOfGame >= namesOfObjects.Count){
-//                 Debug.Log("Yay you did it! The game is finished!");
-//                 return; 
-//             }
-//             // Only incrememt the index if the correct object was found 
-//             else {
-//                 if (currentIndexOfGame < namesOfObjects.Count){
-//                   // THIS is the problem ? "namesOfObjects[++currentIndexOfGame]" 
-//                   Debug.Log("Yay! You did it! Now step " + ++turnRound +  " to find the " + namesOfObjects[++currentIndexOfGame]);
-//                 } else {
-//                     Debug.Log("Test2: game is finished");
-//                 }
-//             }
-//         }
-//      }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Friday 29 Oct 11.47 
-//   private void OnTriggerEnter(Collider other) {
-//          // Need to put this array check here 
-//          // Otherwise line 40 will throw IndexOutOfBoundsException
-//          if (currentIndexOfGame >= namesOfObjects.Count){
-//                 Debug.Log("Game finished");
-//                 return; 
-//                 // Could make a panel visible that says you've completed the game? 
-//         }
-//         // Check it's not the object first (before incrementing the currentIndexOfGame): 
-//         if (!(other.tag == namesOfObjects[currentIndexOfGame])){
-//             Debug.Log("Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " try again!" );
-//         }
-//         if (other.tag == namesOfObjects[currentIndexOfGame]){
-//             if (currentIndexOfGame >= namesOfObjects.Count){
-//                 Debug.Log("Yay you did it! The game is finished!");
-//                 return; 
-//             }
-//             // Only incrememt the index if the correct object was found 
-//             else {
-//                 Debug.Log("Yay! You did it! Now step " + ++turnRound + " to find the " + namesOfObjects[++currentIndexOfGame]);
-//             }
-//         }
-//      }
-// }
-
-
-
-//         // E.g. if it equals "Plant Pot" 
-//        else if(other.tag == namesOfObjects[currentIndexOfGame]){
-//             // Debug.Log(++currentIndexOfGame);
-//             Debug.Log("Yay! You did it! Now step " + ++turnRound + " to find the " + namesOfObjects[currentIndexOfGame]);
-//             // if(currentIndexOfGame > namesOfObjects.Count){
-//             //     Debug.Log("STOP"); 
-//             //     return;
-//             // // } else {
-//             // //     currentIndexOfGame++; 
-//             // // }
-//             // }
-//        }
-//         else {
-//             Debug.Log("Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " try again!" );
-//         }
-//         currentIndexOfGame++; 
-//         }
-// }
-
-     
-
-    //     private void OnTriggerEnter(Collider other) {
-    //      // Need to put this array check here 
-    //      // Otherwise line 40 will throw IndexOutOfBoundsException
-    //      if (currentIndexOfGame >= namesOfObjects.Count){
-    //             Debug.Log("Game finished");
-    //             return; 
-    //             // Could make a panel visible that says you've completed the game? 
-    //         }
-    //     // E.g. if it equals "Plant Pot" 
-    //    else if(other.tag == namesOfObjects[currentIndexOfGame]){
-    //         // Debug.Log(++currentIndexOfGame);
-    //         Debug.Log("Yay! You did it! Now step " + ++turnRound + " to find the " + namesOfObjects[++currentIndexOfGame]);
-    //     }
-    //     else {
-    //         Debug.Log("Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " try again!" );
-    //     }
-    //  }
-
-
-
-
-    //  private void OnTriggerEnter(Collider other) {
-    //      // Need to put this array check here 
-    //      // Otherwise line 40 will throw IndexOutOfBoundsException
-    //      if (currentIndexOfGame > namesOfObjects.Count){
-    //             Debug.Log("Game finished");
-    //             return; 
-    //             else if ()
-                
-    //             // Could make a panel visible that says you've completed the game? 
-    //         }
-    //     // E.g. if it equals "Plant Pot" 
-    //    else if(other.tag == namesOfObjects[currentIndexOfGame]){
-    //         // Debug.Log(++currentIndexOfGame);
-    //         Debug.Log("Yay! You did it! Now step " + ++turnRound + " to find the " + namesOfObjects[currentIndexOfGame]);
-    //         if(currentIndexOfGame > namesOfObjects.Count){
-    //             Debug.Log("STOP"); 
-    //             return;
-    //         } else {
-    //             currentIndexOfGame++; 
-    //         }
-    //     }
-    //     else {
-    //         Debug.Log("Woops, that's not a " + namesOfObjects[currentIndexOfGame] + " try again!" );
-    //     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // Debug.Log("Woop"); 
-
-            // How to convert Collider to GardenObject? 
-            // if(other is GardenObject) {
-
-            // }
-
-            // if (other.GetType == UnityEngine.GardenObject){
-
-            // }
-        //     if (other.gameObject.GetComponent<GardenObject>()){
-        //         Debug.Log("Garden object"); 
-        //         // currentObject = other;
-        //     }
-        //     else {
-        //         Debug.Log("Not a garden object");
-        //     }
-
-        //     // GameObject currentObject = other.gameObject; 
-        //     // // check if the object is a GardenObject 
-        //     // // if(currentObject is GardenObject){} 
-        //     // currentObject.getIsMatchedToPort() 
-        // }
-
-    
-    // private void OnTriggerEnter(Collider other) {
-    //     // currentObject = new GardenObject(); 
-
-    //     if(other.tag == "Moveable"){
-    //         // Debug.Log("Woop"); 
-
-    //         // How to convert Collider to GardenObject? 
-    //         // if(other is GardenObject) {
-
-    //         // }
-
-    //         // if (other.GetType == UnityEngine.GardenObject){
-
-    //         // }
-    //         if (other.gameObject.GetComponent<GardenObject>()){
-    //             Debug.Log("Garden object"); 
-    //             // currentObject = other;
-    //         }
-    //         else {
-    //             Debug.Log("Not a garden object");
-    //         }
-
-    //         // GameObject currentObject = other.gameObject; 
-    //         // // check if the object is a GardenObject 
-    //         // // if(currentObject is GardenObject){} 
-    //         // currentObject.getIsMatchedToPort() 
-    //     }
-    // }
-
-
-    // public void setGameObjectsManagerRef(GameObjectsManager gameObjectsManagerRef){
-    //     this.gameObjectsManagerRef = gameObjectsManagerRef; 
-    // }
-
 

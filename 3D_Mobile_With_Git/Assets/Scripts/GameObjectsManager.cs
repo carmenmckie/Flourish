@@ -19,7 +19,7 @@ public class GameObjectsManager : MonoBehaviour
 
 
     // *** Made static 
-   private static GameObject[] gardenObjectsInScene; 
+   private static GameObject[] gardenObjectsInScene = new GameObject[4]; 
 
 
     // Made instance variable instead 
@@ -62,17 +62,30 @@ public class GameObjectsManager : MonoBehaviour
 
 
    void Start(){
-       // Store references to the objects in the scene that have the Moveable tag
+    //    // Store references to the objects in the scene that have the Moveable tag
+    //    // in a GameObject[] array: 
+    //     gardenObjectsInScene = GameObject.FindGameObjectsWithTag("Moveable");
+    //     // int to hold the number of objects in the array: 
+    //     numberOfGardenObjects = gardenObjectsInScene.Length;
+    //     // Test to make sure it only identifies the corretc objects 
+    //    Debug.Log(gardenObjectsInScene.Length + " " + numberOfGardenObjects);
+    //    // Randomise the positions so each time the game is loaded, the objects move
+    //    // To make it interesting for the player: 
+    //    randomiseGardenObjectPositions(); 
+    // //    Port.setGameObjectsManagerRef(this); 
+
+    //  void Start(){
+     // Store references to the objects in the scene that have the Moveable tag
        // in a GameObject[] array: 
-        gardenObjectsInScene = GameObject.FindGameObjectsWithTag("Moveable");
+        gardenObjectsInScene[0] = GameObject.FindGameObjectWithTag("Plant Pot");
+        gardenObjectsInScene[1] = GameObject.FindGameObjectWithTag("Watering Can"); 
+        gardenObjectsInScene[2] = GameObject.FindGameObjectWithTag("Soil"); 
+        gardenObjectsInScene[3] = GameObject.FindGameObjectWithTag("Seed"); 
         // int to hold the number of objects in the array: 
         numberOfGardenObjects = gardenObjectsInScene.Length;
-        // Test to make sure it only identifies the corretc objects 
-       Debug.Log(gardenObjectsInScene.Length + " " + numberOfGardenObjects);
        // Randomise the positions so each time the game is loaded, the objects move
        // To make it interesting for the player: 
        randomiseGardenObjectPositions(); 
-    //    Port.setGameObjectsManagerRef(this); 
    }
 
 
@@ -108,67 +121,6 @@ public class GameObjectsManager : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     // Original 
-//     // Method that randomises the positions of the garden objects
-//     // With the goal of making the game more interesting: each time the player 
-//     // plays, the objects to be dragged aren't always going to be in the same position: 
-//    void randomiseGardenObjectPositions(){
-//        // List to store the positions of the GardenObjects: 
-//        // Stored in a Vector 3 object because it's (x,y,z): 
-//        List<Vector3> gardenObjectsPositions = new List<Vector3>(); 
-//        // Loop through GardenObjects in scene and get their Vector3 positions
-//        for (int i = 0; i < gardenObjectsInScene.Length; i++){
-//            gardenObjectsPositions.Add(gardenObjectsInScene[i].transform.position);
-//        }
-//        // Then randomise the positions of the objects
-//        Shuffle(gardenObjectsPositions);
-
-//        // Now, go through the List<GardenObjects> gardenObjectsInScene
-//        // And assign each object a random position based off this shuffling: 
-
-//         for (int i =0; i < gardenObjectsInScene.Length; i++){
-//             gardenObjectsInScene[i].transform.position = gardenObjectsPositions[i]; 
-//         }
-//    }
-
-//    public void trackNumberOfMatches(bool matchMade){
-//        // If a Garden Object was successfully matched to the 
-//        // trigger, increase correctMatchCount which stores the
-//        // count of correct matches 
-//        if (matchMade){
-//            correctMatchCount++; 
-//        }
-//     //    else {
-//     //        correctMatchCount--; 
-//     //    }
-//         Debug.Log("There have been " + correctMatchCount + " correct matches");
-//         // If all the objects have been matched 
-//         if (correctMatchCount == matchesToWinGame){
-//             Debug.Log("Well done! All matches have been made");
-//         }
-//    }
 
 //    // Function to Shuffle a List<> 
 //    // **************** !!!! 

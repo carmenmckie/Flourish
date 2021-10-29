@@ -10,8 +10,19 @@ public class GardenObject : MonoBehaviour
 
     // Gets set to true if the object gets correctly matched
     // To the port 
+    // ***** Not used at the moment 
     private bool isMatchedToPort = false; 
 
+    //x,y,z co-ordinates of the object's original position 
+    // ! Has to be non static in order to be used with
+    // other.GetComponent<GardenObject>().startPosition in Port.cs 
+    public Vector3 startPosition;
+
+
+    public void Start(){
+        // Instantiate the object's original position 
+        startPosition = transform.position;
+    }
 
 
     // Getter for bool isMatchedToPort 
@@ -19,6 +30,13 @@ public class GardenObject : MonoBehaviour
         return isMatchedToPort; 
     }
 
+
+    // Move object back to its original position
+    // *********** Needs updated to make the object float back 
+    // Rather than instantly teleport back (a bit abrupt) 
+    public void moveBackToStartPosition(){
+        this.transform.position = startPosition; 
+    } 
 }
 
 
@@ -43,73 +61,14 @@ public class GardenObject : MonoBehaviour
 
 
 
-//     // public GameFeedback gameFeedbackRef; 
-//     public ObjectPair objectPairRef; 
-
-//     // The same, change .... 
-//     private bool _matched; 
 
 
 
 
-//     // Start is called before the first frame update
-//     void Start()
-//     {
-        
-//     }
 
-//     // Update is called once per frame
-//     void Update()
-//     {
-        
-//     }
 
-//     // Need to properly write a ToList() function for GardenObjects 
-//     // THIS CLASS SHOULD MAYBE INHERIT FROM GAMEOBJECTMANAGER? OR IMPLEMENT? 
-//     // ************ TEST 
-//     public List<GardenObjects> ToList(){
-//         List<GardenObjects> test = new List<GardenObjects>(); 
-//         return test; 
-//     }
 
-//     //************* TEST 
-//     public Vector3 getGardenObjectPosition(){
-//         return objectPairRef.GetPosition(); 
-//     }
 
-//     //************* TEST 
-//     public void setGardenObjectPosition(Vector3 vector3){
-//         objectPairRef.SetInitialPosition(vector3); 
-       
-//     }
 
-//     // Method to detect if an Object is correctly dragged to the target 
-//     // ********* May need adapted to be in order 
-//     public void objectDraggedToTarget(bool targetTouched, ObjectPair objectPair){
-//         // If an object is dragged to the target and another object
-//         // Is not already there
-//         if (targetTouched && !_matched){
-//             // Set _matched to true if 'objectPair' and 'objectPairRef' are the 
-//             // same ObjectPair object 
-//             _matched = (objectPair == objectPairRef); 
-//             // if _matched is true
-//             if (_matched){
-//                 // Update the GameObjectsManager that a new match has been made
-//                 gameObjectsManagerRef.trackNumberOfMatches(_matched); 
-//                 // Update GameFeedback object 
-//                     // gameFeedbackRef.ChangeMaterialWithMatch(_matched);  
-//             }
-//             else if (!targetTouched && _matched){
-//                 // _matched starts as true, change to false 
-//                 _matched = !(objectPair == objectPairRef);
-//                     if(!_matched){
-//                         gameObjectsManagerRef.trackNumberOfMatches(_matched); 
-//                         // gameFeedbackRef.ChangeMaterialWithMatch(_matched); 
-//                     }
-//                 }
-//             }
-
-//         }
-//     }
 
 
