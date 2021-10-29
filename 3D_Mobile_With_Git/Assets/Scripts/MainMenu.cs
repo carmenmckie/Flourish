@@ -48,6 +48,7 @@ public class MainMenu : MonoBehaviour
         // SceneManager.LoadScene("GameBegin"); 
         // Temporarily changed name of scene:
         SceneManager.LoadScene("TestScene");
+        
     }
 
     // Directs the Player back to the LandingPage

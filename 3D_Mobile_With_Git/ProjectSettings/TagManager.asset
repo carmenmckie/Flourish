@@ -5,8 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Moveable
-  - Cube
-  - cube
+  - Target
+  - Plant Pot
+  - Watering Can
+  - Seed
+  - Soil
   layers:
   - Default
   - TransparentFX
