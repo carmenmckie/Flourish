@@ -157,11 +157,6 @@ public class Dragging : MonoBehaviour {
             if (!rb.GetComponent<GardenObject>().getIsMatchedToPort()){
                 rb.GetComponent<GardenObject>().moveBackToStartPosition(); 
             }
-            // else {
-            //     // If the object is matchedToPort, then destroy the object
-            //     // Has to be placed here otherwise can get a MissingReferenceException
-            //     Destroy(rb.gameObject,1f); 
-            // }
             // Reset the constraints for each object in the game back to normal 
             // (other objects are frozen when one object is being dragged, now the object 
             // is released, constraints can go back to normal)

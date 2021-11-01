@@ -43,6 +43,19 @@ public class Port : MonoBehaviour
     public Text portInstructions;
 
 
+
+    // MN Testing for sound effects 
+    public SoundEffects soundEffectsRef; 
+
+
+
+
+
+
+
+    // MN Testing for sound effects 
+
+
     // Used to know which way the arrow has to point in GameObjectsManager.cs 
     public int getCurrentIndexOfGame(){
         return currentIndexOfGame; 
@@ -102,6 +115,9 @@ public class Port : MonoBehaviour
             other.GetComponent<GardenObject>().objectIsMatchedToPort(); 
             // If it was the last object to be dragged to the port, the game is complete: 
             if (currentIndexOfGame >= namesOfObjects.Length){
+                // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 
+                // play if the user has turned off sound effects in Settings)
+                soundEffectsRef.playGameFinishedSound();
                 portInstructionsText = "Yay you did it! The game is finished!"; 
                 return; 
             }
@@ -113,6 +129,9 @@ public class Port : MonoBehaviour
                 // Needs to check it's less than the Length minus one because "less than the Length" is too much, it throws an error because for example
                 // a[3] is less than a[4] but then incrementing a[3] to be a[4] will be IndexOutOfBoundsException 
                 if (currentIndexOfGame < namesOfObjects.Length - 1){
+                    // Call SoundEffects.playCorrectChoiceSound to play the relevant sound effect (it won't 
+                    // play if the user has turned off sound effects in Settings)
+                    soundEffectsRef.playCorrectChoiceSound();
                     // Communicate to the user they have made a correct choice, and increment currentIndexOfGame so user knows next object to drag: 
                     portInstructionsText = "Yay! You did it! Now step " + ++turnRound +  " to find the " + namesOfObjects[++currentIndexOfGame];
                     // NOTE: object's are destroyed from GardenObject's .Update() method, where if iMatchedToPort is true, the object is destroyed (hidden)
@@ -121,6 +140,9 @@ public class Port : MonoBehaviour
                     currentIndexOfGame++;
                     // Update the user that the game is finished 
                     portInstructionsText = "Well done! The game is finished";
+                    // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 
+                    // play if the user has turned off sound effects in Settings)
+                    soundEffectsRef.playGameFinishedSound();
                 }
             }
         }
