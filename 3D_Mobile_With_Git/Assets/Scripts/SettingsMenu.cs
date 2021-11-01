@@ -37,6 +37,11 @@ public class SettingsMenu : MonoBehaviour
     // And the slider doesn't represent an old value 
     public Slider musicSlider;
 
+
+    // Reference to SoundEffects class in order to change the bool areSoundEffectsOn, which is a condition check before 
+    // sound effects are played 
+    public SoundEffects soundEffectsRef; 
+
    
     // Update resolutionText every frame, so the user's choice updates the field. 
     // Then, apply this text to Text currentResolution
@@ -65,7 +70,7 @@ public class SettingsMenu : MonoBehaviour
         // Debug.Log(volume); 
     }
 
-    // To be clicked when the user presses "Music Off" 
+    // To be called when the user presses "Music Off" 
     public void musicOff(){
         // Set audioMixer's level to -80 
         // In Unity, audio levels go from (-80 -> +20) 
@@ -75,7 +80,22 @@ public class SettingsMenu : MonoBehaviour
         musicSlider.value = -80; 
     }
 
-    // To be clicked when user presses "Music On" 
+    // To be called when the user presses "Sounds Off" 
+    public void soundsOff(){ 
+        // Sets an instance variable 'areSoundsEffectsOn' to be false
+        // Which then is checked from the methods in SoundEffects 
+        // to decide whether a sound is to be played or not 
+        soundEffectsRef.setAreSoundEffectsOn(false); 
+    }
+
+    // To be called when the user presses "Sounds On" 
+    public void soundsOn(){ 
+        // Set the bool areSoundEffectsOn to be true
+        soundEffectsRef.setAreSoundEffectsOn(true); 
+    }
+
+
+    // To be called when user presses "Music On" 
     public void musicOn(){
         // If the music is already on, do nothing
         if (musicSlider.value > -80){ 
