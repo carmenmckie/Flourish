@@ -48,16 +48,9 @@ public class SettingsMenu : MonoBehaviour
     public static string soundSettingsText = "Sound effects are: ON"; 
 
 
-
-
-
-
-
-    // ******
-
    
-    // Update resolutionText every frame, so the user's choice updates the field. 
-    // Then, apply this text to Text currentResolution
+    // Update resolutionText & soundSettingsText every frame, so the user's choice updates the field. 
+    // Then, apply this text to Text UI elements
     // It has to be done in this way because Unity doesn't allow static GameObjects
     // (e.g. Text currentResolution itself cannot be static)
     public void Update(){

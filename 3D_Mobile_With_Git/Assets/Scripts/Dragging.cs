@@ -144,7 +144,12 @@ public class Dragging : MonoBehaviour {
     // (this pause would account for the fact the object may be really near 
     // the Port target, by waiting 1 second, it may float to the area and 
     // then activate the trigger)
+    // ********************** MissingReferenceException issue 
     IEnumerator objectReleased(Rigidbody rb){ 
+            // To fix "MissingReferenceException" 
+            if (rb == null || rb.GetComponent<GardenObject>() == null){
+                yield break; 
+            }
             rb.drag = 2;
             rb.useGravity = false;
             // DO NOT MAKE .isKinematic true (causes the bug of saying "woops that's not soil" as soon as plant pot is dragged etc) 
@@ -154,9 +159,19 @@ public class Dragging : MonoBehaviour {
             // will return true 
             // Without this check, an object may snap back to its original position 
             // before it is Destroyed by the Port. 
+
+            // To fix "MissingReferenceException" 
+            if (rb == null || rb.GetComponent<GardenObject>() == null){
+                yield break; 
+            }
             if (!rb.GetComponent<GardenObject>().getIsMatchedToPort()){
                 rb.GetComponent<GardenObject>().moveBackToStartPosition(); 
             }
+            // else {
+            //     // If the object is matchedToPort, then destroy the object
+            //     // Has to be placed here otherwise can get a MissingReferenceException
+            //     Destroy(rb.gameObject,1f); 
+            // }
             // Reset the constraints for each object in the game back to normal 
             // (other objects are frozen when one object is being dragged, now the object 
             // is released, constraints can go back to normal)

@@ -21,8 +21,9 @@ public class GardenObject : MonoBehaviour
     }
 
     private void Update() {
-        // If the object is matched to the port, destroy (hide) the object 
+        // If the object is matched to the port, hide the object 
         if (isMatchedToPort){
+            // this.GetComponent<GameObject>().SetActive(false); 
             Destroy(this.gameObject, 1f); 
         }
     }

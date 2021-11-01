@@ -16,8 +16,12 @@ public class GameObjectsManager : MonoBehaviour
 {
 
     // The arrow in the game pointing from the target object to the Port: 
-    public Transform arrow; 
+    public Transform arrowBackground; 
     // Port: the area each object is to be dragged to 
+
+    // ********
+    public Transform arrow; 
+    // Testing ... add arrow as well ^ MOnday 1 Nov 
     public Port objective; 
 
    private int numberOfGardenObjects; 
@@ -33,13 +37,14 @@ public class GameObjectsManager : MonoBehaviour
     // than the object instantly disappearing: 
     private IEnumerator deActivateArrow() {
         yield return new WaitForSeconds(1);
-        arrow.gameObject.SetActive(false);
+        arrowBackground.gameObject.SetActive(false);
     }
 
       // Getter 
    public GameObject[] getGardenObjectsInScene(){
        return gardenObjectsInScene; 
    }
+
 
 
     private void Update() {
@@ -61,7 +66,24 @@ public class GameObjectsManager : MonoBehaviour
         Vector3 direction = gardenObjectsInScene[currentTargetObject].transform.position; 
         float a = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg; 
         a += 180; 
-        arrow.transform.localEulerAngles = new Vector3(0,0,a); 
+        arrowBackground.transform.localEulerAngles = new Vector3(0,0,a); 
+
+
+      // Monday - Slightly Changing Arrow's Direction Based off Target Object 
+        // Get index position of the current target object: 
+        int index = objective.getCurrentIndexOfGame(); 
+        // Access this element in the array to get position information about it: 
+        if (gardenObjectsInScene[index] == null){
+            return; 
+        }
+        float targetXpos = gardenObjectsInScene[index].transform.position.x; 
+        float targetYpos = gardenObjectsInScene[index].transform.position.y; 
+        // Update arrows position based off this: 
+        // arrow.localPosition = new Vector3(targetXpos, targetYpos, -20); 
+        // arrowBackground.localPosition = new Vector3(targetXpos, targetYpos, -20);
+        arrow.localPosition = new Vector3(targetXpos, targetYpos, -20); 
+        arrowBackground.localPosition = new Vector3(targetXpos, targetYpos, -20);  
+        // Monday - Slightly Changing Arrow's Direction Based off Target Object 
     }
 
 
@@ -77,6 +99,13 @@ public class GameObjectsManager : MonoBehaviour
        // Randomise the positions so each time the game is loaded, the objects move
        // To make it interesting for the player: 
        randomiseGardenObjectPositions(); 
+                        // // ******
+                        // // Testing changing Arrow's position 
+                        // //    Debug.Log(gardenObjectsInScene[2].transform.position);
+                        //    arrow.transform.position = new Vector3(-11.81f, 13.9f, -19.1f); 
+                        //     arrow.localPosition = new Vector3(-5, 20, -20); 
+                        //     arrowBackground.localPosition = new Vector3(-5, 20, -20); 
+                        //     //******
    }
 
 
