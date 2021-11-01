@@ -98,7 +98,7 @@ public class Port : MonoBehaviour
             // If it is the very start of the game: 
             if(currentIndexOfGame == 0){
                 if(startOfGame){ 
-                    portInstructionsText = "Welcome to the game! Step " + turnRound + ", try drag the plant pot to the square!";
+                    portInstructionsText = "Welcome to the game! Step " + turnRound + ", try drag the plant pot to the flowerbed!";
                     startOfGame = false; 
                     return; 
                 }
