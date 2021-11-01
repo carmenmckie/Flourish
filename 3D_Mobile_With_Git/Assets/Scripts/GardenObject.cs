@@ -6,11 +6,7 @@ using UnityEngine;
 // Gets informed and informs other classes
 public class GardenObject : MonoBehaviour
 {
-    // public GameObjectsManager gameObjectsManagerRef;
-
-    // Gets set to true if the object gets correctly matched
-    // To the port 
-    // ***** Not used at the moment 
+   
     private bool isMatchedToPort = false; 
 
     //x,y,z co-ordinates of the object's original position 
@@ -21,7 +17,14 @@ public class GardenObject : MonoBehaviour
 
     public void Start(){
         // Instantiate the object's original position 
-        startPosition = transform.position;
+        setPosition(); 
+    }
+
+    private void Update() {
+        // If the object is matched to the port, destroy (hide) the object 
+        if (isMatchedToPort){
+            Destroy(this.gameObject, 1f); 
+        }
     }
 
 
@@ -30,11 +33,19 @@ public class GardenObject : MonoBehaviour
         return isMatchedToPort; 
     }
 
+    // Setter for bool isMatchedToPort
+    public void objectIsMatchedToPort(){
+        isMatchedToPort = true; 
+    }
+
+    // Method to set the object's position
+    public void setPosition(){
+        startPosition = transform.position; 
+    }
+
 
     // Move object back to its original position
-    // *********** Needs updated to make the object float back 
-    // Rather than instantly teleport back (a bit abrupt) 
-    public void moveBackToStartPosition(){
+        public void moveBackToStartPosition(){
         this.transform.position = startPosition; 
     } 
 }

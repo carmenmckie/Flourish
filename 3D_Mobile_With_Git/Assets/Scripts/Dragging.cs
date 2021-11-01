@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class Dragging : MonoBehaviour {
 
+    private GameObjectsManager gameObjectsManager = new GameObjectsManager(); 
+
     public string taggedObject;
     public Camera cameraObject;
 
@@ -19,10 +21,21 @@ public class Dragging : MonoBehaviour {
     private bool objectTouched = false;
     private bool objectIsBeingDragged = false;
 
-// *****
     private Transform toDrag;
     private Rigidbody toDragRigidbody;
     private Vector3 previousPosition;
+
+    //To store references to all the GameObject objects in the scene 
+    private GameObject[] gardenObjectsInScene = new GameObject[4]; 
+
+    private void Start() {
+        // Store a reference in this class to the GardenObjects in the scene 
+        // From GameObjectsManager
+        // This is so that other objects can be made non-moveable when 
+        // one object is being moved, to avoid objects being able to bump into each other
+        // and fly off screen 
+        gardenObjectsInScene = gameObjectsManager.getGardenObjectsInScene();
+    }
 
     // FixedUpdate is called at a different rate to .Update(): 
     // Useful in this case where the moving of objects needs
@@ -30,18 +43,19 @@ public class Dragging : MonoBehaviour {
     // !!! Should be split up into smaller methods 
     // And use a control method such as in Settings 
     void FixedUpdate () {
-        
         // If there isn't at least one finger touch on the screen: 
         if (Input.touchCount != 1) {
             objectIsBeingDragged = false;
             objectTouched = false;
             if (toDragRigidbody) {
+                // Call .objectReleased just to make sure that no changes were made to any object 
+                // ********
                 objectReleased(toDragRigidbody);
+                // *******
             }
             // exit 
             return;
         }
-        
         // If there is at least one touch, get the first (0th) touch:
         Touch fingerTouch = Input.touches[0];
         // Store the position of the touch in a vector: 
@@ -52,24 +66,13 @@ public class Dragging : MonoBehaviour {
             RaycastHit hit;
             // Ray calculated from camera with .ScreenPointToRay() method:
             Ray ray = cameraObject.ScreenPointToRay(positionOfTouch);
-
-            // If the Ray hits something that is an object that is correctly tagged 
-            // as an object to be dragged (has "Moveable" tag): 
-            // *********** ORIGINAL BELOW 
-                                // if (Physics.Raycast(ray, out hit) && hit.collider.tag == taggedObject) {
-            // *********** ORIGINAL ABOVE 
-// **************************************
-// Due to only one tag being allowed per object
-// Swapped the Draggable check from whether it had a "Moveable" tag to whether it is a 
-// GardenObject --> because each GardenObject needs its own tag (e.g. Watering Can, Plant Pot)... 
-            // MOVED CHECK FROM WHETHER IT HAD "Moveable" tag to whether it's GardenObject ... 
+            // If the Ray hits something that is a GardenObject: 
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.GetComponent<GardenObject>()){
-            // .tag == taggedObject) {
                 // Indicate transform of hitted object 
                 toDrag = hit.transform;
-                // Objects position 
+                // Get the object's position: 
                 previousPosition = toDrag.position;
-                // Object's rigidBody 
+                // Get the object's rigidBody 
                 toDragRigidbody = toDrag.GetComponent<Rigidbody>();
                 // Calculate backwards from World point to Screen point from previous position
                 distanceVector = cameraObject.WorldToScreenPoint(previousPosition);
@@ -83,7 +86,6 @@ public class Dragging : MonoBehaviour {
                 objectTouched = true;
             }
         }
-
         // If the Touch has moved (e.g. user has touched and now dragged): 
         if (objectTouched && fingerTouch.phase == TouchPhase.Moved) {
             objectIsBeingDragged = true;
@@ -95,7 +97,7 @@ public class Dragging : MonoBehaviour {
             // Calculate 'World Position' = the difference between .screenToWorldPoint() of this new
             // Vector position (minus) the position where the touch first started (previousPosition): 
             Vector3 worldPosition = cameraObject.ScreenToWorldPoint(updatedPositionVector) - previousPosition;
-            // Set the Z value to null, only moving objects on x / y axis 
+            // Set the Z value to null - only want to move objects on x / y axis 
             worldPosition = new Vector3(worldPosition.x, worldPosition.y, 0.0f);
             // Change the velocity of the object's RigidBody 
             toDragRigidbody.velocity = worldPosition / (Time.deltaTime * 10);
@@ -103,33 +105,77 @@ public class Dragging : MonoBehaviour {
             // So that when FixedUpdate() is called again, it is updated that the object has moved
             previousPosition = toDrag.position;
         }
-
         // If the Touch is cancelled or ended: 
         if (objectIsBeingDragged && (fingerTouch.phase == TouchPhase.Ended || fingerTouch.phase == TouchPhase.Canceled)) {
-            // Reset bools 
+            // Reset bools so that when this method is called again, the appropriate section of this method can be executed
             objectIsBeingDragged = false;
             objectTouched = false;
             // Reset position 
             previousPosition = new Vector3(0.0f, 0.0f, 0.0f);
-            // Reset gravity 
-            objectReleased(toDragRigidbody);
+             // Reset all object settings within .objectReleased() 
+            StartCoroutine(objectReleased(toDragRigidbody));
         }
-        
     }
 
         // Takes the Rigidbody that the Ray hit as a parameter 
         private void draggingObject (Rigidbody rb) {
-            // Don't use gravity while an object is being dragged: 
+            // Make sure gravity is not being used: 
+            rb.useGravity = false; 
+            // Loop through the GardenObjects
+            for(int i=0; i < gardenObjectsInScene.Length; i++ ){
+                // Find the objects that are NOT this object 
+                // currently being dragged: 
+                if (gardenObjectsInScene[i] == null){
+                    continue; 
+                }
+                else if(rb.tag != gardenObjectsInScene[i].tag)  {
+                    // freeze the other objects 
+                    // This is to rectify the issue that if dragging an object, and it bumped into 
+                    // another object, that other object might fly off the screen and be irretrievable due to the collision
+                    gardenObjectsInScene[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
+            }
+        }    
+
+
+    // Changed .objectReleased() to be a CoRoutine instead
+    // So that there could be a pause (yield return new WaitForSeconds(1))
+    // Before snapping the object back to it's original position 
+    // (this pause would account for the fact the object may be really near 
+    // the Port target, by waiting 1 second, it may float to the area and 
+    // then activate the trigger)
+    IEnumerator objectReleased(Rigidbody rb){ 
+            rb.drag = 2;
             rb.useGravity = false;
-            rb.drag = 20;
+            // DO NOT MAKE .isKinematic true (causes the bug of saying "woops that's not soil" as soon as plant pot is dragged etc) 
+            // rb.isKinematic = true; 
+            yield return new WaitForSeconds(1); 
+            // When an object enters the port successfully, .getIsMatchedToPort() 
+            // will return true 
+            // Without this check, an object may snap back to its original position 
+            // before it is Destroyed by the Port. 
+            if (!rb.GetComponent<GardenObject>().getIsMatchedToPort()){
+                rb.GetComponent<GardenObject>().moveBackToStartPosition(); 
+            }
+            // else {
+            //     // If the object is matchedToPort, then destroy the object
+            //     // Has to be placed here otherwise can get a MissingReferenceException
+            //     Destroy(rb.gameObject,1f); 
+            // }
+            // Reset the constraints for each object in the game back to normal 
+            // (other objects are frozen when one object is being dragged, now the object 
+            // is released, constraints can go back to normal)
+            foreach (GameObject obj in gardenObjectsInScene){
+                if (obj == null){
+                    continue; 
+                }
+                // Clear all previous constraints
+                obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None; 
+                // Add back only Rotation freezing (this is to stop objects rotating in weird ways within the game)
+                obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation; 
+            }
         }
 
-        // Takes the Rigidbody that the Ray hit as a parameter 
-        private void objectReleased (Rigidbody rb) {
-            // Set gravity back to normal: 
-            rb.useGravity = true;
-            rb.drag = 5;
-        }
 }
 
 
