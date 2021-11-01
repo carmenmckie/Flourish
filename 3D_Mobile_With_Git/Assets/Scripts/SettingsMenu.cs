@@ -42,6 +42,19 @@ public class SettingsMenu : MonoBehaviour
     // sound effects are played 
     public SoundEffects soundEffectsRef; 
 
+    // ****** Getting UI to show changes made to currentSoundSettings 
+    public Text currentSoundSettings;
+    // Default at the start of the game: sound effects are on:  
+    public static string soundSettingsText = "Sound effects are: ON"; 
+
+
+
+
+
+
+
+    // ******
+
    
     // Update resolutionText every frame, so the user's choice updates the field. 
     // Then, apply this text to Text currentResolution
@@ -49,6 +62,8 @@ public class SettingsMenu : MonoBehaviour
     // (e.g. Text currentResolution itself cannot be static)
     public void Update(){
         currentResolution.text = resolutionText; 
+        currentSoundSettings.text = soundSettingsText; 
+
         // Dynamically update the musicSlider to display the current volume
         // Of the Audio Mixer (so it doesn't reset between scenes)
         float value; 
@@ -86,12 +101,14 @@ public class SettingsMenu : MonoBehaviour
         // Which then is checked from the methods in SoundEffects 
         // to decide whether a sound is to be played or not 
         soundEffectsRef.setAreSoundEffectsOn(false); 
+        soundSettingsText = "Sound effects are: OFF";
     }
 
     // To be called when the user presses "Sounds On" 
     public void soundsOn(){ 
         // Set the bool areSoundEffectsOn to be true
         soundEffectsRef.setAreSoundEffectsOn(true); 
+        soundSettingsText = "Sound effects are: ON";
     }
 
 

@@ -6,17 +6,11 @@ public class SoundEffects : MonoBehaviour
 {
     // By default, turn sound effects on at the start of the game
     // They can be turned off by the Player if desired: 
-    // *** Try make it static 
+    // Static as this bool is accessed from various scenes - it cannot go back to its default value when a
+    // scene is reloaded!
     public static bool areSoundEffectsOn = true; 
     public AudioSource gameFinishedSound; 
     public AudioSource correctChoiceSound; 
-
-    // Monday .... To help keep bool areSoundEffectsOn between scenes 
-    // private void Awake() {
-    //     DontDestroyOnLoad(areSoundEffectsOn.gameObject); 
-    // }
-
-
 
 
 
