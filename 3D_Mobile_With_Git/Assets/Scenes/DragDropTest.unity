@@ -2251,7 +2251,7 @@ MonoBehaviour:
   currentResolution: {fileID: 243346568}
   settingsMenuCanvas: {fileID: 558691228}
   musicSlider: {fileID: 448904399}
-  soundEffectsRef: {fileID: 0}
+  soundEffectsRef: {fileID: 876094918}
 --- !u!224 &558691230
 RectTransform:
   m_ObjectHideFlags: 0
