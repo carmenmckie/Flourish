@@ -49,19 +49,21 @@ public class Port : MonoBehaviour
 
 
 
+    // Tuesday ...
+    // To double check whether the game is complete to see whether the game complete sequences should begin
+    private bool gameComplete = false; 
 
+    public LevelCompleteAnimation levelCompleteAnimation; 
 
+    public bool getIsGameComplete(){
+        return gameComplete; 
 
-
-    // MN Testing for sound effects 
-
+    }
 
     // Used to know which way the arrow has to point in GameObjectsManager.cs 
     public int getCurrentIndexOfGame(){
         return currentIndexOfGame; 
     }
-
-
 
     private void Start() {
         // Instantiate the namesOfObjects array 
@@ -73,13 +75,19 @@ public class Port : MonoBehaviour
         turnRound = 1;  
         // Set the UI element 'portInstructions' (Text object) to the String in portInstructionsText: 
         portInstructions.text = portInstructionsText;
+        gameComplete = false; 
     }
 
     // Called once per frame
     // Based on the gameplay, the string 'portInstructionsText' is assigned new values. So, as soon as the text is changed based on the game-play, 
     // Set the Text element on the UI here so that the user Can read the updated text on the Text element: 
     private void Update(){
-        portInstructions.text = portInstructionsText; 
+        portInstructions.text = portInstructionsText;
+        // If the game is complete, show the stars from
+        // LevelCompleteAnimation.cs 
+        if(gameComplete){
+            levelCompleteAnimation.gameCompleted(); 
+        } 
     }
 
 
@@ -115,6 +123,7 @@ public class Port : MonoBehaviour
             other.GetComponent<GardenObject>().objectIsMatchedToPort(); 
             // If it was the last object to be dragged to the port, the game is complete: 
             if (currentIndexOfGame >= namesOfObjects.Length){
+                gameComplete = true; 
                 // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 
                 // play if the user has turned off sound effects in Settings)
                 soundEffectsRef.playGameFinishedSound();
@@ -138,6 +147,7 @@ public class Port : MonoBehaviour
                 } else {
                     // Increment the game index 
                     currentIndexOfGame++;
+                    gameComplete = true; 
                     // Update the user that the game is finished 
                     portInstructionsText = "Well done! The game is finished";
                     // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 

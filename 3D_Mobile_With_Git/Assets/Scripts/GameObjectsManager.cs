@@ -32,13 +32,24 @@ public class GameObjectsManager : MonoBehaviour
     // ***? Does it have to be static 
     static List<Vector3> gardenObjectsPositions;
 
-    // Co-Routine to deactivate arrow
-    // Has to be a co-routine because a delay of 1 second looks better 
-    // than the object instantly disappearing: 
-    private IEnumerator deActivateArrow() {
-        yield return new WaitForSeconds(1);
-        arrowBackground.gameObject.SetActive(false);
+    // // Co-Routine to deactivate arrow
+    // // Has to be a co-routine because a delay of 1 second looks better 
+    // // than the object instantly disappearing: 
+    // private IEnumerator deActivateArrow() {
+    //     // yield return new WaitForSeconds(1); decided to make it instantly disappear instead 
+    //     arrowBackground.gameObject.SetActive(false);
+    // }
+
+    // Now a normal method not a co-routine, otherwise displaying stars took too long
+    public void deActivateArrow(){ 
+        arrowBackground.gameObject.SetActive(false); 
     }
+
+
+
+
+
+
 
       // Getter 
    public GameObject[] getGardenObjectsInScene(){
@@ -53,7 +64,8 @@ public class GameObjectsManager : MonoBehaviour
         // If all the objects have been successfully found, remove the arrow
         // So it's clear the user doesn't have to drag anything else 
         if (currentTargetObject == gardenObjectsInScene.Length){
-            StartCoroutine(deActivateArrow());
+            deActivateArrow(); 
+            // StartCoroutine(deActivateArrow()); // Tuesday - decided to make it non coroutine 
             return;
         }
         // If the object has already been deleted, don't access it again 
@@ -65,7 +77,10 @@ public class GameObjectsManager : MonoBehaviour
         // This is to help guide the user 
         Vector3 direction = gardenObjectsInScene[currentTargetObject].transform.position; 
         float a = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg; 
-        a += 180; 
+        // a += 180; 
+        // Changed when a different arrow sprite was used (it default faced up, not down, so needs 
+        // turned 90 on the Z axis ) 
+        a += 90; 
         arrowBackground.transform.localEulerAngles = new Vector3(0,0,a); 
 
 
@@ -99,13 +114,6 @@ public class GameObjectsManager : MonoBehaviour
        // Randomise the positions so each time the game is loaded, the objects move
        // To make it interesting for the player: 
        randomiseGardenObjectPositions(); 
-                        // // ******
-                        // // Testing changing Arrow's position 
-                        // //    Debug.Log(gardenObjectsInScene[2].transform.position);
-                        //    arrow.transform.position = new Vector3(-11.81f, 13.9f, -19.1f); 
-                        //     arrow.localPosition = new Vector3(-5, 20, -20); 
-                        //     arrowBackground.localPosition = new Vector3(-5, 20, -20); 
-                        //     //******
    }
 
 
