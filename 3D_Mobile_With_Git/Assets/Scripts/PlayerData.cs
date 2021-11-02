@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // MonoBehaviour deleted because PlayerData is not going to act as a component in the game 
+
+// [System.Serializable] = means we can save it in a file 
+[System.Serializable]
 public class PlayerData {
     public int numberOfStars; 
     public int numberOfTrophies; 
