@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public int numberOfStars; 
     public int numberOfTrophies; 
 
+    // idea? 
+    public int level; 
+
      // Add star 
     public void addStar(){
         numberOfStars += 1; 
@@ -30,6 +33,21 @@ public class Player : MonoBehaviour
 
     public void updateNumberOfTrophies(int amount){
         numberOfTrophies += amount; 
+    }
+
+    public void savePlayer(){
+        // Pass it the current Player object 
+        SaveSystem.savePlayerData(this); 
+    }
+
+    public void loadPlayer(){
+        // SaveSystem.loadPlayerData() outputs Player Data 
+        // Save this in a PlayerData variable equal to this 
+        PlayerData data = SaveSystem.loadPlayerData(); 
+        // Get the variables saved in this: 
+        level = data.level; 
+        numberOfStars = data.level; 
+        numberOfTrophies = data.level; 
     }
 
 }
