@@ -12,11 +12,20 @@ public class MainMenu : MonoBehaviour
     private static string previousScene;
 
 
+    // Temporarily used when testing scenes 
     public void LoadScene(string sceneName){ 
         // Call Unity's in-built method to load the Scene: 
         SceneManager.LoadScene(sceneName);
-        
     }
+
+
+
+
+
+
+
+
+    
 
     public void LoadSettings(string previousSceneVisited){
         previousScene = previousSceneVisited;
@@ -66,11 +75,18 @@ public class MainMenu : MonoBehaviour
     public void OpenChoosePlayerPage(){
         SceneManager.LoadScene("ChoosePlayer");
     }
+
+
+
+    // Weds 3 Nov below 
+    // Testing new methods 
+    public void OpenChooseMiniGame(){
+        // LOAD HERE ....
+        SceneManager.LoadScene("ChooseMiniGame");
+    }
+
+
 }
-
-
-
-
 
 
 

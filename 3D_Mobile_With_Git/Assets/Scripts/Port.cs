@@ -37,6 +37,23 @@ public class Port : MonoBehaviour
      public static string portInstructionsText; //= "Welcome to the game! Step " + turnRound + ": try drag the plant pot to the square!"; 
 
 
+
+    // Weds 
+    // Green banner given as background to text 
+    public Image portInstructionsTextBanner; 
+
+
+
+
+
+
+    // Weds 
+
+
+
+
+
+
     // Text changed to display the current instructions
     // The text has to be changed via a static string rather than 
     // making the text field Static otherwise Unity throws an error 
@@ -76,6 +93,8 @@ public class Port : MonoBehaviour
         // Set the UI element 'portInstructions' (Text object) to the String in portInstructionsText: 
         portInstructions.text = portInstructionsText;
         gameComplete = false; 
+        // Weds 
+        starAdded = false; 
     }
 
     // Called once per frame
@@ -86,9 +105,31 @@ public class Port : MonoBehaviour
         // If the game is complete, show the stars from
         // LevelCompleteAnimation.cs 
         if(gameComplete){
-            levelCompleteAnimation.gameCompleted(); 
+            // Second check is needed to make sure this block 
+            // isn't entered into twice. .Update() can sometimes be called twice per per frame 
+            if(!starAdded){
+                levelCompleteAnimation.gameCompleted(); 
+            // WEDS 
+                // Give player a new star to their profile 
+                // PlayerData playerData = SaveSystem.loadPlayerData();
+                player.LoadPlayer(); 
+                player.addStar(); 
+                player.SavePlayer(); 
+                // Go back to area where users can choose mini game 
+                loading.LoadNewScene("ChooseMiniGame");
+                starAdded = true;
+            }
         } 
     }
+
+
+
+    // // Weds
+    public Player player; 
+    public LoadingBar loading; 
+    bool starAdded = false; 
+
+    // Weds 
 
 
     // Working solution for testing if the objects have been dragged in the correct order;
@@ -96,7 +137,12 @@ public class Port : MonoBehaviour
         // If the game is finished, don't begin the game again 
         // currentIndexOfGame must only be LESS than the array count 
          if (currentIndexOfGame >= namesOfObjects.Length){
-                portInstructionsText = "Well done, the game is already finished!";
+             portInstructionsTextBanner.gameObject.SetActive(false); 
+                portInstructionsText = "";
+                // Deactivate the text banner as there are no more instructions: 
+                //  portInstructionsTextBanner.enabled = false;                      
+
+                                // portInstructionsText = "Well done, the game is already finished!";
                 return; 
         }
         // Get here if the game is not finished yet AND
@@ -123,11 +169,15 @@ public class Port : MonoBehaviour
             other.GetComponent<GardenObject>().objectIsMatchedToPort(); 
             // If it was the last object to be dragged to the port, the game is complete: 
             if (currentIndexOfGame >= namesOfObjects.Length){
+                portInstructionsTextBanner.gameObject.SetActive(false); 
                 gameComplete = true; 
                 // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 
                 // play if the user has turned off sound effects in Settings)
                 soundEffectsRef.playGameFinishedSound();
-                portInstructionsText = "Yay you did it! The game is finished!"; 
+                                    // portInstructionsText = "Yay you did it! The game is finished!";
+                                            //  // Deactivate the text banner as there are no more instructions: 
+                                            // portInstructionsTextBanner.enabled = false;                      
+                portInstructionsText = ""; 
                 return; 
             }
             // Only incrememt the index if the correct object was found and it is within the limits of the array 
@@ -145,11 +195,15 @@ public class Port : MonoBehaviour
                     portInstructionsText = "Yay! You did it! Now step " + ++turnRound +  " to find the " + namesOfObjects[++currentIndexOfGame];
                     // NOTE: object's are destroyed from GardenObject's .Update() method, where if iMatchedToPort is true, the object is destroyed (hidden)
                 } else {
+                    portInstructionsTextBanner.gameObject.SetActive(false); 
                     // Increment the game index 
                     currentIndexOfGame++;
                     gameComplete = true; 
                     // Update the user that the game is finished 
-                    portInstructionsText = "Well done! The game is finished";
+                                    // portInstructionsText = "Well done! The game is finished";
+                    portInstructionsText = "";
+                                    // // Deactivate the text banner as there are no more instructions: 
+                                    // portInstructionsTextBanner.enabled = false;                      
                     // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 
                     // play if the user has turned off sound effects in Settings)
                     soundEffectsRef.playGameFinishedSound();

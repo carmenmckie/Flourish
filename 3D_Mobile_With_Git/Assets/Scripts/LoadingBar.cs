@@ -15,7 +15,15 @@ public class LoadingBar : MonoBehaviour {
     // Reference to the text on the slider bar:
     public Text progressPercentage; 
 
+  // Weds 3 Nov 
+  public void LoadDragDropTest(){
+    StartCoroutine(LoadAsynchronously("DragDropTest"));
+  }
 
+
+
+
+  // Weds 3 Nov 
 
 
    public void LoadNewScene(string sceneName){
@@ -29,6 +37,12 @@ public class LoadingBar : MonoBehaviour {
     // 4. Print a debug statement about current progress
     // 5. Wait a frame until we print another statement, using 'yield return null' 
     IEnumerator LoadAsynchronously(string sceneName){
+      // Weds 
+      yield return new WaitForSeconds(2); 
+
+
+
+      // Weds 
        // The other Unity method 'SceneManager.LoadScene()' pauses
        // The entire game while loading a new scene. 
        // '.LoadSceneAsync' loads the scene asynchronously in 

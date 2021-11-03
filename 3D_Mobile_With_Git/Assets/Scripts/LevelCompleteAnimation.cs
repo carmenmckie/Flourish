@@ -22,7 +22,7 @@ public class LevelCompleteAnimation : MonoBehaviour
     // if Port's bool gameComplete is true 
     public void gameCompleted(){
         gameCompleteCanvas.SetActive(true); 
-        StartCoroutine(displayStars()); 
+        StartCoroutine(displayStars());
     }
 
 
@@ -80,8 +80,10 @@ public class LevelCompleteAnimation : MonoBehaviour
                 // Rotates slightly to the right: 
                 bottomLeftStar.rectTransform.Rotate( new Vector3( 0, 0, -45 ) );
                 Destroy(bottomLeftStar, 0.5f);
-                yield return new WaitForSeconds(0.2f); 
+                // yield return new WaitForSeconds(0.2f); 
+                yield return new WaitForSeconds(3f); 
                 animationFinished = true; 
+                Debug.Log("You have won a new star!");
             }             
     }
 
