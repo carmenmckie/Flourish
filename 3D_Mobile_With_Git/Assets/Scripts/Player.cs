@@ -6,15 +6,16 @@ public class Player : MonoBehaviour {
     public int numberOfStars = 0; 
     public int numberOfTrophies = 0; 
 
+
+
+
     // Any Scene that uses the Player.cs script 
     // Will load the player info at the start 
     // This is so each scene has access to the correct number of stars the player has
     // Number of stars can only increase at the END of a scene 
     private void Start() {
         LoadPlayer(); 
-
     }
-
 
 
 
@@ -25,12 +26,19 @@ public class Player : MonoBehaviour {
 
 
     public void LoadPlayer(){
-       PlayerData data = SaveSystem.loadPlayerData(); 
+    // ******
+        // Pass this class to SaveSystem.loadPlayerData  to make a file if it doesn't exist? 
+        PlayerData data = SaveSystem.loadPlayerData(this); 
+    // Original: 
+    //    PlayerData data = SaveSystem.loadPlayerData(); 
        numberOfTrophies = data.numberOfTrophies; 
        numberOfStars = data.numberOfStars;
         Debug.Log("Player Loaded - called from Player.LoadPlayer() number of stars: " + numberOfStars);
     }
 
+
+
+// Testing Methods 
 
     public void addStar(){
             numberOfStars += 1; 
@@ -49,6 +57,18 @@ public class Player : MonoBehaviour {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

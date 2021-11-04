@@ -15,6 +15,9 @@ public class PauseMenu : MonoBehaviour
     // Reference to the Canvas UI object the pause screen 
     // is made up of: 
     public GameObject pauseMenuCanvas; 
+
+    // Reference to a LoadingBar object
+    public LoadingBar loadingBar; 
    
     // Used to determine what method is called 
     // E.g. Pause or Resume 
@@ -59,8 +62,14 @@ public class PauseMenu : MonoBehaviour
 
     // **** Create variable name for all scenes 
     public void GoBackToHome(){
+        // Calling .Resume() isn't closing the pauseMenuCanvas quite so fast enough
+        Resume(); 
+        // pauseMenu
+
+        loadingBar.LoadNewScene("NewLandingPage");
         // Resume(); 
-        SceneManager.LoadScene("LandingPage");
+            // Made comment Thurs cuz LoadingBar .LoadNewScene is already doing this 
+            // SceneManager.LoadScene("LandingPage");
         // Call Resume() - if 'Go to Home' was pressed
         // from Pause, the game will still 
         // technically be paused. This resets: 

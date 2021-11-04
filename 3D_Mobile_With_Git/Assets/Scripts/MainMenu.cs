@@ -72,10 +72,8 @@ public class MainMenu : MonoBehaviour
 
 
 
-    // Weds 3 Nov below 
-    // Testing new methods 
+    // TEST 
     public void OpenChooseMiniGame(){
-        // LOAD HERE ....
         SceneManager.LoadScene("ChooseMiniGame");
     }
 
@@ -84,45 +82,3 @@ public class MainMenu : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// _____________ To be deleted ___________________
-
-
-    // // ***
-    // public static MainMenu instance; 
-    
-    // // Method to be attached to GameObjects so that 
-    // // Switching to the Settings menu doesn't cause
-    // // Objects to restart (i.e. so their positions
-    // // are saved etc rather than going back to default
-    // // positions)
-    // public void dontDestroyObject(){
-    //     if (instance != null){
-    //         Destroy(this.gameObject); 
-    //         return; 
-    //     }
-    //     instance = this; 
-    //     GameObject.DontDestroyOnLoad(this.gameObject);
-
-    // }
-
-
-       
-    // // Used to go back to the scene that Settigs was 
-    // // called from
-    // // ****
-    // private int currentSceneIndex; 
-
-    // private int sceneToContinue; 

@@ -15,7 +15,10 @@ public class LoadingBar : MonoBehaviour {
     // Reference to the text on the slider bar:
     public Text progressPercentage; 
 
-  // Weds 3 Nov 
+  
+
+
+  // Method to test 
   public void LoadDragDropTest(){
     StartCoroutine(LoadAsynchronously("DragDropTest"));
   }
@@ -23,10 +26,10 @@ public class LoadingBar : MonoBehaviour {
 
 
 
-  // Weds 3 Nov 
-
 
    public void LoadNewScene(string sceneName){
+     // Didn't fix it 
+    //  loadingScreen.SetActive(true);
      StartCoroutine(LoadAsynchronously(sceneName));
    }
 
@@ -37,12 +40,11 @@ public class LoadingBar : MonoBehaviour {
     // 4. Print a debug statement about current progress
     // 5. Wait a frame until we print another statement, using 'yield return null' 
     IEnumerator LoadAsynchronously(string sceneName){
-      // Weds 
-      yield return new WaitForSeconds(2); 
-
-
-
-      // Weds 
+      // While loading, activate loadingScreen: 
+       loadingScreen.SetActive(true); 
+       // Needs to be here to display stars in time: 
+       // From LevelCompleteAnimation.cs
+      yield return new WaitForSeconds(2f); 
        // The other Unity method 'SceneManager.LoadScene()' pauses
        // The entire game while loading a new scene. 
        // '.LoadSceneAsync' loads the scene asynchronously in 
@@ -51,9 +53,6 @@ public class LoadingBar : MonoBehaviour {
        // This 'AsyncOperation' object returns information about the progress
        // of the operation 
        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-       // While loading, activate loadingScreen: 
-       loadingScreen.SetActive(true); 
-
        // While the scene is still loading: 
        while (operation.isDone == false){
            // Clamps the value between 0 and 1 
@@ -62,7 +61,6 @@ public class LoadingBar : MonoBehaviour {
            // So it's easier to understand for the user: 
            float progress = Mathf.Clamp01(operation.progress / 0.9f);
            Debug.Log("Progress is: " + progress);
-
            // Set the sliderBar element to display the current loading progress: 
           sliderBar.value = progress; 
           // Update the text on the slider bar
@@ -78,31 +76,4 @@ public class LoadingBar : MonoBehaviour {
 
 
 
-
-
-// _____________ To be deleted ___________________
-
-
-    // // Whenever this CoRoutine is called: 
-    // // 1. Load a scene asynchronously
-    // // 2. Store status of operation in the AsyncOperation object 'operation'
-    // // 3. Start a while loop that will run until the process is done
-    // // 4. Print a debug statement about current progress
-    // // 5. Wait a frame until we print another statement, using 'yield return null' 
-    // IEnumerator LoadAsynchronously (int sceneNumber){
-    //    // The other Unity method 'SceneManager.LoadScene()' pauses
-    //    // The entire game while loading a new scene. 
-    //    // '.LoadSceneAsync' loads the scene asynchronously in 
-    //    // The background. So we can get information about the 
-    //    // Progress of the operation while it's loading 
-    //    // This 'AsyncOperation' object returns information about the progress
-    //    // of the operation 
-    //    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneNumber);
-    //    // While the scene is still loading: 
-    //    while (operation.isDone == false){
-    //        Debug.Log(operation.progress); 
-    //        // Wait until the next frame before continuing: 
-    //        yield return null; 
-    //    }
-    // }
 

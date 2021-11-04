@@ -17,8 +17,6 @@ public class LevelCompleteAnimation : MonoBehaviour
 
     public bool animationFinished = false; 
 
-
-    // Thurs Added in _______________
     public Player player; 
     public LoadingBar loading; 
 
@@ -32,17 +30,16 @@ public class LevelCompleteAnimation : MonoBehaviour
         player.LoadPlayer(); 
         player.addStar(); 
         player.SavePlayer(); 
-        // Go back to area where users can choose mini game 
-        loading.LoadNewScene("ChooseMiniGame");
+        // // Go back to area where users can choose mini game 
+        // loading.LoadNewScene("ChooseMiniGame");
     }
 
-    // Thurs Added in _______________ ^ 
-
-  // Tuesday: Turning Method into INemurator 
+  // Turned Method into INemurator 
   // "You cannot stall the calling function unless it is an IEnumerator itself" 
   // "WaitForSeconds() only works from within the coroutine" 
   // https://answers.unity.com/questions/1497296/waitforseconds-not-working-13.html
    public IEnumerator displayStars() { 
+            yield return new WaitForSeconds(0.2f);
             // Get the position of the original Star image: 
             float starXpos = starImage1.transform.position.x;
             float starYpos = starImage1.transform.position.y;
@@ -96,6 +93,10 @@ public class LevelCompleteAnimation : MonoBehaviour
                 yield return new WaitForSeconds(3f); 
                 animationFinished = true; 
                 Debug.Log("You have won a new star!");
+                        gameCompleteCanvas.SetActive(false); 
+
+                 // Go back to area where users can choose mini game 
+        loading.LoadNewScene("ChooseMiniGame");
             }             
     }
 
