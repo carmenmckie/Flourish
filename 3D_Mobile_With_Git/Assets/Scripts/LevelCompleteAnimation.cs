@@ -18,13 +18,25 @@ public class LevelCompleteAnimation : MonoBehaviour
     public bool animationFinished = false; 
 
 
+    // Thurs Added in _______________
+    public Player player; 
+    public LoadingBar loading; 
+
+
+
     // Called from Port in .Update() 
     // if Port's bool gameComplete is true 
     public void gameCompleted(){
         gameCompleteCanvas.SetActive(true); 
         StartCoroutine(displayStars());
+        player.LoadPlayer(); 
+        player.addStar(); 
+        player.SavePlayer(); 
+        // Go back to area where users can choose mini game 
+        loading.LoadNewScene("ChooseMiniGame");
     }
 
+    // Thurs Added in _______________ ^ 
 
   // Tuesday: Turning Method into INemurator 
   // "You cannot stall the calling function unless it is an IEnumerator itself" 

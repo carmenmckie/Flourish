@@ -16,9 +16,8 @@ public class PauseMenu : MonoBehaviour
     // is made up of: 
     public GameObject pauseMenuCanvas; 
    
-    // *** Attach this to onClickEvent of button? 
-    // His video is based on pressing a key down 
-    // He also does it from .Update()
+    // Used to determine what method is called 
+    // E.g. Pause or Resume 
    public void controlPauseOfGame(){
        // If the game is already paused, resume game: 
        if (gameIsPaused){
@@ -84,10 +83,4 @@ public class PauseMenu : MonoBehaviour
 
 
 
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
 }

@@ -490,7 +490,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 30
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
@@ -2288,7 +2288,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -161.42859, y: 5.9286194}
+  m_AnchoredPosition: {x: -208, y: 1.79}
   m_SizeDelta: {x: 102.1137, y: 110.42}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!114 &1273568674
@@ -2447,8 +2447,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 551, y: 676.85}
-  m_SizeDelta: {x: -1127.5383, y: 146.291}
+  m_AnchoredPosition: {x: 514.9022, y: 676.85}
+  m_SizeDelta: {x: -1055.3428, y: 146.291}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1380240320
 Animator:
@@ -3236,7 +3236,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 30
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
@@ -3246,7 +3246,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Trophies '
+  m_Text: "View Stars \nand Trophies "
 --- !u!222 &1892863332
 CanvasRenderer:
   m_ObjectHideFlags: 0

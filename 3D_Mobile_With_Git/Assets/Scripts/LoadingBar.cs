@@ -73,6 +73,15 @@ public class LoadingBar : MonoBehaviour {
        }
     }
 
+}
+
+
+
+
+
+
+// _____________ To be deleted ___________________
+
 
     // // Whenever this CoRoutine is called: 
     // // 1. Load a scene asynchronously
@@ -96,4 +105,4 @@ public class LoadingBar : MonoBehaviour {
     //        yield return null; 
     //    }
     // }
-}
+

@@ -19,12 +19,6 @@ public class MainMenu : MonoBehaviour
     }
 
 
-
-
-
-
-
-
     
 
     public void LoadSettings(string previousSceneVisited){
@@ -89,6 +83,21 @@ public class MainMenu : MonoBehaviour
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// _____________ To be deleted ___________________
 
 
     // // ***

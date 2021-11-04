@@ -27,7 +27,7 @@ public class Port : MonoBehaviour
     // Dragged to the trigger 
     private int currentIndexOfGame = 0; 
 
-    // 29.10.21 made static so that portInstructionsText could use it 
+    // Made static so that portInstructionsText could use it 
      private static int turnRound = 1; 
 
     // **** Same thing done in Settings.cs 
@@ -37,20 +37,12 @@ public class Port : MonoBehaviour
      public static string portInstructionsText; //= "Welcome to the game! Step " + turnRound + ": try drag the plant pot to the square!"; 
 
 
-
-    // Weds 
     // Green banner given as background to text 
     public Image portInstructionsTextBanner; 
 
-
-
-
-
-
-    // Weds 
-
-
-
+    // Used to check whether the star has been added to the Player at the 
+    // end of the game 
+    bool starAdded = false; 
 
 
 
@@ -66,11 +58,20 @@ public class Port : MonoBehaviour
 
 
 
-    // Tuesday ...
     // To double check whether the game is complete to see whether the game complete sequences should begin
     private bool gameComplete = false; 
 
     public LevelCompleteAnimation levelCompleteAnimation; 
+
+
+
+
+
+
+
+
+
+
 
     public bool getIsGameComplete(){
         return gameComplete; 
@@ -97,6 +98,7 @@ public class Port : MonoBehaviour
         starAdded = false; 
     }
 
+    
     // Called once per frame
     // Based on the gameplay, the string 'portInstructionsText' is assigned new values. So, as soon as the text is changed based on the game-play, 
     // Set the Text element on the UI here so that the user Can read the updated text on the Text element: 
@@ -106,30 +108,34 @@ public class Port : MonoBehaviour
         // LevelCompleteAnimation.cs 
         if(gameComplete){
             // Second check is needed to make sure this block 
-            // isn't entered into twice. .Update() can sometimes be called twice per per frame 
-            if(!starAdded){
-                levelCompleteAnimation.gameCompleted(); 
-            // WEDS 
-                // Give player a new star to their profile 
-                // PlayerData playerData = SaveSystem.loadPlayerData();
-                player.LoadPlayer(); 
-                player.addStar(); 
-                player.SavePlayer(); 
-                // Go back to area where users can choose mini game 
-                loading.LoadNewScene("ChooseMiniGame");
-                starAdded = true;
-            }
-        } 
+            // isn't entered into twice in the time it takes 
+            // to load the code below. 
+            // if(!starAdded){
+            endOfGame(starAdded); 
+        }
+    } 
+
+
+    // Called at the end of the level 
+    public void endOfGame(bool starAdded){
+        if (starAdded){
+            return;
+        } else {
+            // Adds star, loads back to choose minigame scene 
+            levelCompleteAnimation.gameCompleted(); 
+        }
+        this.starAdded = true; 
     }
 
 
 
-    // // Weds
-    public Player player; 
-    public LoadingBar loading; 
-    bool starAdded = false; 
 
-    // Weds 
+
+
+
+
+
+
 
 
     // Working solution for testing if the objects have been dragged in the correct order;
@@ -213,3 +219,58 @@ public class Port : MonoBehaviour
      }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// _____________ To be deleted ___________________
+
+// _______ Thursday ___________
+
+
+// Thursday, changed .Update() 
+    // // Called once per frame
+    // // Based on the gameplay, the string 'portInstructionsText' is assigned new values. So, as soon as the text is changed based on the game-play, 
+    // // Set the Text element on the UI here so that the user Can read the updated text on the Text element: 
+    // private void Update(){
+    //     portInstructions.text = portInstructionsText;
+    //     // If the game is complete, show the stars from
+    //     // LevelCompleteAnimation.cs 
+    //     if(gameComplete){
+    //         // Second check is needed to make sure this block 
+    //         // isn't entered into twice. .Update() can sometimes be called twice per per frame 
+    //         if(!starAdded){
+    //             levelCompleteAnimation.gameCompleted(); 
+    //         // WEDS 
+    //             // Give player a new star to their profile 
+    //             // PlayerData playerData = SaveSystem.loadPlayerData();
+    //             player.LoadPlayer(); 
+    //             player.addStar(); 
+    //             player.SavePlayer(); 
+    //             // Go back to area where users can choose mini game 
+    //             loading.LoadNewScene("ChooseMiniGame");
+    //             starAdded = true;
+    //         }
+    //     } 
+    // }
+
+                                            // public Player player; 
+                                            // public LoadingBar loading; 
+
+
+// _______ Thursday ___________

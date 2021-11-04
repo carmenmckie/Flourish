@@ -6,10 +6,10 @@ public class Player : MonoBehaviour {
     public int numberOfStars = 0; 
     public int numberOfTrophies = 0; 
 
-    // Testing Weds - trying to get it to stay between scenes 
-
     // Any Scene that uses the Player.cs script 
     // Will load the player info at the start 
+    // This is so each scene has access to the correct number of stars the player has
+    // Number of stars can only increase at the END of a scene 
     private void Start() {
         LoadPlayer(); 
 
@@ -17,19 +17,6 @@ public class Player : MonoBehaviour {
 
 
 
-
-
-
-
-
-    // Testing Weds above ^^^ 
-
-
-
-
-
-    // Weds 3 Nov 17.54 - works apart from when you load new scene
-    // it goes to 3? 
 
     public void SavePlayer(){
         SaveSystem.savePlayerData(this); 
@@ -91,6 +78,7 @@ public class Player : MonoBehaviour {
 
 
 //__________________________________________________
+// To be deleted 
 
 
 // using System.Collections;
