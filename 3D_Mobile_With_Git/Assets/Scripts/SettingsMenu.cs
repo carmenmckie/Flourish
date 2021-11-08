@@ -43,9 +43,24 @@ public class SettingsMenu : MonoBehaviour
     public SoundEffects soundEffectsRef; 
 
     // ****** Getting UI to show changes made to currentSoundSettings 
-    public Text currentSoundSettings;
-    // Default at the start of the game: sound effects are on:  
-    public static string soundSettingsText = "Sound effects are: ON"; 
+    // // Removed due to lack of space 
+    // public Text currentSoundSettings;
+    // // Default at the start of the game: sound effects are on:  
+    // public static string soundSettingsText = "Sound effects are: ON"; 
+
+
+
+    // Sunday 7 Nov - ticks to show which button is active  
+    // At this point, music ON and sfx ON are default when the game begins 
+    // So by default, musicOnTick and sfxOnTick are VISIBLE  
+    public GameObject musicOnTick; 
+    public GameObject musicOffTick; 
+    public GameObject sfxOnTick; 
+    public GameObject sfxOffTick; 
+
+
+
+
 
 
    
@@ -55,7 +70,7 @@ public class SettingsMenu : MonoBehaviour
     // (e.g. Text currentResolution itself cannot be static)
     public void Update(){
         currentResolution.text = resolutionText; 
-        currentSoundSettings.text = soundSettingsText; 
+        // currentSoundSettings.text = soundSettingsText; 
 
         // Dynamically update the musicSlider to display the current volume
         // Of the Audio Mixer (so it doesn't reset between scenes)
@@ -75,6 +90,20 @@ public class SettingsMenu : MonoBehaviour
         // Set the "Volume" audioMixer to the 'volume' 
         // Attribute passed to this method: 
         audioMixer.SetFloat("Volume", volume); 
+        // Sunday 7 Nov 
+        // If the user slides the slider to be less than 0 (-80), 
+        // update the tick to show that music is ON 
+        if (volume > -80){
+            musicOnTick.SetActive(true); 
+            musicOffTick.SetActive(false); 
+        }
+        // Sunday 7 Nov
+        // If the user slides the slider to the lowest value (-80), 
+        // update the tick to show that music is OFF 
+        if (volume == -80){
+            musicOnTick.SetActive(false); 
+            musicOffTick.SetActive(true); 
+        }
         // Debug.Log(volume); 
     }
 
@@ -86,6 +115,9 @@ public class SettingsMenu : MonoBehaviour
         audioMixer.SetFloat("Volume", -80); 
         // Update slider to display new change: 
         musicSlider.value = -80; 
+        // Reset ticks 
+        musicOnTick.SetActive(false); 
+        musicOffTick.SetActive(true); 
     }
 
     // To be called when the user presses "Sounds Off" 
@@ -94,14 +126,18 @@ public class SettingsMenu : MonoBehaviour
         // Which then is checked from the methods in SoundEffects 
         // to decide whether a sound is to be played or not 
         soundEffectsRef.setAreSoundEffectsOn(false); 
-        soundSettingsText = "Sound effects are: OFF";
+        // soundSettingsText = "Sound effects are: OFF";
+        sfxOnTick.SetActive(false); 
+        sfxOffTick.SetActive(true); 
     }
 
     // To be called when the user presses "Sounds On" 
     public void soundsOn(){ 
         // Set the bool areSoundEffectsOn to be true
         soundEffectsRef.setAreSoundEffectsOn(true); 
-        soundSettingsText = "Sound effects are: ON";
+        // soundSettingsText = "Sound effects are: ON";
+        sfxOffTick.SetActive(false); 
+        sfxOnTick.SetActive(true); 
     }
 
 
@@ -120,6 +156,8 @@ public class SettingsMenu : MonoBehaviour
         // Update slider to display new change: 
         musicSlider.value = -30; 
         Debug.Log("Music now turned on"); 
+        musicOffTick.SetActive(false); 
+        musicOnTick.SetActive(true); 
     }
 
 

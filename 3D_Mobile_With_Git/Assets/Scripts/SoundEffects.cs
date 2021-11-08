@@ -12,11 +12,6 @@ public class SoundEffects : MonoBehaviour
     public AudioSource gameFinishedSound; 
     public AudioSource correctChoiceSound; 
 
-
-
-
-
-
     
     public void playGameFinishedSound(){
         // if sound effects haven't been turned off, play the relevant sound: 
