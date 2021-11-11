@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// PURELY CONTROLLING DISPLAY OF GPCREATEACCOUNT PANEL (currently) 
+
+
 // Script used for a guardian / parent to create an account 
 // Opened via clicking "Create Account" button on the OverallGuardianLoginPanel 
 public class GPCreateAccount : MonoBehaviour

@@ -33,7 +33,10 @@ public class Player : MonoBehaviour {
     //    PlayerData data = SaveSystem.loadPlayerData(); 
        numberOfTrophies = data.numberOfTrophies; 
        numberOfStars = data.numberOfStars;
-        Debug.Log("Player Loaded - called from Player.LoadPlayer() number of stars: " + numberOfStars);
+            // Tues 9 Nov
+                // Made comment while testing the CSV loading 
+                // Otherwise this displayed first when game launched 
+            // Debug.Log("Player Loaded - called from Player.LoadPlayer() number of stars: " + numberOfStars);
     }
 
 
