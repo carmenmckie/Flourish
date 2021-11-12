@@ -13,7 +13,7 @@ public class SuccessfulLogin : MonoBehaviour
     private bool isSuccessfulLoginPanelOpen = false; 
 
     // Method called to control the display of successfulLoginPanel: 
-    public void controlSuccessfulLoginPanel(){
+    public void controlSuccessfulLoginPanelTest(){
         // If the panel is not already open yet: 
         if (!isSuccessfulLoginPanelOpen){
             // open it now: 
@@ -30,4 +30,37 @@ public class SuccessfulLogin : MonoBehaviour
             // controlGuardianLogIn(); 
         }
     }
+
+
+
+
+
+
+
+
+
+
+// _______________________________________________________
+// To be deleted if it's no longer neeedded 
+
+    // // // // Test on Friday since reshuffling hierarchy 
+    // // // public GameObject successPanelTest; 
+
+    // // // So that if successful Panel is reached, going back sends them back to general 
+    // // // Loogin, rather than pinpad again (doesn't happen in other apps) 
+    // // // public GameObject initialPanelTest; 
+    // // private bool isSuccessOpenTest = false; // default = not open until PIN is correct  
+
+    // // Needs to be called by EnterPinPanel's .loginCheck()' if the PIN is correct 
+    // public void fridayOpenSuccessPanelTest(){ 
+    //     if (isSuccessOpenTest == false){
+    //         successPanelTest.SetActive(true); 
+    //         isSuccessOpenTest = true; 
+    //         return;
+    //     } if (isSuccessOpenTest){
+    //         successPanelTest.SetActive(false); 
+    //         isSuccessOpenTest = false; 
+    //         return; 
+    //     }
+    // }
 }

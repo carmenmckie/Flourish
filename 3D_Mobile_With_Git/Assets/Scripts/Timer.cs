@@ -56,7 +56,8 @@ public class Timer : MonoBehaviour {
 
     // Method created to 'restart' a Timer object 
     public void Restart(){ 
-        this.secondsLeft = 10; 
+        // Testing Friday: made 60 
+        this.secondsLeft = 60; 
         takingAwaySecond = false;
         timerStillRunning = true; 
         if (secondsLeft < 10){

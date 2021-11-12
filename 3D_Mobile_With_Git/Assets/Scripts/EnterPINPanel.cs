@@ -157,16 +157,23 @@ public class EnterPINPanel : MonoBehaviour
 
 
 
-    // At the start of the script, fill enteredDigits
-    // with a string array 
-    // So that it looks like - - - - 
-    // Until the user enters their digits 
+    
    private void Start() {
+        // At the start of the script, fill enteredDigits
+        // with a string array 
+        // So that it looks like - - - - 
+        // Until the user enters their digits 
        setDigitsEntered(); 
-       // Initially, pinFeedback is set to display nothing
-       // Only update with errors when applicable:
+       // Initially, pinFeedback is set to display nothing (""), 
+       // Only update with errors when applicable from .displayPINError()
        pinFeedback.text = ""; 
-       // Testing Thursday 11 Nov 10pm 
+       // Work-around for the fact that .FindGameObjectsWithTag() does not 
+       // work with inactive game objects. 
+       // So, find the "Timer" object, then instantly make it inactive 
+       // This is because as soon as it is made active, the timer will begin. 
+       // Timer should only start and be active if the user has guessed PIN too many times. 
+       // So, Timer is .SetActive() again, if applicable, from .displayPINError() changing 
+       // a bool that then has a sequence of events in .Update() 
        testTimer = GameObject.FindGameObjectWithTag("Timer"); 
        testTimer.SetActive(false); 
 
@@ -280,11 +287,12 @@ public class EnterPINPanel : MonoBehaviour
                  pinFeedback.text = ""; 
                  // Reset loginErrorCountdown back to 4 again: 
                  loginErrorCountdown = 4; 
-                 // Close the EnterPINPanel because the conditions have been 
-                 // satisfied to see the SuccessfulLogin panel: 
-                 controlEnterPINPanel(); 
-                 // Open successfulLoginPanel here:
-                successfulLoginPanel.GetComponent<SuccessfulLogin>().controlSuccessfulLoginPanel();  
+                // Open successfulLoginPanel here because the conditions have been 
+                // satisfied to see the SuccessfulLogin panel: 
+                // Friday .... changed ********
+                // successfulLoginPanel.GetComponent<SuccessfulLogin>().controlSuccessfulLoginPanel();  
+                // *-* 
+                successfulPanelTestCalledFromEnterPin.GetComponent<SuccessfulLogin>().controlSuccessfulLoginPanelTest(); 
              } else{ 
                     // If here is reached, PIN is incorrect:
                     // Displays appropriate error message to user 
@@ -292,6 +300,8 @@ public class EnterPINPanel : MonoBehaviour
                 }
             }
         }
+
+        public GameObject successfulPanelTestCalledFromEnterPin; 
 
 
     // // Moved here from GPLogin.cs 
@@ -322,6 +332,8 @@ public class EnterPINPanel : MonoBehaviour
     }
 
 
+
+
     // Method used to extract the entered values from the PIN 
     // E.g. '2-3-4-2', this will return '2342' which is then passed
     // to HashClass.toSHA256() to return the hashed string value, and
@@ -350,7 +362,6 @@ public class EnterPINPanel : MonoBehaviour
 
 
 // ********* Attach to buttons when ready 
-
     // Attached as an onClick method for the keypad buttons: 
     public void controlButtonPress(Button buttonPressed){
         // Pass to kepadButtonPressed which returns the String 
@@ -377,36 +388,6 @@ public class EnterPINPanel : MonoBehaviour
 
 
 
-
-    
-
-    // Method to control the view / display of enterPINPanel: 
-    public void controlEnterPINPanel(){
-        // If it isn't open, open it: 
-        if (!isEnterPINPanelOpen){
-            openEnterPINPanel(); 
-        } // if it is open, close it: 
-        else { 
-            closeEnterPINPanel(); 
-        }
-    }
-
-    // Method to make enterPINPanel visible
-    // Aka when "Enter PIN" button is pressed by the user 
-   public void openEnterPINPanel(){
-       // Change bool 
-       isEnterPINPanelOpen = true; 
-       enterPINPanel.SetActive(true); 
-   }
-
-    // Method to close enterPINPanel 
-    // Aka if the user presses the exit button,
-    // Or if the PIN was successful > move to next panel
-    // Or if an incorrect PIN was entered too many times > it closes 
-   public void closeEnterPINPanel(){
-       isEnterPINPanelOpen = false;
-       enterPINPanel.SetActive(false); 
-   }
 
 
 
@@ -457,9 +438,6 @@ public class EnterPINPanel : MonoBehaviour
             return "0"; 
         }
     }
-
-
-
 }
 
 
@@ -467,29 +445,55 @@ public class EnterPINPanel : MonoBehaviour
 
 
 
+//________________________________________________________________________________    
+// Friday 12 Nov 
+//      Changed this so that EnterPINPanel is always open, just 
+//      Lower down in the hierarchy so to control it's visibility, set the 
+//      panels higher than it in the hierarchy to NOT VISIBLE so that this 
+//      Panel is visible. 
+//      This decision was to make the timer always visible. 
+//      E.g. if the Timer begins, and the user goes off the EnterPINPanel, and comes 
+//      back again, the Timer is still active / counting down. 
+//      Doing it the way below stopped the Timer when the user would leave the 
+//      page and come back to EnterPINPanel. 
+//      Now the TIMER runs in the background which is much better. 
+//
+//
+//
+//     // Method to control the view / display of enterPINPanel: 
+//     public void controlEnterPINPanel(){
+//         // If it isn't open, open it: 
+//         if (!isEnterPINPanelOpen){
+//             openEnterPINPanel(); 
+//         } // if it is open, close it: 
+//         else { 
+//             closeEnterPINPanel(); 
+//         }
+//     }
+
+//     // Method to make enterPINPanel visible
+//     // Aka when "Enter PIN" button is pressed by the user 
+//    public void openEnterPINPanel(){
+//        // Change bool 
+//        isEnterPINPanelOpen = true; 
+//        enterPINPanel.SetActive(true); 
+//    }
+
+//     // Method to close enterPINPanel 
+//     // Aka if the user presses the exit button,
+//     // Or if the PIN was successful > move to next panel
+//     // Or if an incorrect PIN was entered too many times > it closes 
+//    public void closeEnterPINPanel(){
+//        isEnterPINPanelOpen = false;
+//        enterPINPanel.SetActive(false); 
+//    }
+//________________________________________________________________________________    
 
 
 
-    // private void Update() {
-    //     // if isTimerStarted is set to true from .displayPinError() to 
-    //     // do a 1 minute countdown due to the user inputting the incorrect
-    //     // PIN too many times 
-    //     bool timerAlreadyCreated = false; 
-    //     if (isTimerStarted){
-    //         if (timerAlreadyCreated == false){ 
-    //             // Set to 60 second timer: 
-    //             countdownTimer = new Timer(60);
-    //             // Break out this if statement so a new Timer(60) isn't created each time
-    //             timerAlreadyCreated = true;  
-    //         }
-    //         // Update the Text UI element to display the time remaining: 
-    //         pinFeedback.text = countdownTimer.getTimeRemaining(); 
-    //         Debug.Log("Called from .Update() in EnterPINPanel .... " + countdownTimer.getTimeRemaining()); 
-    //         if(countdownTimer.getIsTimerRunning() == false){
-    //             // When the Timer is finished, reset the bools 
-    //             isTimerStarted = false; 
-    //             // ***? 
-    //             timerAlreadyCreated = false; 
-    //         }
-    //     }
-    // }
+
+
+
+
+
+

@@ -4,68 +4,116 @@ using UnityEngine;
 // For collecting text from user input:
 using UnityEngine.UI; 
 
-// PURELY CONTROLLING DISPLAY OF GPLOGINPANEL (currently) 
-
 // GPLogIn: Guardian / Parental Log-In 
             // Script used to control the "Guardian Log-In" section, activated from the LandingPage 
             // In Freeplay Mode 
 
-// ************** 
-// Needs split up into seperate classes when it's all working 
 public class GPLogIn : MonoBehaviour
 {
     // Used to keep track of whether the Guardian-Login Page is open or not 
-    private bool GPLogInIsOpen = false; // default = not open (false)
-    // The canvas that contains the logging-in UI content
-    public GameObject GPLogInCanvas; 
+    // DEL private bool GPLogInCanvasIsOpen = false; // default = not open (false)
+
+    // Overall canvas the script is attached to (could maybe be deleted at some point): 
+    // public GameObject GPLogInCanvas; 
+
+    // To control the sub-panel, InitialGuardianLogInPanel:
+    public GameObject initialGuardianLogInPanel; 
+    private bool isInitialGuardianLogInPanelOpen = false; 
+    
 
 
-
-    // Called when guardian presses "Guardian Log-In" button on the landing page
-    // from FreePlay 
-    public void controlGuardianLogIn(){
-        // If the GPLogInPage is open and the relevant button using .controlGuardianLogIn() is pressed, 
-        // It must be to close the page - call .closeGPLogIn() 
-        if(GPLogInIsOpen){
-            closeGPLogIn(); 
+    // Method to be attached to 'EnterPin' button 
+    // as an onClick() to hide 'InitialGuardianLoginPanel' 
+    // So that EnterPINPanel (lower in hierarchy) is then 
+    // Visible. 
+    // Done this way so that EnterPINPanel isn't being set visible / not visible
+    // and instead other items are higher in the hierarchy than it, 
+    // So cover it. 
+    // This is so that if a user leaves EnterPINPanel and the Timer 
+    // Is runnng, the Timer isn't set not visible (and then stopped), this
+    // way, it will continue running in the background. 
+    public void controlInitialGuardianLoginPanel(){
+        // If the Panel isn't open, it needs opened: 
+        if(!isInitialGuardianLogInPanelOpen){
+            openInitialGuardianLoginPanel(); 
         } else {
-            // if GPLogInIsOpen is false, the button pressed must be to open the GPLogIn page - 
-            openGPLogIn(); 
+            closeInitialGuardianLogInPanel(); 
         }
     }
 
-    private void closeGPLogIn(){
-        // Close the logging-in UI canvas
-        GPLogInCanvas.SetActive(false); 
-        // Reset bool to show the log-in page is NOT open 
-        GPLogInIsOpen = false; 
+    // Changed to public as this is used as an onClick event 
+    // From SuccessfulLoginPanel when the user presses back, 
+    // rather than send the user back to enter PIN, goes back to overall login. 
+    public void openInitialGuardianLoginPanel(){
+        // Change bool: 
+        isInitialGuardianLogInPanelOpen = true; 
+        // Make panel visible: 
+        initialGuardianLogInPanel.SetActive(true); 
     }
 
-    private void openGPLogIn(){
-        // Set the log-in canvas to be active (visible) 
-        GPLogInCanvas.SetActive(true);
-        // Reset bool to show the log-in page IS open 
-        GPLogInIsOpen = true; 
+    private void closeInitialGuardianLogInPanel(){
+        // Change bool back to false:
+        isInitialGuardianLogInPanelOpen = false; 
+        // Hide panel: 
+        initialGuardianLogInPanel.SetActive(false); 
     }
 
 
-    // BUTTONS 
-
-    // If create Account Button is pressed 
 
 
 
+    // **********************************************************
+    // Friday 12 Nov 
+    public GameObject generalPanel; 
+    private bool isGeneralPanelOpen = true; // when game starts, it is open 
+
+
+    public void controlGuardianOpenTest(){
+        if (isGeneralPanelOpen){
+            generalPanel.SetActive(false); 
+            isGeneralPanelOpen = false; 
+            initialGuardianLogInPanel.SetActive(true); 
+            isInitialGuardianLogInPanelOpen = true; 
+            return; 
+        } if (!isGeneralPanelOpen){
+            generalPanel.SetActive(true);
+            isGeneralPanelOpen = true; 
+            initialGuardianLogInPanel.SetActive(false); 
+            isInitialGuardianLogInPanelOpen = false; 
+            return; 
+        }
+    }
+
+
+    // Test for being able to see enterPINPanel()
+    public void makeEnterPINVisibleTest(){
+        if(isInitialGuardianLogInPanelOpen){
+            initialGuardianLogInPanel.SetActive(false);
+            isInitialGuardianLogInPanelOpen = false;
+            return; 
+        } if (!isInitialGuardianLogInPanelOpen){
+            initialGuardianLogInPanel.SetActive(true); 
+            isInitialGuardianLogInPanelOpen = true; 
+            return; 
+        }
+    }
 
 
 
 
 
-// ****************************
-// ****************************
-// ****************************
-// ****************************
-// ***************************
-// Weds 
+
+
+
+
+
+
+
+
+
+    // __________________________________________________________
+    // Code written when InputField was used as opposed to keypad below 
+    // __________________________________________________________
 
     private string pin; 
 
@@ -79,20 +127,204 @@ public class GPLogIn : MonoBehaviour
      // ***** If incorrect PIN, entered, set this to: PIN is incorrect, please try again.
     public Text PINInputFeedback; 
 
-    // Moved to EnterPinPanel.cs 
-    // // At the start of the program, user has 5 chances to guess the PIN 
-    // private int loginErrorCountdown = 4; 
 
     // To try clear the area
     public GameObject pinPlaceholderText; 
 
 
-
-
-
     // // Moved A COPY to EnterPINPanel.cs 
     // // CSV should only be read from this class (GPLogin) [and create account when I get to that] 
     HandleCSV csvHandling = new HandleCSV(); 
+
+
+    // Set character input limit in the InputFields to 4
+    // (PIN limit is 4 characters)
+    // Called from .Start()
+    // and passed the relevant InputFields it applies to
+    // (Unity default is infinite characters)
+    public void setInputCharacterLimit(params InputField[] input){
+        foreach (InputField x in input){
+            x.characterLimit = 4; 
+        }
+    }
+
+
+    // WAS USED BY INPUT FIELD WHICH LATER FOUND OUT DOESN'T WORK ON iOS.........
+    // Set the character limit for the PIN entry to be 
+    // maximum of four at Start(): 
+    void Start() {
+        // Pass InputFields to be set to max length 4: 
+        setInputCharacterLimit(generalPINInputField, firstPINEntry, secondPINEntry);
+    }
+
+    // ****************************
+    // Creating PIN area
+
+    // 1. Need to retrieve the text from firstPINEntry and secondPINEntry 
+    // 2. Check if they match 
+    // 3. HASH 
+    // 4. Pass hashed PIN to 
+
+     //________________________________
+    // Called from CreateAccountPanel 
+
+    // 1st  pin entry general InputField: 
+    public InputField firstPINEntry; 
+    // 1st pin entry text gathered from InputField: 
+    public GameObject firstPINEntryText; 
+
+    // 2nd pin entry general InputField: 
+    public InputField secondPINEntry; 
+    // 2nd pin entry text gathered from InputField: 
+    public GameObject secondPINEntryText; 
+    
+    // Text to display any error messages to the user 
+    public Text pinInputErrorText; 
+
+
+    // when "CreateAccount" button is pressed 
+
+    // 1. Get the two entered strings 
+    // 2. check if they match
+    // 3. check they are length 4 (4 digits are required) 
+    // 4. hash the PIN if it meets requirements 
+
+    // 1. Get the two entered strings: 
+    public void createAccountButtonPressed (){ 
+        // Collect 1st PIN:
+        string entryOne = firstPINEntryText.GetComponent<Text>().text; 
+        // Reset 1st InputField to be clear again so that it dynamically updates for user
+        firstPINEntry.text = "";  
+        // Collect 2nd PIN: 
+        string entryTwo = secondPINEntryText.GetComponent<Text>().text; 
+        // Reset 2nd InputField to be clear again so that it dynamically updates for user
+        secondPINEntry.text = ""; 
+    // 2. Check if they match 
+        if (entryOne.Equals(entryTwo)){
+            Debug.Log("Yes");
+        } else {
+            Debug.Log("No");
+            // Display error to the user: 
+            pinInputErrorText.text = "PINs do not match, please try again.";
+            return; 
+        }
+    // 3. If they match, check the PIN is 4 digits as requested to the user: 
+        if (entryOne.Length == 4){
+            Debug.Log("Correct Length");
+        } else {
+            Debug.Log("Wrong length");
+             // Display error to the user: 
+            pinInputErrorText.text = "Incorrect PIN length - PIN should be 4 digits, please try again.";
+            return; 
+        }
+        if (entryOne.Length == 4 && entryTwo.Length == 4 && entryOne.Equals(entryTwo)){
+            // Getting here means user satisfied the requirements, update text accordingly 
+            // Change from red text to green (to show it's not an error): 
+            pinInputErrorText.GetComponent<Text>().color = Color.green; 
+            // Update message to show it was successful: 
+            pinInputErrorText.text = "PIN entered successfully, please wait ...";
+                            // ^^^^^^ Need to do something here ... new panel or something 
+        }
+    // Get to here means: PINs match, PINs are the correct length. 
+    // 4. Hash the PIN to be stored securely in the CSV (hashing firstPin but doesn't matter, if 
+    // Get to here, entryOne and entryTwo are the same)
+        string firstHash = HashClass.toSHA256(entryOne); 
+    // 5. Now, with this information, an entry can be added the the .csv file
+    // 6. Create a new CSVInfo object using the hash 
+        CSVInfo newCSVEntry = new CSVInfo(firstHash); 
+    // 7. Append to .csv file stored locally in the Unity project: 
+        csvHandling.appendToCSV(newCSVEntry); 
+    }
+
+
+
+    // __________________________________________________________
+    // Code written when InputField was used as opposed to keypad ^^^^ 
+    // __________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ********************************************************************************************************
+// ********************************************************************************************************
+// ********************************************************************************************************
+// ********************************************************************************************************
+// ********************************************************************************************************
+// ********************************************************************************************************
+// ********************************************************************************************************
+// Code to be deleted below (if it is definitely no longer needed)
+
+
+
+
+// Moved to EnterPinPanel.cs 
+// // At the start of the program, user has 5 chances to guess the PIN 
+// private int loginErrorCountdown = 4; 
+
+
+// DEL 
+    // // Called when guardian presses "Guardian Log-In" button on the landing page
+    // // from FreePlay 
+    // // *** Used to open / close the overall Canvas UI element, which in itself 
+    // // Contains different sub-panels 
+    // public void controlGuardianCanvas(){
+    //     // If the GPLogInPage is open and the relevant button using .controlGuardianCanvas() is pressed, 
+    //     // It must be to close the page - call .closeGPLogIn() 
+    //     if(GPLogInCanvasIsOpen){
+    //         closeOverallGuardianCanvas(); 
+    //     } else {
+    //         // if GPLogInIsOpen is false, the button pressed must be to open the GPLogIn page - 
+    //         openOverallGuardianCanvas(); 
+    //     }
+    // }
+
+    // DEL 
+    // // Control visibility of GuardianLoginCanvas (overall canvas) 
+    // private void closeOverallGuardianCanvas(){
+    //     // Close the logging-in UI canvas
+    //     GPLogInCanvas.SetActive(false); 
+    //     // Reset bool to show the log-in page is NOT open 
+    //     GPLogInCanvasIsOpen = false; 
+    // }
+
+    //// DEL 
+    // // Control visibility of GuardianLoginCanvas (overall canvas) 
+    // private void openOverallGuardianCanvas(){
+    //     // Set the log-in canvas to be active (visible) 
+    //     GPLogInCanvas.SetActive(true);
+    //     // Reset bool to show the log-in page IS open 
+    //     GPLogInCanvasIsOpen = true; 
+    // }
+
 
 
     // // When login button is clicked 
@@ -191,18 +423,12 @@ public class GPLogIn : MonoBehaviour
 
 
 
-    // Set character input limit in the InputFields to 4
-    // (PIN limit is 4 characters)
-    // Called from .Start()
-    // and passed the relevant InputFields it applies to
-    // (Unity default is infinite characters)
-    public void setInputCharacterLimit(params InputField[] input){
-        foreach (InputField x in input){
-            x.characterLimit = 4; 
-        }
-    }
 
-    // Moved to EnterPINPanel.cs 
+
+
+
+
+ // Moved to EnterPINPanel.cs 
     // public string displayPINError(){
     //     // If the user is not locked out yet 
     //     if (loginErrorCountdown > 1){
@@ -221,16 +447,6 @@ public class GPLogIn : MonoBehaviour
     //         // ****** Needs filled in properly        
     //         }
     //     }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -276,122 +492,6 @@ public class GPLogIn : MonoBehaviour
         // }
 
         // Thurs 1.14 
-
-
-
-
-
-
-// WAS USED BY INPUT FIELD WHICH LATER FOUND OUT DOESN'T WORK ON iOS.........
-    // Set the character limit for the PIN entry to be 
-    // maximum of four at Start(): 
-    void Start() {
-        // Pass InputFields to be set to max length 4: 
-        setInputCharacterLimit(generalPINInputField, firstPINEntry, secondPINEntry);
-    }
-
-
-
-    // ****************************
-    // Creating PIN area
-
-    // 1. Need to retrieve the text from firstPINEntry and secondPINEntry 
-    // 2. Check if they match 
-    // 3. HASH 
-    // 4. Pass hashed PIN to 
-
-     //________________________________
-    // Called from CreateAccountPanel 
-
-    // 1st  pin entry general InputField: 
-    public InputField firstPINEntry; 
-    // 1st pin entry text gathered from InputField: 
-    public GameObject firstPINEntryText; 
-
-    // 2nd pin entry general InputField: 
-    public InputField secondPINEntry; 
-    // 2nd pin entry text gathered from InputField: 
-    public GameObject secondPINEntryText; 
-    
-    // Text to display any error messages to the user 
-    public Text pinInputErrorText; 
-
-
-    // when "CreateAccount" button is pressed 
-
-    // 1. Get the two entered strings 
-    // 2. check if they match
-    // 3. check they are length 4 (4 digits are required) 
-    // 4. hash the PIN if it meets requirements 
-
-    // 1. Get the two entered strings: 
-    public void createAccountButtonPressed (){ 
-        // Collect 1st PIN:
-        string entryOne = firstPINEntryText.GetComponent<Text>().text; 
-        // Reset 1st InputField to be clear again so that it dynamically updates for user
-        firstPINEntry.text = "";  
-        // Collect 2nd PIN: 
-        string entryTwo = secondPINEntryText.GetComponent<Text>().text; 
-        // Reset 2nd InputField to be clear again so that it dynamically updates for user
-        secondPINEntry.text = ""; 
-    // 2. Check if they match 
-        if (entryOne.Equals(entryTwo)){
-            Debug.Log("Yes");
-        } else {
-            Debug.Log("No");
-            // Display error to the user: 
-            pinInputErrorText.text = "PINs do not match, please try again.";
-            return; 
-        }
-    // 3. If they match, check the PIN is 4 digits as requested to the user: 
-        if (entryOne.Length == 4){
-            Debug.Log("Correct Length");
-        } else {
-            Debug.Log("Wrong length");
-             // Display error to the user: 
-            pinInputErrorText.text = "Incorrect PIN length - PIN should be 4 digits, please try again.";
-            return; 
-        }
-        if (entryOne.Length == 4 && entryTwo.Length == 4 && entryOne.Equals(entryTwo)){
-            // Getting here means user satisfied the requirements, update text accordingly 
-            // Change from red text to green (to show it's not an error): 
-            pinInputErrorText.GetComponent<Text>().color = Color.green; 
-            // Update message to show it was successful: 
-            pinInputErrorText.text = "PIN entered successfully, please wait ...";
-                            // ^^^^^^ Need to do something here ... new panel or something 
-        }
-    // Get to here means: PINs match, PINs are the correct length. 
-    // 4. Hash the PIN to be stored securely in the CSV (hashing firstPin but doesn't matter, if 
-    // Get to here, entryOne and entryTwo are the same)
-        string firstHash = HashClass.toSHA256(entryOne); 
-    // 5. Now, with this information, an entry can be added the the .csv file
-    // 6. Create a new CSVInfo object using the hash 
-        CSVInfo newCSVEntry = new CSVInfo(firstHash); 
-    // 7. Append to .csv file stored locally in the Unity project: 
-        csvHandling.appendToCSV(newCSVEntry); 
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
