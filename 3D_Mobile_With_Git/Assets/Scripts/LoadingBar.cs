@@ -20,7 +20,8 @@ public class LoadingBar : MonoBehaviour {
 
   // Method to test 
   public void LoadDragDropTest(){
-    StartCoroutine(LoadAsynchronously("DragDropTest"));
+    LoadNewScene("DragDropTest"); 
+    // StartCoroutine(LoadAsynchronously("DragDropTest"));
   }
 
 

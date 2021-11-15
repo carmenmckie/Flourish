@@ -20,6 +20,10 @@ public class LevelCompleteAnimation : MonoBehaviour
     public Player player; 
     public LoadingBar loading; 
 
+    // Reference to the GameObject to be displayed if the user meets their
+    // Star goal: 
+    public GameObject starGoalReached; 
+
 
 
     // Called from Port in .Update() 
@@ -93,7 +97,16 @@ public class LevelCompleteAnimation : MonoBehaviour
                 yield return new WaitForSeconds(3f); 
                 animationFinished = true; 
                 Debug.Log("You have won a new star!");
-                        gameCompleteCanvas.SetActive(false); 
+
+                // If the user has met their star goal target: 
+                if (Player.goalAchieved){
+                    // Display the gameobject saying "Congratulations, you have reached your star goal!" 
+                    starGoalReached.SetActive(true); 
+                    yield return new WaitForSeconds(3f); 
+                    // Reset values, to reflect the goal has been achieved: 
+                    player.starGoalReached(); 
+                }
+                gameCompleteCanvas.SetActive(false); 
 
                  // Go back to area where users can choose mini game 
         loading.LoadNewScene("ChooseMiniGame");

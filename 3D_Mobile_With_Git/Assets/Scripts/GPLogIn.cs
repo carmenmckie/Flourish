@@ -5,45 +5,58 @@ using UnityEngine;
 using UnityEngine.UI; 
 
 // GPLogIn: Guardian / Parental Log-In 
-            // Script used to control the "Guardian Log-In" section, activated from the LandingPage 
-            // In Freeplay Mode 
+// Script used to control the "Guardian Log-In" section, activated from the LandingPage 
+// In Freeplay Mode 
 
+
+
+
+// Script to control the opening / closing of the different Log-In panels: 
+// - InitialGuardianLogin
+// - EnterPINPanel 
+// - SuccessfulLoginPanel X
+// - CreateAccountPanel X
+// - (to be made: forgottenPINpanel?)
 public class GPLogIn : MonoBehaviour
-{
-    // Used to keep track of whether the Guardian-Login Page is open or not 
-    // DEL private bool GPLogInCanvasIsOpen = false; // default = not open (false)
+{ 
+    
+    // * GeneralPanel, aka the LandingPage of the game 
+    public GameObject generalPanel; 
+    // when game starts, GeneralPanel is open 
+    private bool isGeneralPanelOpen = true; 
 
-    // Overall canvas the script is attached to (could maybe be deleted at some point): 
-    // public GameObject GPLogInCanvas; 
 
-    // To control the sub-panel, InitialGuardianLogInPanel:
+    // * To control the sub-panel, InitialGuardianLogInPanel:
     public GameObject initialGuardianLogInPanel; 
+    // When the game starts, it is not open
     private bool isInitialGuardianLogInPanelOpen = false; 
     
 
-
-    // Method to be attached to 'EnterPin' button 
-    // as an onClick() to hide 'InitialGuardianLoginPanel' 
-    // So that EnterPINPanel (lower in hierarchy) is then 
-    // Visible. 
-    // Done this way so that EnterPINPanel isn't being set visible / not visible
-    // and instead other items are higher in the hierarchy than it, 
-    // So cover it. 
-    // This is so that if a user leaves EnterPINPanel and the Timer 
-    // Is runnng, the Timer isn't set not visible (and then stopped), this
-    // way, it will continue running in the background. 
-    public void controlInitialGuardianLoginPanel(){
-        // If the Panel isn't open, it needs opened: 
-        if(!isInitialGuardianLogInPanelOpen){
+    // Method to control the opening of the general log-in page (initialGuardianLoginPanel). 
+    // For initialGuardianLoginPanel to be visible -> generalPanel needs to be closed, and 
+    // initialGuardianPanel needs to be opened. 
+    // For initialGuardianPanel to be closed -> generalPanel needs to be opened again, and 
+    // initialGuardianPanel needs to be closed. 
+    // This is due to the chosen Unity Hierarchy structure of the UI elements.
+    public void controlGuardianOpenTest(){
+        if (isGeneralPanelOpen){
+            // Close generalPanel: 
+            closeGeneralPanel(); 
+            // Open initialGuardianLoginPanel:
             openInitialGuardianLoginPanel(); 
-        } else {
-            closeInitialGuardianLogInPanel(); 
+            return; 
+        } if (!isGeneralPanelOpen){
+            openGeneralPanel(); 
+            closeInitialGuardianLoginPanel(); 
+            return; 
         }
     }
 
-    // Changed to public as this is used as an onClick event 
+    // * ALSO CALLED FROM SuccessfulLogin.cs / SuccessfulLoginPanel * 
+    // Public as it is also used as an onClick event 
     // From SuccessfulLoginPanel when the user presses back, 
-    // rather than send the user back to enter PIN, goes back to overall login. 
+    // rather than send the user back to enter PIN again (non user intuitive), 
+    // the user goes back to initialGuardianLogIn. 
     public void openInitialGuardianLoginPanel(){
         // Change bool: 
         isInitialGuardianLogInPanelOpen = true; 
@@ -51,53 +64,125 @@ public class GPLogIn : MonoBehaviour
         initialGuardianLogInPanel.SetActive(true); 
     }
 
-    private void closeInitialGuardianLogInPanel(){
-        // Change bool back to false:
+
+    // Close initialGuardianLoginPanel: 
+    public void closeInitialGuardianLoginPanel(){
+        // Change bool: 
         isInitialGuardianLogInPanelOpen = false; 
-        // Hide panel: 
+        // Make panel not visible: 
         initialGuardianLogInPanel.SetActive(false); 
     }
 
+    // Open generalPanel: 
+    private void openGeneralPanel(){
+        isGeneralPanelOpen = true; 
+        generalPanel.SetActive(true); 
+    }
 
-
-
-
-    // **********************************************************
-    // Friday 12 Nov 
-    public GameObject generalPanel; 
-    private bool isGeneralPanelOpen = true; // when game starts, it is open 
-
-
-    public void controlGuardianOpenTest(){
-        if (isGeneralPanelOpen){
-            generalPanel.SetActive(false); 
-            isGeneralPanelOpen = false; 
-            initialGuardianLogInPanel.SetActive(true); 
-            isInitialGuardianLogInPanelOpen = true; 
-            return; 
-        } if (!isGeneralPanelOpen){
-            generalPanel.SetActive(true);
-            isGeneralPanelOpen = true; 
-            initialGuardianLogInPanel.SetActive(false); 
-            isInitialGuardianLogInPanelOpen = false; 
-            return; 
-        }
+    // Close generalPanel: 
+    private void closeGeneralPanel(){
+        isGeneralPanelOpen = false; 
+        generalPanel.SetActive(false); 
     }
 
 
-    // Test for being able to see enterPINPanel()
+
+
+
+
+
+
+
+
+
+
+
+    // ____________________________________________
+    // Controlling EnterPINPanel Below 
+    // ____________________________________________
+
+
+
+    // For EnterPINPanel to be visible to the user, 
+    // The panel higher in the hierarchy (initialGuardianLogInPanel) needs 
+    // to be set to not active. 
+    // For EnterPINPanel to NOT be visible to the user, since initialGuardianLogInPanel
+    // is higher in the hierarchy to EnterPINPanel, initialGuardianLogInPanel 
+    // Needs to be set to ACTIVE so that it hides EnterPINPanel. 
+
+    // * onClick() event from InitialGuardianLogInPanel > EnterPINButton (to open EnterPINPanel)
+    // * onClick() event from EnterPINPanel > GoBackButton (to close EnterPINPanel)
     public void makeEnterPINVisibleTest(){
         if(isInitialGuardianLogInPanelOpen){
-            initialGuardianLogInPanel.SetActive(false);
-            isInitialGuardianLogInPanelOpen = false;
+            closeInitialGuardianLoginPanel(); 
             return; 
         } if (!isInitialGuardianLogInPanelOpen){
-            initialGuardianLogInPanel.SetActive(true); 
-            isInitialGuardianLogInPanelOpen = true; 
+            openInitialGuardianLoginPanel(); 
             return; 
         }
     }
 
+    // ____________________________________________
+    // Controlling EnterPINPanel Above ^ 
+    // ____________________________________________
+
+
+
+
+
+
+
+    // ____________________________________________
+    // Controlling CreateAccountPanel Below 
+    // ____________________________________________
+
+
+    // Bool to control the opening / closing of the "CreateAccountPanel" 
+    // Default is false (Panel not open by default). 
+    private bool createAccountPanelOpen = false;
+
+    // Panel to be opened / closed when CreateAccount is pressed
+    // ("CreateAccountPanel" in Hierarchy)
+    // By default, createAccountPanel is not Visible until user input asks for it to be opened. 
+    public GameObject createAccountPanel; 
+
+
+
+    // Method to control opening / closing of createAccountPanel 
+    // * .onClick() event from InitialGuardianLogInPanel > CreateAccountButton (to open CreateAccountPanel)
+    // * .onClick() event from CreateAccountPanel > GoBackButton (to close CreateAccountPanel) 
+    public void controlCreateAccountPanel(){
+        // If the panel is not open, open it 
+        if (!createAccountPanelOpen){
+            openCreateAccountPanel();
+            // Monday - wasn't needed after all 
+            // closeInitialGuardianLoginPanel(); 
+            return;
+        } else {
+            // If the panel is open, close it: 
+            closeCreateAccountPanel(); 
+            // Monday - wasn't needed after all 
+            // openInitialGuardianLoginPanel(); 
+            return;
+        }
+    }
+
+    // Used to open the createAccountPanel
+    private void openCreateAccountPanel(){
+        createAccountPanel.SetActive(true); 
+        createAccountPanelOpen = true; 
+    }
+
+    // Used to close the createAccountPanel 
+    private void closeCreateAccountPanel(){
+        createAccountPanel.SetActive(false); 
+        createAccountPanelOpen = false; 
+    }
+
+
+    // ____________________________________________
+    // Controlling CreateAccountPanel Above ^  
+    // ____________________________________________ 
 
 
 
@@ -108,6 +193,22 @@ public class GPLogIn : MonoBehaviour
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // __________________________________________________________
 
 
 
@@ -137,110 +238,115 @@ public class GPLogIn : MonoBehaviour
     HandleCSV csvHandling = new HandleCSV(); 
 
 
-    // Set character input limit in the InputFields to 4
-    // (PIN limit is 4 characters)
-    // Called from .Start()
-    // and passed the relevant InputFields it applies to
-    // (Unity default is infinite characters)
-    public void setInputCharacterLimit(params InputField[] input){
-        foreach (InputField x in input){
-            x.characterLimit = 4; 
-        }
-    }
+    // // Set character input limit in the InputFields to 4
+    // // (PIN limit is 4 characters)
+    // // Called from .Start()
+    // // and passed the relevant InputFields it applies to
+    // // (Unity default is infinite characters)
+    // public void setInputCharacterLimit(params InputField[] input){
+    //     foreach (InputField x in input){
+    //         x.characterLimit = 4; 
+    //     }
+    // }
 
 
-    // WAS USED BY INPUT FIELD WHICH LATER FOUND OUT DOESN'T WORK ON iOS.........
-    // Set the character limit for the PIN entry to be 
-    // maximum of four at Start(): 
-    void Start() {
-        // Pass InputFields to be set to max length 4: 
-        setInputCharacterLimit(generalPINInputField, firstPINEntry, secondPINEntry);
-    }
+    // // WAS USED BY INPUT FIELD WHICH LATER FOUND OUT DOESN'T WORK ON iOS.........
+    // // Set the character limit for the PIN entry to be 
+    // // maximum of four at Start(): 
+    // void Start() {
+    //     // Pass InputFields to be set to max length 4: 
+    //     setInputCharacterLimit(generalPINInputField, firstPINEntry, secondPINEntry);
+  //  }
 
-    // ****************************
-    // Creating PIN area
+    // // ****************************
+    // // Creating PIN area
 
-    // 1. Need to retrieve the text from firstPINEntry and secondPINEntry 
-    // 2. Check if they match 
-    // 3. HASH 
-    // 4. Pass hashed PIN to 
+    // // 1. Need to retrieve the text from firstPINEntry and secondPINEntry 
+    // // 2. Check if they match 
+    // // 3. HASH 
+    // // 4. Pass hashed PIN to 
 
-     //________________________________
-    // Called from CreateAccountPanel 
+    //  //________________________________
+    // // Called from CreateAccountPanel 
 
-    // 1st  pin entry general InputField: 
-    public InputField firstPINEntry; 
-    // 1st pin entry text gathered from InputField: 
-    public GameObject firstPINEntryText; 
+    // // 1st  pin entry general InputField: 
+    // public InputField firstPINEntry; 
+    // // 1st pin entry text gathered from InputField: 
+    // public GameObject firstPINEntryText; 
 
-    // 2nd pin entry general InputField: 
-    public InputField secondPINEntry; 
-    // 2nd pin entry text gathered from InputField: 
-    public GameObject secondPINEntryText; 
+    // // 2nd pin entry general InputField: 
+    // public InputField secondPINEntry; 
+    // // 2nd pin entry text gathered from InputField: 
+    // public GameObject secondPINEntryText; 
     
-    // Text to display any error messages to the user 
-    public Text pinInputErrorText; 
+    // // Text to display any error messages to the user 
+    // public Text pinInputErrorText; 
 
 
-    // when "CreateAccount" button is pressed 
+    // // when "CreateAccount" button is pressed 
 
-    // 1. Get the two entered strings 
-    // 2. check if they match
-    // 3. check they are length 4 (4 digits are required) 
-    // 4. hash the PIN if it meets requirements 
+    // // 1. Get the two entered strings 
+    // // 2. check if they match
+    // // 3. check they are length 4 (4 digits are required) 
+    // // 4. hash the PIN if it meets requirements 
 
-    // 1. Get the two entered strings: 
-    public void createAccountButtonPressed (){ 
-        // Collect 1st PIN:
-        string entryOne = firstPINEntryText.GetComponent<Text>().text; 
-        // Reset 1st InputField to be clear again so that it dynamically updates for user
-        firstPINEntry.text = "";  
-        // Collect 2nd PIN: 
-        string entryTwo = secondPINEntryText.GetComponent<Text>().text; 
-        // Reset 2nd InputField to be clear again so that it dynamically updates for user
-        secondPINEntry.text = ""; 
-    // 2. Check if they match 
-        if (entryOne.Equals(entryTwo)){
-            Debug.Log("Yes");
-        } else {
-            Debug.Log("No");
-            // Display error to the user: 
-            pinInputErrorText.text = "PINs do not match, please try again.";
-            return; 
-        }
-    // 3. If they match, check the PIN is 4 digits as requested to the user: 
-        if (entryOne.Length == 4){
-            Debug.Log("Correct Length");
-        } else {
-            Debug.Log("Wrong length");
-             // Display error to the user: 
-            pinInputErrorText.text = "Incorrect PIN length - PIN should be 4 digits, please try again.";
-            return; 
-        }
-        if (entryOne.Length == 4 && entryTwo.Length == 4 && entryOne.Equals(entryTwo)){
-            // Getting here means user satisfied the requirements, update text accordingly 
-            // Change from red text to green (to show it's not an error): 
-            pinInputErrorText.GetComponent<Text>().color = Color.green; 
-            // Update message to show it was successful: 
-            pinInputErrorText.text = "PIN entered successfully, please wait ...";
-                            // ^^^^^^ Need to do something here ... new panel or something 
-        }
-    // Get to here means: PINs match, PINs are the correct length. 
-    // 4. Hash the PIN to be stored securely in the CSV (hashing firstPin but doesn't matter, if 
-    // Get to here, entryOne and entryTwo are the same)
-        string firstHash = HashClass.toSHA256(entryOne); 
-    // 5. Now, with this information, an entry can be added the the .csv file
-    // 6. Create a new CSVInfo object using the hash 
-        CSVInfo newCSVEntry = new CSVInfo(firstHash); 
-    // 7. Append to .csv file stored locally in the Unity project: 
-        csvHandling.appendToCSV(newCSVEntry); 
-    }
+    // // 1. Get the two entered strings: 
+    // public void createAccountButtonPressed (){ 
+    //     // Collect 1st PIN:
+    //     string entryOne = firstPINEntryText.GetComponent<Text>().text; 
+    //     // Reset 1st InputField to be clear again so that it dynamically updates for user
+    //     firstPINEntry.text = "";  
+    //     // Collect 2nd PIN: 
+    //     string entryTwo = secondPINEntryText.GetComponent<Text>().text; 
+    //     // Reset 2nd InputField to be clear again so that it dynamically updates for user
+    //     secondPINEntry.text = ""; 
+    // // 2. Check if they match 
+    //     if (entryOne.Equals(entryTwo)){
+    //         Debug.Log("Yes");
+    //     } else {
+    //         Debug.Log("No");
+    //         // Display error to the user: 
+    //         pinInputErrorText.text = "PINs do not match, please try again.";
+    //         return; 
+    //     }
+    // // 3. If they match, check the PIN is 4 digits as requested to the user: 
+    //     if (entryOne.Length == 4){
+    //         Debug.Log("Correct Length");
+    //     } else {
+    //         Debug.Log("Wrong length");
+    //          // Display error to the user: 
+    //         pinInputErrorText.text = "Incorrect PIN length - PIN should be 4 digits, please try again.";
+    //         return; 
+    //     }
+    //     if (entryOne.Length == 4 && entryTwo.Length == 4 && entryOne.Equals(entryTwo)){
+    //         // Getting here means user satisfied the requirements, update text accordingly 
+    //         // Change from red text to green (to show it's not an error): 
+    //         pinInputErrorText.GetComponent<Text>().color = Color.green; 
+    //         // Update message to show it was successful: 
+    //         pinInputErrorText.text = "PIN entered successfully, please wait ...";
+    //                         // ^^^^^^ Need to do something here ... new panel or something 
+    //     }
+    // // Get to here means: PINs match, PINs are the correct length. 
+    // // 4. Hash the PIN to be stored securely in the CSV (hashing firstPin but doesn't matter, if 
+    // // Get to here, entryOne and entryTwo are the same)
+    //     string firstHash = HashClass.toSHA256(entryOne); 
+    // // 5. Now, with this information, an entry can be added the the .csv file
+    // // 6. Create a new CSVInfo object using the hash 
+    //     CSVInfo newCSVEntry = new CSVInfo(firstHash); 
+    // // 7. Append to .csv file stored locally in the Unity project: 
+    //     csvHandling.appendToCSV(newCSVEntry); 
+    // }
 
 
 
     // __________________________________________________________
     // Code written when InputField was used as opposed to keypad ^^^^ 
     // __________________________________________________________
+
+
+
+
+
 
 
 

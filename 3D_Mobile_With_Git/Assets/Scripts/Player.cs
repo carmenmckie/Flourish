@@ -2,11 +2,60 @@ using System.Collections;
 using System.Collections.Generic; 
 using UnityEngine; 
 
+// Class to control the Player object which remains throughout the game
+// - Contains the number of stars held by the user
 public class Player : MonoBehaviour {
     public int numberOfStars = 0; 
-    public int numberOfTrophies = 0; 
+
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
+    // By default, goalSet = false, change to true if a guardian / parent 
+    // sets a goal from 'SuccessfulLogin.cs' 
+    private static bool goalSet = false; 
+    public static bool goalAchieved = false; 
+    public static int starGoal = 0; 
+
+    public static int targetStars = 0; 
+
+    // Called from SuccessfulLogin.cs when the Parent / Guardian selects the star goal: 
+    public void setPlayerGoal(int starGoal){
+        LoadPlayer(); 
+        goalSet = true; 
+        // Calculate how many stars it is until target is reached: 
+        targetStars = numberOfStars + starGoal; 
+    }
+
+    private void Update() {
+        Debug.Log("Number of stars = " + numberOfStars);
+        Debug.Log("TargetStars =  " + targetStars); 
+        if ((numberOfStars == targetStars) && (goalSet = true)){
+            Debug.Log("STAR GOAL REACHED!");
+            goalAchieved = true; 
+
+        }
+    }
 
 
+    public void starGoalReached(){
+        // Reset bools back to default, so that if the user wants, another goal can be set 
+        targetStars = 0; 
+        goalSet = false; 
+        goalAchieved = false; 
+    }
+
+
+    // From SuccessfulLogin panel, the parent / guardian can set a goal for how many stars
+    // To be earned in a playing session. 
+
+
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
+// Testing Monday 15 Nov 
 
 
     // Any Scene that uses the Player.cs script 
@@ -31,7 +80,7 @@ public class Player : MonoBehaviour {
         PlayerData data = SaveSystem.loadPlayerData(this); 
     // Original: 
     //    PlayerData data = SaveSystem.loadPlayerData(); 
-       numberOfTrophies = data.numberOfTrophies; 
+    //    numberOfTrophies = data.numberOfTrophies; 
        numberOfStars = data.numberOfStars;
             // Tues 9 Nov
                 // Made comment while testing the CSV loading 

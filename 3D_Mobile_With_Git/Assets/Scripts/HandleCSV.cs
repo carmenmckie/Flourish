@@ -9,6 +9,13 @@ using System.IO;
 public class HandleCSV : MonoBehaviour
 {
 
+    // Testing Monday - public for now, but change
+    public static List<CSVInfo> currentCSV = new List<CSVInfo>(); 
+
+
+
+    // Testing Monday above 
+
     // ________________
     // FROM VIDEO ONE
     // _________________
@@ -20,11 +27,17 @@ public class HandleCSV : MonoBehaviour
 // ********* 10 Nov - changed it to .readCSV returning a List<CSVInfo> instead 
                         // // To store the CSV information after being parsed: 
                         // List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
+//______________________________________
+//______________________________________
+//______________________________________
+// Original before being changed MONDAY: 
 
     private void Start() {
         // readCSV(); 
         // appendToCSV(); 
         // readCSV(); 
+        // MOnday : 
+        currentCSV.AddRange(readCSV()); 
     }
 
 // Could be static? 
@@ -97,6 +110,12 @@ public class HandleCSV : MonoBehaviour
         //     Debug.Log(z.pin); 
         // }
         // May need to check when receiving this that it's not null 
+        // ****
+        // ****
+        // // currentCSV.AddRange(csvReadInfo); 
+        // currentCSV = csvReadInfo; 
+        // ****
+        // ****
         return csvReadInfo; 
     }
 
@@ -107,6 +126,159 @@ public class HandleCSV : MonoBehaviour
         // *** Adds to a new line ($"\n....)
         File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newCSVEntry.pin},{newCSVEntry.date_created}");
     }
+
+
+
+// Above is original 
+// Below is Monday 15 Nov work 
+//____________________________
+//____________________________
+//____________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Could be static? 
+//     public void readCSV(){ 
+//                   List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
+
+        
+
+//         // Upon Start, initialize pgInfo to be from PGInfo.csv
+//         // Location is: /Assets/Resources/CSVResources/PGInfo.csv 
+//         // Resources.Load assumes location is within /Assets/Resources/... 
+//         // So just add the last half pf the extension 
+//         pgInfo = Resources.Load<TextAsset>("CSVResources/PGInfo");
+//                                                 // Debug.Log("RIGHT NOW" + pgInfo); 
+//         // TextAsset class automatically loads the text from the .csv file 
+//         // into this TextAsset object 'pgInfo.text' 
+        
+//         // Each line on CSV = new entry 
+//         // First row on CSV can be ignored as it's human information (columns)
+//         // To split this data, we can use an array 
+//             // Splitting on newline: 
+//             // Creates an array of the elements from the .csv 
+//         string[] csvData = pgInfo.text.Split(new char[] { '\n' });
+//         // // Testing - added LoadCSV.cs to MainCamera for now (as a test)
+//                         // Debug.Log(csvData.Length); // Printed 4, which is correct (considering top column headers counts as one)
+
+//         // Now, ignoring the first line as it's column headers, split the csv file on commas:
+//         // int i = 1 (ignoring the 0th entry)
+
+
+// // *****************
+// // i < csvData.Length - 1 gets rid of OutOfBoundsException but causes a blank line at the end of the csv file 
+// // *****************        
+//         for(int i = 1; i < csvData.Length; i++){
+//             // Going to create an array for each one of these column values 
+//             string[] row = csvData[i].Split(new char[] { ',' } );
+
+//             // This showed it was 4 which is correct 
+//             Debug.Log("**** " + csvData.Length);
+
+//             // If the number of items on the row is correct, then proceed: 
+//             // (This will help if the CSV file is developed further with a database, ensuring 
+//             // that the data has the correct number of fields)
+//                                                     // if (row.Length == csvData.Length){
+//                 // If there is an empty row, no point parsing it (empty user slot)
+//                 // If row[1] (username) is empty, don't parse it (no point) 
+//                 // So only include those that are NOT empty: 
+//                 // if(row[1] != ""){
+
+//                     // Fill in the instance variables of the csvInfo object with those from the array: 
+//                     // TryParse is used to try parse as int 
+//                     // If there's no data there, instead of causing exception, it will just leave default value 
+//                     // If there is data, it will fill out csvInfo.account_id with it 
+//                     // int.TryParse(row[0], out int pinEntry); <--- original before changing to string 
+                    
+//                     string pinEntry = row[0]; 
+//                      // Create a new CSVInfo object 
+//                     string dateCreatedEntry = row[1]; // username is a string anyway - no conversion needed
+//                     CSVInfo csvInfo = new CSVInfo(pinEntry, dateCreatedEntry); 
+
+    
+
+//                     // Add to the List<CSVInfo> csvReadInfo for reference: 
+//                     csvReadInfo.Add(csvInfo); 
+//                                                         // }
+//             // }
+//         }
+//  // *** WHAT WAS PRINTING THE HASH IN THE CONSOLE:        
+//         // // To test it worked
+//         // foreach (CSVInfo z in csvReadInfo){
+//         //     Debug.Log(z.pin); 
+//         // }
+//         // May need to check when receiving this that it's not null 
+//         // return csvReadInfo; 
+//         // currentCSV = csvReadInfo; 
+//         currentCSV.AddRange(csvReadInfo); 
+//         Debug.Log("currentCSV length: ... " + currentCSV.Count); 
+//     }
+
+//     // Access the contents of the CSV in real time 
+//     public List<CSVInfo> returnCurrentCSV(){
+//         return currentCSV; 
+//     }
+
+
+
+//  // Could be static?    
+//     // Method to take a CSVInfo object and add it to the csv file 
+//     public void appendToCSV(CSVInfo newCSVEntry){
+//         // Using string interpolation to save to the CSV file in the Resources folder: 
+//         // *** Adds to a new line ($"\n....)
+//         File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newCSVEntry.pin},{newCSVEntry.date_created}");
+//     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

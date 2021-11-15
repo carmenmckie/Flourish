@@ -8,7 +8,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData {
     public int numberOfStars; 
-    public int numberOfTrophies; 
+    // public int numberOfTrophies; 
 
     public int level; 
 
@@ -17,7 +17,7 @@ public class PlayerData {
     // And store it in the variables of PlayerData 
     public PlayerData(Player player){
         numberOfStars = player.numberOfStars; 
-        numberOfTrophies = player.numberOfTrophies;
+        // numberOfTrophies = player.numberOfTrophies;
     }
 }
 

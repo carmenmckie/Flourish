@@ -12,35 +12,45 @@ public class TEST : MonoBehaviour
 
     HandleCSV csvHandling = new HandleCSV(); 
 
-    void Start()
-    {
-    // Tetsing CSV handling     
-        // csvHandling.appendToCSV(); 
-        // textField.text = testText;
-        List<CSVInfo> readInInfo = csvHandling.readCSV(); 
-        // string combindedString = string.Join( ",", readInInfo);
-        // testText.Equals(combindedString); 
-        // textField.text = testText; 
-         foreach (CSVInfo z in readInInfo){
-            testText = z.printCSVInfo(); 
-        }
-        textField.text = testText; 
 
-        // Debug.Log("TEST" + readInInfo.Count); 
-        CSVInfo test = new CSVInfo("25"); 
-        Debug.Log(test.printCSVInfo()); 
+    // void Start()
+    // {
+    // }
 
-        Debug.Log("FROM TEST.CS " + HashClass.toSHA256("1111"));
+    //     // Debug.Log("count of HandleCSV's internal list ... " + csvHandling.returnCurrentCSV().Count);
+    // // {
+    // // // Tetsing CSV handling     
+    // //     // csvHandling.appendToCSV(); 
+    // //     // textField.text = testText;
+    // //     List<CSVInfo> readInInfo = csvHandling.readCSV(); 
+    // //     // string combindedString = string.Join( ",", readInInfo);
+    // //     // testText.Equals(combindedString); 
+    // //     // textField.text = testText; 
+    // //      foreach (CSVInfo z in readInInfo){
+    // //         testText = z.printCSVInfo(); 
+    // //     }
+    // //     textField.text = testText; 
 
+    // //     // Debug.Log("TEST" + readInInfo.Count); 
+    // //     CSVInfo test = new CSVInfo("25"); 
+    // //     Debug.Log(test.printCSVInfo()); 
 
-    // Testing Hashing     
-    // //*** Generates the same hash which is good: 
-    //     Debug.Log(HashClass.toSHA256("Hello"));
-    //     Debug.Log(HashClass.toSHA256("Hello"));
-
+    // //     Debug.Log("FROM TEST.CS " + HashClass.toSHA256("1111"));
 
 
+    // // // Testing Hashing     
+    // // // //*** Generates the same hash which is good: 
+    // // //     Debug.Log(HashClass.toSHA256("Hello"));
+    // // //     Debug.Log(HashClass.toSHA256("Hello"));
+
+
+
+private void Update() {
+    
+        Debug.Log("count of HandleCSV's internal list ... " + HandleCSV.currentCSV.Count);
+}
     }
 
+// }
     
-}
+// }

@@ -8,9 +8,9 @@ using UnityEngine.UI;
 // their PIN 
 public class EnterPINPanel : MonoBehaviour
 {
-    private bool isEnterPINPanelOpen = false; 
-    // Ref to the EnterPINPanel UI Object 
-    public GameObject enterPINPanel; 
+    // private bool isEnterPINPanelOpen = false; 
+    // // Ref to the EnterPINPanel UI Object 
+    // public GameObject enterPINPanel; 
     // References to the digit buttons used on the keypad 
     // button1 = button with value 1, button2 = button with value 2, ... 
     public Button button1; 
@@ -49,6 +49,10 @@ public class EnterPINPanel : MonoBehaviour
     // Reference to the SuccessfulLoginPanel object so that it can be opened
     // If PIN entered successfully 
     public GameObject successfulLoginPanel; 
+
+     // Reference to the successfulLoginPanel so that it can be made visible to the user 
+    // If they enter a correct PIN:
+    public GameObject successfulPanelTestCalledFromEnterPin; 
 
 
 
@@ -238,6 +242,11 @@ public class EnterPINPanel : MonoBehaviour
     // Called when user presses the "Undo" button 
     // (To delete the last entered digit) 
     public void undoLastDigit(){ 
+        // If the digitsEnteredCounter has got to 0, don't 
+        // decrease it anymore to avoid IndexOutOfRangeException
+        if (digitsEnteredCounter <= 0){
+            return; 
+        }
         // Decrement counter by 2 to access the last entered digit 
         digitsEnteredCounter -= 2; 
         // Access the element in the array and change it back to a '-' 
@@ -247,8 +256,8 @@ public class EnterPINPanel : MonoBehaviour
     }
 
 
-// **************************
-// I the same way as controlButtonPress, could do controlSubmitButtonPress 
+    // * EnterPINPanel.cs specific* 
+    // I the same way as controlButtonPress, could do controlSubmitButtonPress 
     // Called from "Submit" button as an onClick event
     public void submitPIN(){
         Debug.Log(digitsEnteredCounter); 
@@ -270,7 +279,10 @@ public class EnterPINPanel : MonoBehaviour
         }
     }
 
+
+     // * EnterPINPanel.cs specific* 
      public void loginCheck(string userInput){
+         bool PINfound = false; 
         // Re-set pattern back to '- - - -' so that 
         // the user doesn't have to delete the digits themselves 
         // as they re-enter the PIN, AND so that if the PIN is 
@@ -278,9 +290,8 @@ public class EnterPINPanel : MonoBehaviour
         setDigitsEntered();
         // int num = int.Parse(userInput); 
         // Load the CSV file: 
-         List<CSVInfo> readInInfo = csvHandling.readCSV(); 
          // check each entry 
-         foreach (CSVInfo x in readInInfo){
+         foreach (CSVInfo x in HandleCSV.currentCSV){
              if (x.pin.Equals(userInput)){
                  Debug.Log("found pin");
                  // Clear any existing error messages: 
@@ -288,22 +299,23 @@ public class EnterPINPanel : MonoBehaviour
                  // Reset loginErrorCountdown back to 4 again: 
                  loginErrorCountdown = 4; 
                 // Open successfulLoginPanel here because the conditions have been 
-                // satisfied to see the SuccessfulLogin panel: 
-                // Friday .... changed ********
-                // successfulLoginPanel.GetComponent<SuccessfulLogin>().controlSuccessfulLoginPanel();  
-                // *-* 
                 successfulPanelTestCalledFromEnterPin.GetComponent<SuccessfulLogin>().controlSuccessfulLoginPanelTest(); 
-             } else{ 
-                    // If here is reached, PIN is incorrect:
-                    // Displays appropriate error message to user 
-                    displayPINError(); 
-                }
+                // Set bool to true to show the PIN has been found: 
+                PINfound = true; 
+                return; 
+             } 
             }
-        }
+            // If the PIN is not found in the List, call displayPINError(): 
+            // (This will display a message, e.g. "incorrect PIN entered, 4 attempts left...)
+            if (PINfound == false){
+                 displayPINError(); 
+                    return; 
+            }
+     }
 
-        public GameObject successfulPanelTestCalledFromEnterPin; 
 
 
+    // * EnterPINPanel.cs specific* 
     // // Moved here from GPLogin.cs 
     public void displayPINError(){
         Debug.Log("displayPinError() bug checking ... " + loginErrorCountdown);
@@ -439,6 +451,19 @@ public class EnterPINPanel : MonoBehaviour
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
