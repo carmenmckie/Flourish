@@ -21,13 +21,21 @@ public class Player : MonoBehaviour {
     public static int targetStars = 0; 
 
     // Called from SuccessfulLogin.cs when the Parent / Guardian selects the star goal: 
+    // From SuccessfulLogin panel, the parent / guardian can set a goal for how many stars
+    // To be earned in a playing session. 
     public void setPlayerGoal(int starGoal){
         LoadPlayer(); 
         goalSet = true; 
         // Calculate how many stars it is until target is reached: 
+        // numberOfStars = current stars
+        // starGoal = goal set by parent / guardian 
+        // targetStars will be the sum of these two numbers, 
+        //  when the number of stars held by the user meets targetStars, this 
+        // is when the user is notified that they have reached their goal. 
         targetStars = numberOfStars + starGoal; 
     }
 
+    // .Update() method will detect when the starGoal has been reached 
     private void Update() {
         Debug.Log("Number of stars = " + numberOfStars);
         Debug.Log("TargetStars =  " + targetStars); 
@@ -38,24 +46,14 @@ public class Player : MonoBehaviour {
         }
     }
 
-
+    // Called from LevelCompleteAnimation.cs 
+    // After the user has been notified that they have reached the star goal:
     public void starGoalReached(){
         // Reset bools back to default, so that if the user wants, another goal can be set 
         targetStars = 0; 
         goalSet = false; 
         goalAchieved = false; 
     }
-
-
-    // From SuccessfulLogin panel, the parent / guardian can set a goal for how many stars
-    // To be earned in a playing session. 
-
-
-// Testing Monday 15 Nov 
-// Testing Monday 15 Nov 
-// Testing Monday 15 Nov 
-// Testing Monday 15 Nov 
-// Testing Monday 15 Nov 
 
 
     // Any Scene that uses the Player.cs script 

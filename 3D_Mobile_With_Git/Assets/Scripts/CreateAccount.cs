@@ -72,6 +72,15 @@ public class CreateAccount : MonoBehaviour
     public GameObject popUpWindow; 
 
 
+
+
+// __________________________________________
+// ______ CreateAccount.cs Specific _________
+// __________________________________________
+
+
+
+
     // Working
     // 1. If a PIN hasn't been entered once, display "Please enter your chosen PIN:" 
     private void Update() {
@@ -110,7 +119,7 @@ public class CreateAccount : MonoBehaviour
 
 
 
-    // * CreateAccount.cs specific* 
+    // ***** CreateAccount.cs specific* 
     // Called from "Submit" button as an onClick event
     public void submitPIN(){
         // If this is the first time submitPIN() has been called
@@ -175,7 +184,37 @@ public class CreateAccount : MonoBehaviour
         } 
     }
 
-        
+
+
+
+    IEnumerator displayPopUpWindow() 
+    {
+        popUpWindow.SetActive(true); 
+        // Show for 3 seconds
+        yield return new WaitForSeconds(3); //this is were the wait will happen. so position it in your func where you want to wait.
+        // Then disable pop-up window again: 
+        popUpWindow.SetActive(false); 
+    }
+
+
+
+
+// Working 
+private void Start() {
+        restart(); 
+        // At the start of the script, fill enteredDigits
+        // with a string array 
+        // So that it looks like - - - - 
+        // Until the user enters their digits 
+       setDigitsEntered(); 
+       // Make sure firstEnteredPIN and secondEnteredPIN are null 
+       // to begin with, e.g. doesn't remember a PIN 
+       // previously entered, for security reasons
+       firstEnteredPIN = null; 
+       secondEnteredPIN = null; 
+   }
+
+
     // Method that is only called if the PINs meet the requirements of: 
     // - Being the correct length (4 digits)
     // - PINs are identical 
@@ -198,40 +237,25 @@ public class CreateAccount : MonoBehaviour
     }
 
 
-    
-
-
-    IEnumerator displayPopUpWindow() 
-    {
-        popUpWindow.SetActive(true); 
-        // Show for 3 seconds
-        yield return new WaitForSeconds(3); //this is were the wait will happen. so position it in your func where you want to wait.
-        // Then disable pop-up window again: 
-        popUpWindow.SetActive(false); 
-    }
 
 
 
 
 
-// Working 
-private void Start() {
-        restart(); 
-        // At the start of the script, fill enteredDigits
-        // with a string array 
-        // So that it looks like - - - - 
-        // Until the user enters their digits 
-       setDigitsEntered(); 
-       // Make sure firstEnteredPIN and secondEnteredPIN are null 
-       // to begin with, e.g. doesn't remember a PIN 
-       // previously entered, for security reasons
-       firstEnteredPIN = null; 
-       secondEnteredPIN = null; 
-   }
 
 
 
-// WORKING atm 
+
+
+
+
+// __________________________________________
+// ____________ Generic KeyPad  _____________
+// __________________________________________
+
+
+
+
 // Fill digitsEntered with this pattern '- - - -' 
     public void setDigitsEntered(){
         // As this method is also called to clear the PIN entry field if 
@@ -249,7 +273,6 @@ private void Start() {
     } 
 
 
-
     // Method to convert a string[] to a single string to be displayed on the UI 
     public string arrayToString(string[] array){
         string value = ""; 
@@ -258,8 +281,6 @@ private void Start() {
         }
         return value; 
     }
-
-
 
     // Update digitsEntered (displayed originally like '- - - -' to the user)
     // With their button clicks. 
@@ -286,7 +307,6 @@ private void Start() {
     }
 
 
-
     // Called when user presses the "Undo" button 
     // (To delete the last entered digit) 
     public void undoLastDigit(){ 
@@ -302,8 +322,6 @@ private void Start() {
         // Update changes on UI 
         enteredDigits.text = arrayToString(digitsEntered);
     }
-
-
 
 
     // Method used to extract the entered values from the PIN 
@@ -331,8 +349,6 @@ private void Start() {
     }
 
 
-
-
     // ********* Attach to buttons when ready 
     // Attached as an onClick method for the keypad buttons: 
     public void controlButtonPress(Button buttonPressed){
@@ -346,9 +362,6 @@ private void Start() {
         // value to the user
          enteredDigits.text = arrayToString(digitsEntered); 
     }
-
-
-
 
 
     // Method to control output based on a button click 

@@ -161,6 +161,17 @@ public class EnterPINPanel : MonoBehaviour
 
 
 
+
+// __________________________________________
+// ______ EnterPINPanel.cs Specific _________
+// __________________________________________
+
+
+
+
+
+
+
     
    private void Start() {
         // At the start of the script, fill enteredDigits
@@ -462,63 +473,9 @@ public class EnterPINPanel : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-//________________________________________________________________________________    
-// Friday 12 Nov 
-//      Changed this so that EnterPINPanel is always open, just 
-//      Lower down in the hierarchy so to control it's visibility, set the 
-//      panels higher than it in the hierarchy to NOT VISIBLE so that this 
-//      Panel is visible. 
-//      This decision was to make the timer always visible. 
-//      E.g. if the Timer begins, and the user goes off the EnterPINPanel, and comes 
-//      back again, the Timer is still active / counting down. 
-//      Doing it the way below stopped the Timer when the user would leave the 
-//      page and come back to EnterPINPanel. 
-//      Now the TIMER runs in the background which is much better. 
-//
-//
-//
-//     // Method to control the view / display of enterPINPanel: 
-//     public void controlEnterPINPanel(){
-//         // If it isn't open, open it: 
-//         if (!isEnterPINPanelOpen){
-//             openEnterPINPanel(); 
-//         } // if it is open, close it: 
-//         else { 
-//             closeEnterPINPanel(); 
-//         }
-//     }
-
-//     // Method to make enterPINPanel visible
-//     // Aka when "Enter PIN" button is pressed by the user 
-//    public void openEnterPINPanel(){
-//        // Change bool 
-//        isEnterPINPanelOpen = true; 
-//        enterPINPanel.SetActive(true); 
-//    }
-
-//     // Method to close enterPINPanel 
-//     // Aka if the user presses the exit button,
-//     // Or if the PIN was successful > move to next panel
-//     // Or if an incorrect PIN was entered too many times > it closes 
-//    public void closeEnterPINPanel(){
-//        isEnterPINPanelOpen = false;
-//        enterPINPanel.SetActive(false); 
-//    }
-//________________________________________________________________________________    
-
-
-
-
-
-
+// __________________________________________
+// ____________ Generic KeyPad  _____________
+// __________________________________________
 
 
 

@@ -109,7 +109,7 @@ public class LevelCompleteAnimation : MonoBehaviour
                 gameCompleteCanvas.SetActive(false); 
 
                  // Go back to area where users can choose mini game 
-        loading.LoadNewScene("ChooseMiniGame");
+                loading.LoadNewScene("ChooseMiniGame");
             }             
     }
 
