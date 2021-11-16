@@ -4,6 +4,8 @@ using UnityEngine;
 // For collecting text from user input:
 using UnityEngine.UI; 
 
+
+
 // GPLogIn: Guardian / Parental Log-In 
 // Script used to control the "Guardian Log-In" section, activated from the LandingPage 
 // In Freeplay Mode 
@@ -195,9 +197,7 @@ public class GPLogIn : MonoBehaviour
     // ____________________________________________ 
 
 
-
-
-
+ 
 
 
 

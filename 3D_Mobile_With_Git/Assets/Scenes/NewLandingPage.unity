@@ -7085,6 +7085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinInstructions: {fileID: 108987069}
   keypadBackground: {fileID: 1940227526}
+  PINsDontMatch: 0
   popUpWindow: {fileID: 1431046343}
   createAccountKeypadRef: {fileID: 1940227530}
 --- !u!1 &617899322
@@ -9811,7 +9812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -922, y: 375}
+  m_AnchoredPosition: {x: 654.02026, y: 400}
   m_SizeDelta: {x: 1334, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &895124583
@@ -11859,7 +11860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1589, y: 0}
+  m_AnchoredPosition: {x: 3.373291, y: 66}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1024546610
@@ -12309,7 +12310,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 998755549}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: loadPlayer
+        m_MethodName: LoadPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
