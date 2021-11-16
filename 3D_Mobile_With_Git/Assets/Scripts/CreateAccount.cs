@@ -27,7 +27,7 @@ public class CreateAccount : MonoBehaviour
     private string secondEnteredPIN; 
 
     // False until made true 
-    private bool PINsDontMatch = false;
+    public bool PINsDontMatch = false;
 
     // Reference to a HandleCSV object so that 
     // New information can be appended to the .CSV 
@@ -52,13 +52,6 @@ public class CreateAccount : MonoBehaviour
          if (firstPINSubmitted){
             pinInstructions.text = "Please re-enter your chosen PIN: "; 
         } 
-        if (PINsDontMatch) {
-            // 2. If a user enters two PINs that don't match, display relevant error message, 
-            // and call .restart() to reset the process so user can begin entering PIN 
-            // process again: 
-            createAccountKeypadRef.pinFeedback.text = "Both PINs do not match. Please start again.";
-            restart(); 
-        }
         // 3. If the error message is displayed "please note that PINs have to be 4 digits long..." 
         // But then the user deletes a digit to match this, remove the error message: 
         if (createAccountKeypadRef.digitsEnteredCounter == 6){
@@ -72,6 +65,16 @@ public class CreateAccount : MonoBehaviour
     // e.g. if a user enters two PINs that don't match, and the values
     // need reset so that the user can begin creating a PIN from start again
     public void restart(){
+        if (!PINsDontMatch){
+            createAccountKeypadRef.pinFeedback.text = ""; 
+        }
+        if (PINsDontMatch) {
+            // 2. If a user enters two PINs that don't match, display relevant error message, 
+            // and call .restart() to reset the process so user can begin entering PIN 
+            // process again: 
+            createAccountKeypadRef.pinFeedback.text = "Both PINs do not match. Please start again.";
+            PINsDontMatch = false; 
+        }
         if(!firstPINSubmitted){
             // At the start of the script, fill enteredDigits
             // with a string array 
@@ -80,7 +83,7 @@ public class CreateAccount : MonoBehaviour
             createAccountKeypadRef.setDigitsEntered(); 
             pinInstructions.text = "Please enter your chosen PIN"; 
             // Reset bools
-            firstPINSubmitted = false; 
+            // firstPINSubmitted = false; 
             // Make PINsDontMatch false because
             // it's starting again with two new PINs, 
             // It hasn't checked yet if they match 
@@ -89,6 +92,7 @@ public class CreateAccount : MonoBehaviour
             firstEnteredPIN = null; 
             secondEnteredPIN = null; 
         }
+
     }
 
 
@@ -150,7 +154,7 @@ public class CreateAccount : MonoBehaviour
                     Debug.Log("No Match");
                     PINsDontMatch = true; 
                     // Call restart() to reset the bools so the process can be repeated: 
-                    // restart(); 
+                    restart(); 
                 }
             }
         } 
@@ -170,7 +174,6 @@ public class CreateAccount : MonoBehaviour
         // Then disable pop-up window again: 
         popUpWindow.SetActive(false); 
     }
-
 
 
 
