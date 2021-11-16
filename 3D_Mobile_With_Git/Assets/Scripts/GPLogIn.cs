@@ -101,6 +101,9 @@ public class GPLogIn : MonoBehaviour
     // Controlling EnterPINPanel Below 
     // ____________________________________________
 
+    // So that enterPINPanel.refresh() can be called 
+    // when a user leaves enterPINPanel: 
+    public GameObject enterPINPanel; 
 
 
     // For EnterPINPanel to be visible to the user, 
@@ -118,6 +121,10 @@ public class GPLogIn : MonoBehaviour
             return; 
         } if (!isInitialGuardianLogInPanelOpen){
             openInitialGuardianLoginPanel(); 
+            // Call EnterPINPanel's .restart() method to reset 
+            // Any UI updated values to default when the user 
+            // leaves the page, as a security measure, no PIN remains: 
+            enterPINPanel.GetComponent<EnterPINPanel>().restart(); 
             return; 
         }
     }
@@ -161,10 +168,13 @@ public class GPLogIn : MonoBehaviour
         } else {
             // If the panel is open, close it: 
             closeCreateAccountPanel(); 
+            // Set back to start values so if user goes back to the CreateAccountPanel, 
+            // no remaining error messages etc remain: 
+            createAccountPanel.GetComponent<CreateAccount>().restart(); 
             // Monday - wasn't needed after all 
             // openInitialGuardianLoginPanel(); 
             return;
-        }
+        } 
     }
 
     // Used to open the createAccountPanel
@@ -208,140 +218,140 @@ public class GPLogIn : MonoBehaviour
 
 
 
-    // __________________________________________________________
+//     // __________________________________________________________
 
 
 
-    // __________________________________________________________
-    // Code written when InputField was used as opposed to keypad below 
-    // __________________________________________________________
+//     // __________________________________________________________
+//     // Code written when InputField was used as opposed to keypad below 
+//     // __________________________________________________________
 
-    private string pin; 
+//     private string pin; 
 
-    // WHere the PIN is entered: 
-    public GameObject inputField; 
+//     // WHere the PIN is entered: 
+//     public GameObject inputField; 
 
-    // The general InputField object that contains the input placeholder, and collects the user input: 
-    public InputField generalPINInputField;
-
-
-     // ***** If incorrect PIN, entered, set this to: PIN is incorrect, please try again.
-    public Text PINInputFeedback; 
+//     // The general InputField object that contains the input placeholder, and collects the user input: 
+//     public InputField generalPINInputField;
 
 
-    // To try clear the area
-    public GameObject pinPlaceholderText; 
+//      // ***** If incorrect PIN, entered, set this to: PIN is incorrect, please try again.
+//     public Text PINInputFeedback; 
 
 
-    // // Moved A COPY to EnterPINPanel.cs 
-    // // CSV should only be read from this class (GPLogin) [and create account when I get to that] 
-    HandleCSV csvHandling = new HandleCSV(); 
+//     // To try clear the area
+//     public GameObject pinPlaceholderText; 
 
 
-    // // Set character input limit in the InputFields to 4
-    // // (PIN limit is 4 characters)
-    // // Called from .Start()
-    // // and passed the relevant InputFields it applies to
-    // // (Unity default is infinite characters)
-    // public void setInputCharacterLimit(params InputField[] input){
-    //     foreach (InputField x in input){
-    //         x.characterLimit = 4; 
-    //     }
-    // }
+//     // // Moved A COPY to EnterPINPanel.cs 
+//     // // CSV should only be read from this class (GPLogin) [and create account when I get to that] 
+//     HandleCSV csvHandling = new HandleCSV(); 
 
 
-    // // WAS USED BY INPUT FIELD WHICH LATER FOUND OUT DOESN'T WORK ON iOS.........
-    // // Set the character limit for the PIN entry to be 
-    // // maximum of four at Start(): 
-    // void Start() {
-    //     // Pass InputFields to be set to max length 4: 
-    //     setInputCharacterLimit(generalPINInputField, firstPINEntry, secondPINEntry);
-  //  }
+//     // // Set character input limit in the InputFields to 4
+//     // // (PIN limit is 4 characters)
+//     // // Called from .Start()
+//     // // and passed the relevant InputFields it applies to
+//     // // (Unity default is infinite characters)
+//     // public void setInputCharacterLimit(params InputField[] input){
+//     //     foreach (InputField x in input){
+//     //         x.characterLimit = 4; 
+//     //     }
+//     // }
 
-    // // ****************************
-    // // Creating PIN area
 
-    // // 1. Need to retrieve the text from firstPINEntry and secondPINEntry 
-    // // 2. Check if they match 
-    // // 3. HASH 
-    // // 4. Pass hashed PIN to 
+//     // // WAS USED BY INPUT FIELD WHICH LATER FOUND OUT DOESN'T WORK ON iOS.........
+//     // // Set the character limit for the PIN entry to be 
+//     // // maximum of four at Start(): 
+//     // void Start() {
+//     //     // Pass InputFields to be set to max length 4: 
+//     //     setInputCharacterLimit(generalPINInputField, firstPINEntry, secondPINEntry);
+//   //  }
 
-    //  //________________________________
-    // // Called from CreateAccountPanel 
+//     // // ****************************
+//     // // Creating PIN area
 
-    // // 1st  pin entry general InputField: 
-    // public InputField firstPINEntry; 
-    // // 1st pin entry text gathered from InputField: 
-    // public GameObject firstPINEntryText; 
+//     // // 1. Need to retrieve the text from firstPINEntry and secondPINEntry 
+//     // // 2. Check if they match 
+//     // // 3. HASH 
+//     // // 4. Pass hashed PIN to 
 
-    // // 2nd pin entry general InputField: 
-    // public InputField secondPINEntry; 
-    // // 2nd pin entry text gathered from InputField: 
-    // public GameObject secondPINEntryText; 
+//     //  //________________________________
+//     // // Called from CreateAccountPanel 
+
+//     // // 1st  pin entry general InputField: 
+//     // public InputField firstPINEntry; 
+//     // // 1st pin entry text gathered from InputField: 
+//     // public GameObject firstPINEntryText; 
+
+//     // // 2nd pin entry general InputField: 
+//     // public InputField secondPINEntry; 
+//     // // 2nd pin entry text gathered from InputField: 
+//     // public GameObject secondPINEntryText; 
     
-    // // Text to display any error messages to the user 
-    // public Text pinInputErrorText; 
+//     // // Text to display any error messages to the user 
+//     // public Text pinInputErrorText; 
 
 
-    // // when "CreateAccount" button is pressed 
+//     // // when "CreateAccount" button is pressed 
 
-    // // 1. Get the two entered strings 
-    // // 2. check if they match
-    // // 3. check they are length 4 (4 digits are required) 
-    // // 4. hash the PIN if it meets requirements 
+//     // // 1. Get the two entered strings 
+//     // // 2. check if they match
+//     // // 3. check they are length 4 (4 digits are required) 
+//     // // 4. hash the PIN if it meets requirements 
 
-    // // 1. Get the two entered strings: 
-    // public void createAccountButtonPressed (){ 
-    //     // Collect 1st PIN:
-    //     string entryOne = firstPINEntryText.GetComponent<Text>().text; 
-    //     // Reset 1st InputField to be clear again so that it dynamically updates for user
-    //     firstPINEntry.text = "";  
-    //     // Collect 2nd PIN: 
-    //     string entryTwo = secondPINEntryText.GetComponent<Text>().text; 
-    //     // Reset 2nd InputField to be clear again so that it dynamically updates for user
-    //     secondPINEntry.text = ""; 
-    // // 2. Check if they match 
-    //     if (entryOne.Equals(entryTwo)){
-    //         Debug.Log("Yes");
-    //     } else {
-    //         Debug.Log("No");
-    //         // Display error to the user: 
-    //         pinInputErrorText.text = "PINs do not match, please try again.";
-    //         return; 
-    //     }
-    // // 3. If they match, check the PIN is 4 digits as requested to the user: 
-    //     if (entryOne.Length == 4){
-    //         Debug.Log("Correct Length");
-    //     } else {
-    //         Debug.Log("Wrong length");
-    //          // Display error to the user: 
-    //         pinInputErrorText.text = "Incorrect PIN length - PIN should be 4 digits, please try again.";
-    //         return; 
-    //     }
-    //     if (entryOne.Length == 4 && entryTwo.Length == 4 && entryOne.Equals(entryTwo)){
-    //         // Getting here means user satisfied the requirements, update text accordingly 
-    //         // Change from red text to green (to show it's not an error): 
-    //         pinInputErrorText.GetComponent<Text>().color = Color.green; 
-    //         // Update message to show it was successful: 
-    //         pinInputErrorText.text = "PIN entered successfully, please wait ...";
-    //                         // ^^^^^^ Need to do something here ... new panel or something 
-    //     }
-    // // Get to here means: PINs match, PINs are the correct length. 
-    // // 4. Hash the PIN to be stored securely in the CSV (hashing firstPin but doesn't matter, if 
-    // // Get to here, entryOne and entryTwo are the same)
-    //     string firstHash = HashClass.toSHA256(entryOne); 
-    // // 5. Now, with this information, an entry can be added the the .csv file
-    // // 6. Create a new CSVInfo object using the hash 
-    //     CSVInfo newCSVEntry = new CSVInfo(firstHash); 
-    // // 7. Append to .csv file stored locally in the Unity project: 
-    //     csvHandling.appendToCSV(newCSVEntry); 
-    // }
+//     // // 1. Get the two entered strings: 
+//     // public void createAccountButtonPressed (){ 
+//     //     // Collect 1st PIN:
+//     //     string entryOne = firstPINEntryText.GetComponent<Text>().text; 
+//     //     // Reset 1st InputField to be clear again so that it dynamically updates for user
+//     //     firstPINEntry.text = "";  
+//     //     // Collect 2nd PIN: 
+//     //     string entryTwo = secondPINEntryText.GetComponent<Text>().text; 
+//     //     // Reset 2nd InputField to be clear again so that it dynamically updates for user
+//     //     secondPINEntry.text = ""; 
+//     // // 2. Check if they match 
+//     //     if (entryOne.Equals(entryTwo)){
+//     //         Debug.Log("Yes");
+//     //     } else {
+//     //         Debug.Log("No");
+//     //         // Display error to the user: 
+//     //         pinInputErrorText.text = "PINs do not match, please try again.";
+//     //         return; 
+//     //     }
+//     // // 3. If they match, check the PIN is 4 digits as requested to the user: 
+//     //     if (entryOne.Length == 4){
+//     //         Debug.Log("Correct Length");
+//     //     } else {
+//     //         Debug.Log("Wrong length");
+//     //          // Display error to the user: 
+//     //         pinInputErrorText.text = "Incorrect PIN length - PIN should be 4 digits, please try again.";
+//     //         return; 
+//     //     }
+//     //     if (entryOne.Length == 4 && entryTwo.Length == 4 && entryOne.Equals(entryTwo)){
+//     //         // Getting here means user satisfied the requirements, update text accordingly 
+//     //         // Change from red text to green (to show it's not an error): 
+//     //         pinInputErrorText.GetComponent<Text>().color = Color.green; 
+//     //         // Update message to show it was successful: 
+//     //         pinInputErrorText.text = "PIN entered successfully, please wait ...";
+//     //                         // ^^^^^^ Need to do something here ... new panel or something 
+//     //     }
+//     // // Get to here means: PINs match, PINs are the correct length. 
+//     // // 4. Hash the PIN to be stored securely in the CSV (hashing firstPin but doesn't matter, if 
+//     // // Get to here, entryOne and entryTwo are the same)
+//     //     string firstHash = HashClass.toSHA256(entryOne); 
+//     // // 5. Now, with this information, an entry can be added the the .csv file
+//     // // 6. Create a new CSVInfo object using the hash 
+//     //     CSVInfo newCSVEntry = new CSVInfo(firstHash); 
+//     // // 7. Append to .csv file stored locally in the Unity project: 
+//     //     csvHandling.appendToCSV(newCSVEntry); 
+//     // }
 
 
 
-    // __________________________________________________________
-    // Code written when InputField was used as opposed to keypad ^^^^ 
-    // __________________________________________________________
+//     // __________________________________________________________
+//     // Code written when InputField was used as opposed to keypad ^^^^ 
+//     // __________________________________________________________
 
 
 

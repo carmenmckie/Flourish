@@ -79,9 +79,15 @@ public class KeyPad : MonoBehaviour
         return extractedPin; 
     }
     
+
     // Called when user presses the "Undo" button 
     // (To delete the last entered digit) 
     public void undoLastDigit(){ 
+        // If the digitsEnteredCounter has got to 0, don't 
+        // decrease it anymore to avoid IndexOutOfRangeException
+        if (digitsEnteredCounter <= 0){
+            return; 
+        }
         // Decrement counter by 2 to access the last entered digit 
         digitsEnteredCounter -= 2; 
         // Access the element in the array and change it back to a '-' 

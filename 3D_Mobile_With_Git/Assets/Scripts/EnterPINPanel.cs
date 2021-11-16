@@ -259,14 +259,8 @@ public class EnterPINPanel : MonoBehaviour
 
     
    private void Start() {
-        // At the start of the script, fill enteredDigits
-        // with a string array 
-        // So that it looks like - - - - 
-        // Until the user enters their digits 
-       keypadRef.setDigitsEntered(); 
-       // Initially, pinFeedback is set to display nothing (""), 
-       // Only update with errors when applicable from .displayPINError()
-       keypadRef.pinFeedback.text = ""; 
+       // Method called to reset all values: 
+       restart(); 
        // Work-around for the fact that .FindGameObjectsWithTag() does not 
        // work with inactive game objects. 
        // So, find the "Timer" object, then instantly make it inactive 
@@ -276,6 +270,27 @@ public class EnterPINPanel : MonoBehaviour
        // a bool that then has a sequence of events in .Update() 
        testTimer = GameObject.FindGameObjectWithTag("Timer"); 
        testTimer.SetActive(false); 
+
+   }
+
+    // Method to be called when this script is first loaded
+    // And also if the user ever leaves the page, and comes back. 
+    // * Security measure: if a PIN was not fully entered, erase it 
+    //      So someone else viewing this page doesn't see the incomplete
+    //      pin previously entered (security issue)
+    // * Usability measure: if an error message was displayed, erase it 
+    //      so that if the user comes back, the error isn't still displayed
+    //      as this could confuse the user. 
+   public void restart(){
+        // At the start of the script, (and if EnterPINPanel
+        // is entered again), fill enteredDigits
+        // with a string array 
+        // So that it looks like - - - - 
+        // Until the user enters their digits 
+       keypadRef.setDigitsEntered(); 
+       // Initially, pinFeedback is set to display nothing (""), 
+       // Only update with errors when applicable from .displayPINError()
+       keypadRef.pinFeedback.text = ""; 
 
    }
 }
@@ -356,21 +371,21 @@ public class EnterPINPanel : MonoBehaviour
 
 
 
-//     // Called when user presses the "Undo" button 
-//     // (To delete the last entered digit) 
-//     public void undoLastDigit(){ 
-//         // If the digitsEnteredCounter has got to 0, don't 
-//         // decrease it anymore to avoid IndexOutOfRangeException
-//         if (digitsEnteredCounter <= 0){
-//             return; 
-//         }
-//         // Decrement counter by 2 to access the last entered digit 
-//         digitsEnteredCounter -= 2; 
-//         // Access the element in the array and change it back to a '-' 
-//         digitsEntered[digitsEnteredCounter] = "-"; 
-//         // Update changes on UI 
-//         enteredDigits.text = arrayToString(digitsEntered);
-//     }
+    // // Called when user presses the "Undo" button 
+    // // (To delete the last entered digit) 
+    // public void undoLastDigit(){ 
+    //     // If the digitsEnteredCounter has got to 0, don't 
+    //     // decrease it anymore to avoid IndexOutOfRangeException
+    //     if (digitsEnteredCounter <= 0){
+    //         return; 
+    //     }
+    //     // Decrement counter by 2 to access the last entered digit 
+    //     digitsEnteredCounter -= 2; 
+    //     // Access the element in the array and change it back to a '-' 
+    //     digitsEntered[digitsEnteredCounter] = "-"; 
+    //     // Update changes on UI 
+    //     enteredDigits.text = arrayToString(digitsEntered);
+    // }
 
 
  

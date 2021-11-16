@@ -73,6 +73,11 @@ public class CreateAccount : MonoBehaviour
     // need reset so that the user can begin creating a PIN from start again
     public void restart(){
         if(!firstPINSubmitted){
+            // At the start of the script, fill enteredDigits
+            // with a string array 
+            // So that it looks like - - - - 
+            // Until the user enters their digits 
+            createAccountKeypadRef.setDigitsEntered(); 
             pinInstructions.text = "Please enter your chosen PIN"; 
             // Reset bools
             firstPINSubmitted = false; 
@@ -171,12 +176,7 @@ public class CreateAccount : MonoBehaviour
 
     // .Start() method to run when this script is first loaded: 
     private void Start() {
-            restart(); 
-            // At the start of the script, fill enteredDigits
-            // with a string array 
-            // So that it looks like - - - - 
-            // Until the user enters their digits 
-        createAccountKeypadRef.setDigitsEntered(); 
+        restart(); 
         // Make sure firstEnteredPIN and secondEnteredPIN are null 
         // to begin with, e.g. doesn't remember a PIN 
         // previously entered, for security reasons
@@ -206,12 +206,3 @@ public class CreateAccount : MonoBehaviour
         // pinInstructions.text = "PIN successfully saved. Please go back and choose the option to login.";
     }
 }
-
-
-
-
-
-
-
-
-

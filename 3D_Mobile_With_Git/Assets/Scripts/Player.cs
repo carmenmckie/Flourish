@@ -37,8 +37,8 @@ public class Player : MonoBehaviour {
 
     // .Update() method will detect when the starGoal has been reached 
     private void Update() {
-        Debug.Log("Number of stars = " + numberOfStars);
-        Debug.Log("TargetStars =  " + targetStars); 
+        // Debug.Log("Number of stars = " + numberOfStars);
+        // Debug.Log("TargetStars =  " + targetStars); 
         if ((numberOfStars == targetStars) && (goalSet = true)){
             Debug.Log("STAR GOAL REACHED!");
             goalAchieved = true; 
