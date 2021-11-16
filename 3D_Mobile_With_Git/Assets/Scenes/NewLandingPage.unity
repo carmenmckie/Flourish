@@ -1593,6 +1593,7 @@ GameObject:
   - component: {fileID: 115377194}
   - component: {fileID: 115377196}
   - component: {fileID: 115377195}
+  - component: {fileID: 115377197}
   m_Layer: 5
   m_Name: KeypadBackground
   m_TagString: Untagged
@@ -1670,6 +1671,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115377193}
   m_CullTransparentMesh: 1
+--- !u!114 &115377197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115377193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606472b341aec4ba18318fed314598e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button1: {fileID: 893991937}
+  button2: {fileID: 308042133}
+  button3: {fileID: 1857591313}
+  button4: {fileID: 1461913803}
+  button5: {fileID: 1173182574}
+  button6: {fileID: 2045897927}
+  button7: {fileID: 1972009466}
+  button8: {fileID: 507253733}
+  button9: {fileID: 594082540}
+  button0: {fileID: 1030087823}
+  enteredDigits: {fileID: 1453074447}
+  digitsEnteredCounter: 0
+  pinFeedback: {fileID: 1083392461}
 --- !u!1 &128023669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,8 +2550,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -2716,8 +2742,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -4514,7 +4540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00048828125, y: 0}
+  m_AnchoredPosition: {x: 10.817017, y: 25}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &434830763
@@ -5081,8 +5107,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -5487,8 +5513,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -6528,8 +6554,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -6928,7 +6954,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 16.354, y: -25}
+  m_AnchoredPosition: {x: -1.081604, y: 0}
   m_SizeDelta: {x: 32.707, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &611802000
@@ -6981,21 +7007,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f637d52ec7f8f487f883f617f1db409c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button1: {fileID: 1110655216}
-  button2: {fileID: 465875480}
-  button3: {fileID: 1339952253}
-  button4: {fileID: 1872608625}
-  button5: {fileID: 254109659}
-  button6: {fileID: 1760370344}
-  button7: {fileID: 1943739627}
-  button8: {fileID: 1349610963}
-  button9: {fileID: 844444149}
-  button0: {fileID: 988843506}
-  enteredDigits: {fileID: 535762030}
-  pinFeedback: {fileID: 2145937403}
   pinInstructions: {fileID: 108987069}
   keypadBackground: {fileID: 1940227526}
   popUpWindow: {fileID: 1431046343}
+  createAccountKeypadRef: {fileID: 1940227530}
 --- !u!1 &617899322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8683,8 +8698,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: undoLastDigit
         m_Mode: 1
         m_Arguments:
@@ -8893,7 +8908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.536377, y: 0}
+  m_AnchoredPosition: {x: 3.373291, y: 0}
   m_SizeDelta: {x: 32.7061, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &785099882
@@ -8908,20 +8923,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ae7414d0aa4f6bb4f532d548130d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button1: {fileID: 893991937}
-  button2: {fileID: 308042133}
-  button3: {fileID: 1857591313}
-  button4: {fileID: 1461913803}
-  button5: {fileID: 1173182574}
-  button6: {fileID: 2045897927}
-  button7: {fileID: 1972009466}
-  button8: {fileID: 507253733}
-  button9: {fileID: 594082540}
-  button0: {fileID: 1030087823}
-  enteredDigits: {fileID: 1453074447}
-  pinFeedback: {fileID: 1083392461}
   successfulLoginPanel: {fileID: 996803480}
   successfulPanelTestCalledFromEnterPin: {fileID: 996803480}
+  keypadRef: {fileID: 115377197}
   countdownTimer: {fileID: 912142318}
   keypadBackground: {fileID: 115377193}
 --- !u!114 &785099883
@@ -9440,8 +9444,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -9758,8 +9762,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -11160,8 +11164,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -12095,8 +12099,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -12652,8 +12656,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -12919,8 +12923,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -13379,20 +13383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ae7414d0aa4f6bb4f532d548130d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button1: {fileID: 0}
-  button2: {fileID: 0}
-  button3: {fileID: 0}
-  button4: {fileID: 0}
-  button5: {fileID: 0}
-  button6: {fileID: 0}
-  button7: {fileID: 0}
-  button8: {fileID: 0}
-  button9: {fileID: 0}
-  button0: {fileID: 0}
-  enteredDigits: {fileID: 0}
-  pinFeedback: {fileID: 0}
   successfulLoginPanel: {fileID: 996803480}
   successfulPanelTestCalledFromEnterPin: {fileID: 0}
+  keypadRef: {fileID: 0}
   countdownTimer: {fileID: 332484433}
   keypadBackground: {fileID: 932538133}
 --- !u!1 &1280902640
@@ -14133,8 +14126,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -14266,8 +14259,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -15323,8 +15316,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -16756,8 +16749,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: undoLastDigit
         m_Mode: 1
         m_Arguments:
@@ -17552,8 +17545,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -18434,8 +18427,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -18670,8 +18663,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -19477,6 +19470,7 @@ GameObject:
   - component: {fileID: 1940227527}
   - component: {fileID: 1940227529}
   - component: {fileID: 1940227528}
+  - component: {fileID: 1940227530}
   m_Layer: 5
   m_Name: KeypadBackground
   m_TagString: Untagged
@@ -19556,6 +19550,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940227526}
   m_CullTransparentMesh: 1
+--- !u!114 &1940227530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940227526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606472b341aec4ba18318fed314598e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button1: {fileID: 1110655216}
+  button2: {fileID: 465875480}
+  button3: {fileID: 1339952253}
+  button4: {fileID: 1872608625}
+  button5: {fileID: 254109659}
+  button6: {fileID: 1760370344}
+  button7: {fileID: 1943739627}
+  button8: {fileID: 1349610963}
+  button9: {fileID: 844444149}
+  button0: {fileID: 988843506}
+  enteredDigits: {fileID: 535762030}
+  digitsEnteredCounter: 0
+  pinFeedback: {fileID: 2145937403}
 --- !u!1 &1943739625
 GameObject:
   m_ObjectHideFlags: 0
@@ -19639,8 +19658,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611802002}
-        m_TargetAssemblyTypeName: CreateAccount, Assembly-CSharp
+      - m_Target: {fileID: 1940227530}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -19984,8 +20003,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:
@@ -20774,8 +20793,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 785099882}
-        m_TargetAssemblyTypeName: EnterPINPanel, Assembly-CSharp
+      - m_Target: {fileID: 115377197}
+        m_TargetAssemblyTypeName: KeyPad, Assembly-CSharp
         m_MethodName: controlButtonPress
         m_Mode: 2
         m_Arguments:

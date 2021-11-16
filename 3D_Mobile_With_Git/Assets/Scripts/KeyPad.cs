@@ -7,6 +7,7 @@ using UnityEngine.UI;
 // Class used to create a keypad object
 // This is to have re-usable code, because 
 // a Keypad is needed in EnterPINPanel.cs and CreateAccount.cs 
+// This avoids code reptition and makes reusable / maintainable code. 
 public class KeyPad : MonoBehaviour
 {
 
@@ -27,7 +28,7 @@ public class KeyPad : MonoBehaviour
     // The digits they have entered 
     public Text enteredDigits; 
 
-    // 7 digits MAX so length six 
+    // 7 digits MAX:
     private string[] digitsEntered = new string[7];
     // Make private again when everything working: 
     public int digitsEnteredCounter = 0; 
@@ -35,25 +36,10 @@ public class KeyPad : MonoBehaviour
     // Used to display feedback to the user (whether their pin is correct / incorrect): 
     public Text pinFeedback; 
 
-    // Reference to GPLogin so that GPLogin.loginCheck() can be used
 
 
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-    // ********* Attach to buttons when ready 
+    
     // Attached as an onClick method for the keypad buttons: 
     public void controlButtonPress(Button buttonPressed){
         // Pass to kepadButtonPressed which returns the String 
@@ -67,7 +53,9 @@ public class KeyPad : MonoBehaviour
          enteredDigits.text = arrayToString(digitsEntered); 
     }
 
-       // Method used to extract the entered values from the PIN 
+
+
+    // Method used to extract the entered values from the PIN 
     // E.g. '2-3-4-2', this will return '2342' which is then passed
     // to HashClass.toSHA256() to return the hashed string value, and
     // then this is passed to GPLogin.loginCheck() to check if this
@@ -91,7 +79,7 @@ public class KeyPad : MonoBehaviour
         return extractedPin; 
     }
     
- // Called when user presses the "Undo" button 
+    // Called when user presses the "Undo" button 
     // (To delete the last entered digit) 
     public void undoLastDigit(){ 
         // Decrement counter by 2 to access the last entered digit 
@@ -103,6 +91,8 @@ public class KeyPad : MonoBehaviour
     }
 
 
+    // Update the digits displayed to the user 
+    // Based on what they have entered: 
     public void updateDigitsEntered(string value){
         // If 4 digits have already been entered 
         // Tell user their PIN is already required length
@@ -142,7 +132,6 @@ public class KeyPad : MonoBehaviour
 
 
 
-
     // Method to convert a string[] to a single string to be displayed on the UI 
     public string arrayToString(string[] array){
         string value = ""; 
@@ -151,8 +140,6 @@ public class KeyPad : MonoBehaviour
         }
         return value; 
     }
-
-
 
 
 
