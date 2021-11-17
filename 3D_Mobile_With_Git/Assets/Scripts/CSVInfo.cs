@@ -56,6 +56,49 @@ public class CSVInfo {
     }
 
         // toString method needed? 
+
+
+    // // Method to print a CSVInfo object's date 
+    // public string returnCSVDate(){
+    //         return this.date_created; 
+    // }
+
+
+
+
+
+     // Method to return the last CSVInfo's date from a List<CSVInfo>: 
+     // Called from ForgottenPIN.cs to update user on when their pin was last changed
+    public static string returnLastDate(List<CSVInfo> list){
+        // 1. Get how many elements are in the list 
+        int length = list.Count; 
+        if (length -1 <= 0){
+            Debug.Log("Count is <= 0");
+            return null; 
+        }
+        // 2. Find the last element based of this: 
+        // And get the last element's date
+        // (length - 1 because index will start at 0)
+        // count will be one greater than largest index: 
+        string lastDate = list[length - 1].date_created;
+        // 3. Return this date: 
+        return lastDate; 
+    }
+
+
+
+    // * Didn't work because there is no instantiated csvInfo object in ForgottenPIN 
+    // // Method to return string of dates 
+    // public string returnCSVDates(List<CSVInfo> list){
+    //     String result = ""; 
+    //     foreach (CSVInfo x in list)
+    //     {
+    //         result += x.date_created + " "; 
+    //     }
+    //     return result; 
+    // }
+
+
 }
 
 

@@ -197,7 +197,81 @@ public class GPLogIn : MonoBehaviour
     // ____________________________________________ 
 
 
+
+
+
+    // ____________________________________________
+    // Controlling ForgottenPINPanel Below  
+    // ____________________________________________
  
+    // Requirements for ForgottenPINPanel to be visible 
+    //      Due to the Unity hierarchy: 
+    // 1. Close InitialGuardianLogin
+    // 2. Open ForgottenPINPanel 
+
+    public GameObject forgottenPINPanel; 
+    // By default, forgottenPINPanel is not open until 
+    // User clicks "Forgotten PIN": 
+    private bool forgottenPINPanelOpen = false; 
+
+    private void openForgottenPINPanel(){
+        forgottenPINPanel.SetActive(true); 
+        forgottenPINPanelOpen = true; 
+    }
+
+    private void closeForgottenPINPanel(){
+        forgottenPINPanel.SetActive(false); 
+        forgottenPINPanelOpen = false; 
+    }
+
+    // Method used as an onClick() event to 
+    // Open 'ForgottenPINPanel': 
+    public void controlForgottenPINPanel(){
+        // If ForgottenPINPanel is not open, open it: 
+        if (!forgottenPINPanelOpen){
+            openForgottenPINPanel(); 
+            return;
+        // If ForgottenPINPanel IS open, close it: 
+        } else {
+            closeForgottenPINPanel(); 
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ____________________________________________
+    // Controlling ForgottenPINPanel Above ^   
+    // ____________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

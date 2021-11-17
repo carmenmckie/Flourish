@@ -75,7 +75,7 @@ public class HandleCSV : MonoBehaviour
             string[] row = csvData[i].Split(new char[] { ',' } );
 
             // This showed it was 4 which is correct 
-            Debug.Log("**** " + csvData.Length);
+            Debug.Log("**** Called from Handle.CSV - csvData.length: " + csvData.Length);
 
             // If the number of items on the row is correct, then proceed: 
             // (This will help if the CSV file is developed further with a database, ensuring 
@@ -127,6 +127,11 @@ public class HandleCSV : MonoBehaviour
         File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newCSVEntry.pin},{newCSVEntry.date_created}");
     }
 
+
+// Testing 
+private void Update() {
+    Debug.Log("Called from HandleCSV.cs = currentCSV = " + currentCSV.Count); 
+}
 
 
 // Above is original 

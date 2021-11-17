@@ -36,7 +36,7 @@ public class EnterPINPanel : MonoBehaviour
     // public Text pinFeedback; 
 
     // Reference to GPLogin so that GPLogin.loginCheck() can be used
-    GPLogIn loginSystem = new GPLogIn(); 
+    // GPLogIn loginSystem = new GPLogIn(); 
 
     // At the start of the program, user has 5 chances to guess the PIN. Set to 4 
     // Because it is first displayed as "you have 4 logins left..."  
@@ -45,7 +45,7 @@ public class EnterPINPanel : MonoBehaviour
 
 
     // CSV read to check if hash matches the hash in the CSV 
-    HandleCSV csvHandling = new HandleCSV(); 
+    // HandleCSV csvHandling = new HandleCSV(); 
 
     // Reference to the SuccessfulLoginPanel object so that it can be opened
     // If PIN entered successfully 

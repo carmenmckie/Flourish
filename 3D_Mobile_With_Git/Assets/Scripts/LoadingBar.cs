@@ -43,9 +43,6 @@ public class LoadingBar : MonoBehaviour {
     IEnumerator LoadAsynchronously(string sceneName){
       // While loading, activate loadingScreen: 
        loadingScreen.SetActive(true); 
-       // Needs to be here to display stars in time: 
-       // From LevelCompleteAnimation.cs
-      yield return new WaitForSeconds(2f); 
        // The other Unity method 'SceneManager.LoadScene()' pauses
        // The entire game while loading a new scene. 
        // '.LoadSceneAsync' loads the scene asynchronously in 
@@ -73,8 +70,3 @@ public class LoadingBar : MonoBehaviour {
     }
 
 }
-
-
-
-
-
