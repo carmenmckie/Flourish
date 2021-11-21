@@ -3,7 +3,6 @@
 // i.e. not greyed over, not kinematic
 
 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +29,6 @@ public class Port : MonoBehaviour
     // Made static so that portInstructionsText could use it 
      private static int turnRound = 1; 
 
-    // **** Same thing done in Settings.cs 
     // ***? Does it have to be static? 
     // The text that will be updated by user input and then used to set the 'Text portInstructions'. 
     // It's static so it saves between scenes Based on the user's input. 
@@ -94,7 +92,7 @@ public class Port : MonoBehaviour
         // Set the UI element 'portInstructions' (Text object) to the String in portInstructionsText: 
         portInstructions.text = portInstructionsText;
         gameComplete = false; 
-        // Weds 
+        // To begin with, starAdded is false (set to true when player completes game and wins a star)
         starAdded = false; 
     }
 
@@ -145,10 +143,6 @@ public class Port : MonoBehaviour
          if (currentIndexOfGame >= namesOfObjects.Length){
              portInstructionsTextBanner.gameObject.SetActive(false); 
                 portInstructionsText = "";
-                // Deactivate the text banner as there are no more instructions: 
-                //  portInstructionsTextBanner.enabled = false;                      
-
-                                // portInstructionsText = "Well done, the game is already finished!";
                 return; 
         }
         // Get here if the game is not finished yet AND
@@ -179,10 +173,7 @@ public class Port : MonoBehaviour
                 gameComplete = true; 
                 // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 
                 // play if the user has turned off sound effects in Settings)
-                soundEffectsRef.playGameFinishedSound();
-                                    // portInstructionsText = "Yay you did it! The game is finished!";
-                                            //  // Deactivate the text banner as there are no more instructions: 
-                                            // portInstructionsTextBanner.enabled = false;                      
+                soundEffectsRef.playGameFinishedSound();                
                 portInstructionsText = ""; 
                 return; 
             }
@@ -206,10 +197,7 @@ public class Port : MonoBehaviour
                     currentIndexOfGame++;
                     gameComplete = true; 
                     // Update the user that the game is finished 
-                                    // portInstructionsText = "Well done! The game is finished";
-                    portInstructionsText = "";
-                                    // // Deactivate the text banner as there are no more instructions: 
-                                    // portInstructionsTextBanner.enabled = false;                      
+                    portInstructionsText = "";                 
                     // Call SoundEffects.playGameFinishedSound to play the relevant sound effect (it won't 
                     // play if the user has turned off sound effects in Settings)
                     soundEffectsRef.playGameFinishedSound();

@@ -7,17 +7,13 @@ using UnityEngine;
 // [System.Serializable] = means it can be saved in a file 
 [System.Serializable]
 public class PlayerData {
-    public int numberOfStars; 
-    // public int numberOfTrophies; 
-
-    public int level; 
+    public int numberOfStars;  
 
 
     // Take data from Player object 
     // And store it in the variables of PlayerData 
     public PlayerData(Player player){
         numberOfStars = player.numberOfStars; 
-        // numberOfTrophies = player.numberOfTrophies;
     }
 }
 

@@ -25,6 +25,5 @@ public static class HashClass {
         }
         return stringBuilder.ToString(); 
     }
-
     
 }

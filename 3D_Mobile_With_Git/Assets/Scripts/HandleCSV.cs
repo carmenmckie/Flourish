@@ -5,23 +5,22 @@ using UnityEngine;
 using System.IO; 
 
 
-// Class to load PGInfo.csv (which will contain the parental / guardian info to adjust 
+// Class to load PGInfo.csv (which contains the parental / guardian login info to adjust 
 // user settings and set goals for stars)
 public class HandleCSV : MonoBehaviour
 {
 
-    // Could be made non public with getter 
+//? Could be made non public with getter 
     public static List<CSVInfo> currentCSV = new List<CSVInfo>(); 
     // To keep track of how many lines are in the CSV file 
     // There should only be max 2
-    // (1st line on .csv is not added to List - data columns / human readible info)
-    // 2nd = PIN for testing purposes (1111) (wouldn't be there in a real life app) 
-    // 3rd = PIN set by the user <-- this is the one rewritten if the user forgets their PIN 
+    // (1st line on .csv is NOT ADDED to List - it's data columns / human readible info)
+    // 2nd line = PIN for testing purposes (1111) (wouldn't be there in a real life app) 
+    // 3rd line = PIN set by the user <-- this is the one rewritten if the user forgets their PIN 
 // ? Does it need to be static? 
     public static int csvLineCounter = 0; 
-    // Can reference PGInfo.csv as a TextAsset: 
-    // "pgInfo" will be how Unity will now reference the information 
-    // contained in PGInfo.csv 
+    // Can reference PGInfo.csv as a TextAsset: "pgInfo" will be how Unity will now reference the information 
+    // contained in PGInfo.csv: 
     TextAsset pgInfo; 
 
     private void Start() {
@@ -36,20 +35,19 @@ public class HandleCSV : MonoBehaviour
         currentCSV.AddRange(readCSV(1)); 
     }
 
-    // Method to fill the internal memory collection (currentCSV) with contents from the
-    // .csv file; 
+    // Method to fill the internal memory collection (currentCSV) with contents from the .csv file; 
     public List<CSVInfo> readCSV(int indexToReadFrom){ 
         // List to be filled with the information from the .csv file: 
          List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
         // Upon Start, initialize pgInfo to be from PGInfo.csv
         // Location is: /Assets/Resources/CSVResources/PGInfo.csv 
         // Resources.Load assumes location is within /Assets/Resources/... 
-        // So just add the last half pf the extension 
+        // So just add the last half pf the extension:
         pgInfo = Resources.Load<TextAsset>("CSVResources/PGInfo");                                    
         // TextAsset class automatically loads the text from the .csv file 
         // into this TextAsset object 'pgInfo.text'.
         // Each line on CSV = new entry 
-        // First row on CSV can be ignored as it's human information (columns headers)
+        // First row on CSV can be ignored as it's human information (column headers)
         // To split this data, use an array 
         // Splitting on newline: 
         // Creates an array of the elements from the .csv 
@@ -94,8 +92,8 @@ public class HandleCSV : MonoBehaviour
     // Called from CaptchaPanel.cs when a user 
     // wants to reset their PIN. 
     // What it does is create a temporary .csv file 
-    // With the contents of the original .csv file (MINUS THE PIN 
-    // BEING RESET), and then 
+    // With the contents of the original .csv file (minus the PIN 
+    // being reset), and then 
     // replace the old CSV file with this new updated 
     // CSV file. The internal memory collection List<CSVInfo> currentCSV
     // Which other classes access as a copy of the .csv file contents

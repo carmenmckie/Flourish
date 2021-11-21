@@ -11,50 +11,29 @@ using UnityEngine.UI;
 // 1. Load the four objects (watering can, soil, seed, plant pot) in 
 // random order each time the game is loaded (so that there's variation 
 // for the user))
-// ***? Make singleton
 public class GameObjectsManager : MonoBehaviour
 {
-
     // The arrow in the game pointing from the target object to the Port: 
     public Transform arrowBackground; 
-    // Port: the area each object is to be dragged to 
-
-    // ********
     public Transform arrow; 
-    // Testing ... add arrow as well ^ MOnday 1 Nov 
+    // Port = target area for the user to drag the object to: 
     public Port objective; 
-
-   private int numberOfGardenObjects; 
-
+    
     // ***? Does it have to be static 
-   private static GameObject[] gardenObjectsInScene = new GameObject[4]; 
+    private static GameObject[] gardenObjectsInScene = new GameObject[4]; 
 
     // ***? Does it have to be static 
     static List<Vector3> gardenObjectsPositions;
 
-    // // Co-Routine to deactivate arrow
-    // // Has to be a co-routine because a delay of 1 second looks better 
-    // // than the object instantly disappearing: 
-    // private IEnumerator deActivateArrow() {
-    //     // yield return new WaitForSeconds(1); decided to make it instantly disappear instead 
-    //     arrowBackground.gameObject.SetActive(false);
-    // }
-
-    // Now a normal method not a co-routine, otherwise displaying stars took too long
+    // Method to deactivate the arrow when the game is complete - no more objects to be dragged 
     public void deActivateArrow(){ 
         arrowBackground.gameObject.SetActive(false); 
     }
 
-
-
-
-
-
-
-      // Getter 
-   public GameObject[] getGardenObjectsInScene(){
-       return gardenObjectsInScene; 
-   }
+    // Getter 
+    public GameObject[] getGardenObjectsInScene(){
+        return gardenObjectsInScene; 
+    }
 
 
 
@@ -65,10 +44,9 @@ public class GameObjectsManager : MonoBehaviour
         // So it's clear the user doesn't have to drag anything else 
         if (currentTargetObject == gardenObjectsInScene.Length){
             deActivateArrow(); 
-            // StartCoroutine(deActivateArrow()); // Tuesday - decided to make it non coroutine 
             return;
         }
-        // If the object has already been deleted, don't access it again 
+        // If the object has already been Destroyed (due to being successfully dragged to Port) don't access it again 
         if (gardenObjectsInScene[currentTargetObject] == null){
             return; 
         }
@@ -77,43 +55,35 @@ public class GameObjectsManager : MonoBehaviour
         // This is to help guide the user 
         Vector3 direction = gardenObjectsInScene[currentTargetObject].transform.position; 
         float a = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg; 
-        // a += 180; 
-        // Changed when a different arrow sprite was used (it default faced up, not down, so needs 
-        // turned 90 on the Z axis ) 
+        // Due to the arrow sprite facing a different direction, change 90 on z axis 
         a += 90; 
         arrowBackground.transform.localEulerAngles = new Vector3(0,0,a); 
-
-
-      // Monday - Slightly Changing Arrow's Direction Based off Target Object 
+        // Changing Arrow's Direction Based off Target Object to Guide User 
         // Get index position of the current target object: 
         int index = objective.getCurrentIndexOfGame(); 
         // Access this element in the array to get position information about it: 
+        // (If the object has been destroyed (already dragged to target), then skip): 
         if (gardenObjectsInScene[index] == null){
             return; 
         }
         float targetXpos = gardenObjectsInScene[index].transform.position.x; 
         float targetYpos = gardenObjectsInScene[index].transform.position.y; 
-        // Update arrows position based off this: 
-        // arrow.localPosition = new Vector3(targetXpos, targetYpos, -20); 
-        // arrowBackground.localPosition = new Vector3(targetXpos, targetYpos, -20);
+        // Update arrows position based off this to guide user what object to drag: 
         arrow.localPosition = new Vector3(targetXpos, targetYpos, -20); 
         arrowBackground.localPosition = new Vector3(targetXpos, targetYpos, -20);  
-        // Monday - Slightly Changing Arrow's Direction Based off Target Object 
     }
 
 
    void Start(){
-     // Store references to the objects in the scene in a GameObject[] 
-     // ***? Search GardenObject type rather than manually checking tags? 
+        // Store references to the objects in the scene in a GameObject[] 
+// ***? Search GardenObject type rather than manually checking tags? 
         gardenObjectsInScene[0] = GameObject.FindGameObjectWithTag("Plant Pot");
         gardenObjectsInScene[1] = GameObject.FindGameObjectWithTag("Soil"); 
         gardenObjectsInScene[2] = GameObject.FindGameObjectWithTag("Seed"); 
         gardenObjectsInScene[3] = GameObject.FindGameObjectWithTag("Watering Can"); 
-        // int to hold the number of objects in the array: 
-        numberOfGardenObjects = gardenObjectsInScene.Length;
-       // Randomise the positions so each time the game is loaded, the objects move
-       // To make it interesting for the player: 
-       randomiseGardenObjectPositions(); 
+        // Randomise the positions so each time the game is loaded, the objects move
+        // To make it interesting for the player: 
+        randomiseGardenObjectPositions(); 
    }
 
 
@@ -145,8 +115,7 @@ public class GameObjectsManager : MonoBehaviour
     // Method to Shuffle a List<> 
    public static void Shuffle<T>(IList<T> list){
        int listCount = list.Count; 
-       // ***?Don't shuffle if there's 1 thing left 
-       // List has already been shuffled 
+       // Don't shuffle if there's 1 thing left - nothing left to shuffle 
        while (listCount > 1){
            listCount--; 
            // Range between 0 and listCount 

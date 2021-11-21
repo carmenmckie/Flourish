@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class CreateAccount : MonoBehaviour
 {
 
-    // Change this to true the first time SUBMIT is entered 
-    // * If the user goes off CreateAccount, change this back to false 
-    // * If the user presses submit twice, then change it back to false again 
+    // Changes to true the first time SUBMIT is entered. 
+    // * If the user goes off CreateAccount, changes back to false 
+    // * If the user presses submit twice, then changes back to false again 
     private bool firstPINSubmitted = false; 
 
     // Used to display instructions, e.g. enter your PIN, re-enter your PIN... 
@@ -19,60 +19,60 @@ public class CreateAccount : MonoBehaviour
 
     // Reference to the General KeyPad area (KeypadBackground) which 
     // Contains multiple children objects, (keypad, buttons, pin entered, etc...)
-    // To be made not visible when the user is under the countdown time-out 
+    // To be made not visible when the user is under the countdown time-out: 
     public GameObject keypadBackground; 
 
-    // Instance variable to hold first entered PIN 
+    // Instance variable to hold first entered PIN: 
     private string firstEnteredPIN; 
+    // Instance variable to hold second entered PIN: 
     private string secondEnteredPIN; 
 
-    // False until made true 
+    // False until made true if the user incorrectly enters two different PINs: 
     public bool PINsDontMatch = false;
 
-    // Reference to a HandleCSV object so that 
-    // New information can be appended to the .CSV 
+    // Reference to a HandleCSV object so that new information can be appended to the .CSV: 
     HandleCSV csvHandling = new HandleCSV(); 
 
-    // Reference to the pop-up window that is displayed if a PIN is entered successfully 
+    // Reference to the pop-up window that is displayed if a PIN is created successfully: 
     public GameObject popUpWindow; 
 
     // Reference to a KeyPad object, with methods and functionality: 
     public KeyPad createAccountKeypadRef = new KeyPad(); 
 
-
-
-// __________________________________________
-// ______ CreateAccount.cs Methods __________
-// __________________________________________
-
-
-    // Called once per frame: 
-    // 1. If a PIN hasn't been entered once, display "Please enter your chosen PIN:" 
-    private void Update() {
-         if (firstPINSubmitted){
-            pinInstructions.text = "Please re-enter your chosen PIN: "; 
-        } 
-        // 3. If the error message is displayed "please note that PINs have to be 4 digits long..." 
-        // But then the user deletes a digit to match this, remove the error message: 
-        if (createAccountKeypadRef.digitsEnteredCounter == 6){
-            createAccountKeypadRef.pinFeedback.text = ""; 
-        }
-        checkIfPINAlreadyMade(); 
-    }
-
-// ______________ Saturday 20 November _______________________
-    // Empty GameObject grouping together the gameobjects that 
+     // Empty GameObject grouping together the gameobjects that 
     // are involved in creating a PIN. 
     // (E.g. KeyPad object, creating PIN instructions)
     // Set to be visible if a user hasn't created a custom PIN yet. 
-    // Default = visible until not applicable 
+    // When custom PIN has been created, set to not visible. 
     public GameObject generalCreateAccountArea; 
 
     // GameObject that will be set to visible if a PIN has already
     // Been created, so the user is informed of the update, and the 
-    // fact they have already creasted a PIN. 
-    // Default = not visible until applicable 
+    // fact they have already created a PIN. 
     public GameObject PINAlreadyCreatedText; 
+
+
+
+
+
+    // Dynamically update UI for user: 
+    private void Update() {
+        // 1. If a PIN hasn't been entered once, display "Please enter your chosen PIN:" 
+         if (firstPINSubmitted){
+            pinInstructions.text = "Please re-enter your chosen PIN: "; 
+        } 
+        // 2. If the error message is displayed "please note that PINs have to be 4 digits long..." 
+        // (when a user tries to enter a 4+ digit PIN)
+        // But then the user deletes a digit to match this, remove the error message: 
+        if (createAccountKeypadRef.digitsEnteredCounter == 6){
+            createAccountKeypadRef.pinFeedback.text = ""; 
+        }
+        // 3. Check if the user has already made a custom PIN. 
+        // If they have, do not display the option to create a PIN. 
+        // As a design decision for 1 PIN per device was chosen as this makes sense. 
+        checkIfPINAlreadyMade(); 
+    }
+
 
 
 
@@ -92,36 +92,31 @@ public class CreateAccount : MonoBehaviour
         // 1st entry = test PIN (1111) 
         // 2nd entry will be filled with custom PIN 
         if (HandleCSV.csvLineCounter < 2){
-                    // Custom PIN not already made, display option to create a PIN 
-                    generalCreateAccountArea.SetActive(true); 
-                    PINAlreadyCreatedText.SetActive(false); 
+            // Custom PIN not already made, display option to create a PIN 
+            generalCreateAccountArea.SetActive(true); 
+            PINAlreadyCreatedText.SetActive(false); 
         } if (HandleCSV.csvLineCounter == 2){
-                    // If a PIN has already been created, csvLineCounter will be equal
-                    // to 2.
-                    // If this is the case, do not display the option to create another PIN: 
-                    generalCreateAccountArea.SetActive(false); 
-                    // Notify the user of the update by displaying the explanation Text 
-                    PINAlreadyCreatedText.SetActive(true); 
+            // If a PIN has already been created, csvLineCounter will be equal
+            // to 2.
+            // If this is the case, do not display the option to create another PIN: 
+            generalCreateAccountArea.SetActive(false); 
+            // Notify the user of the update by displaying the explanation Text: 
+            PINAlreadyCreatedText.SetActive(true); 
         }    
     }
 
 
-
-
-// ______________ Saturday 20 November ________________________
-    
-   
-    // Method to be called from .Start() (whenevr the class is loaded)
+    // Method to be called from .Start() (whenever the class is loaded)
     // Written as a method in case it needs called again 
-    // e.g. if a user enters two PINs that don't match, and the values
-    // need reset so that the user can begin creating a PIN from start again
+    // e.g. also called if a user enters two PINs that don't match, and the values
+    // need reset so that the user can begin creating a PIN from start again:
     public void restart(){
         if (!PINsDontMatch){
             createAccountKeypadRef.pinFeedback.text = ""; 
         }
         if (PINsDontMatch) {
-            // 2. If a user enters two PINs that don't match, display relevant error message, 
-            // and call .restart() to reset the process so user can begin entering PIN 
+            // 1. If a user enters two PINs that don't match, display relevant error message, 
+            // and call .restart() to reset the process so user can begin the entering PIN 
             // process again: 
             createAccountKeypadRef.pinFeedback.text = "Both PINs do not match. Please start again.";
             PINsDontMatch = false; 
@@ -130,7 +125,7 @@ public class CreateAccount : MonoBehaviour
             // At the start of the script, fill enteredDigits
             // with a string array 
             // So that it looks like - - - - 
-            // Until the user enters their digits 
+            // Until the user enters their digits: 
             createAccountKeypadRef.setDigitsEntered(); 
             pinInstructions.text = "Please enter your chosen PIN"; 
             // Reset bools
@@ -147,43 +142,38 @@ public class CreateAccount : MonoBehaviour
     }
 
 
-
     // Called from "Submit" button as an onClick event
     public void submitPIN(){
         // If this is the first time submitPIN() has been called
-        // from this session of CreateAccount.cs being opened, 
-        // reset the boool, which will update the UI text for the user
-        // from .Update() 
+        // from this session:
         if (!firstPINSubmitted){
-            // Debug.Log("Not long enough"); 
             // If the PIN isn't long enough: 
             if (createAccountKeypadRef.digitsEnteredCounter != 8){
-                Debug.Log("Not long enough"); 
+                Debug.Log("Incorrect amount"); 
                 // Tell user the PIN isn't long enough
                 createAccountKeypadRef.pinFeedback.text = "Please note that PINs have to be 4 digits long, please enter your 4-digit PIN.";
                 return;
             } else {
-                // Debug.Log("Correct amount :P "); 
-                 // Store the first PIN entered by the user, to be compared later
+                // Store the first PIN entered by the user, to be compared later
                 firstEnteredPIN = createAccountKeypadRef.extractPIN(); 
                 // Clear the PinPad again (so it's '- - - -')
                 createAccountKeypadRef.setDigitsEntered(); 
                 // Reset the bool so next time submitPIN() is called, 
-                // it enters the relevant code-block
+                // it enters the relevant code-block:
                 firstPINSubmitted = true; 
                 return; 
             }
+        // If this is the second time submitPIN() has been called from this session:     
         } if (firstPINSubmitted){
-            // Debug.Log("Not long enough"); 
             // If the PIN isn't long enough: 
             if (createAccountKeypadRef.digitsEnteredCounter != 8){
-                Debug.Log("Not long enough"); 
+                Debug.Log("Incorrect amount"); 
                 // Tell user the PIN isn't long enough
                 createAccountKeypadRef.pinFeedback.text = "Please note that PINs have to be 4 digits long, please enter your 4-digit PIN.";
                 return;
             }
               else {
-                Debug.Log("Correct amount :P "); 
+                Debug.Log("Correct amount"); 
                  // Store the first PIN entered by the user, to be compared later
                 secondEnteredPIN = createAccountKeypadRef.extractPIN(); 
                 // Clear the PinPad again (so it's '- - - -')
@@ -191,14 +181,13 @@ public class CreateAccount : MonoBehaviour
                 // Reset the bool to reflect that two PINs have been entered, 
                 // Set it back to false so if required, the user can repeat this process 
                 firstPINSubmitted = false; 
-                // Now check if the two entered PINs match: 
+                // Check if the two entered PINs match: 
                 if (firstEnteredPIN.Equals(secondEnteredPIN)){
                     Debug.Log("Match");
                     // Since the PINs match, call savePIN(): 
                     savePIN(); 
                     // Notify the user by showing the pop-up window, that their PIN was successful: 
                     StartCoroutine(displayPopUpWindow());
-
                 } // If the PINs don't match, alert the user so they can 
                 // repeat the process again: 
                 if (!(firstEnteredPIN.Equals(secondEnteredPIN))) {
@@ -215,17 +204,16 @@ public class CreateAccount : MonoBehaviour
 
     // Co-Routine to display a pop-up window
     // Alerting the user that creating their PIN 
-    // was successful, if their PIN meets 
+    // was successful, called only if their PIN meets 
     // the requirements: 
     IEnumerator displayPopUpWindow() 
     {
         popUpWindow.SetActive(true); 
         // Show for 3 seconds
-        yield return new WaitForSeconds(3); //this is were the wait will happen. so position it in your func where you want to wait.
+        yield return new WaitForSeconds(3); 
         // Then disable pop-up window again: 
         popUpWindow.SetActive(false); 
     }
-
 
 
     // .Start() method to run when this script is first loaded: 
@@ -233,7 +221,7 @@ public class CreateAccount : MonoBehaviour
         restart(); 
         // Call .checkIfPINAlreadyMade() to know whether the option 
         // To create a PIN should be displayed to the user, or whether 
-        // IT should be communicated to the user that they have already made a PIN. 
+        // It should be communicated to the user that they have already made a PIN. 
         checkIfPINAlreadyMade(); 
         // Make sure firstEnteredPIN and secondEnteredPIN are null 
         // to begin with, e.g. doesn't remember a PIN 
@@ -247,7 +235,7 @@ public class CreateAccount : MonoBehaviour
     // - Being the correct length (4 digits)
     // - PINs are identical 
     public void savePIN(){
-        // Since both PINs are the same, just hash the first one and the second will be the same value
+        // Since both PINs are the same, just hash the first one cuz the second will be the same value
         string hashed = HashClass.toSHA256(firstEnteredPIN); 
         // Create a new CSVInfo object with the hashed PIN 
         // that can then be passed to the HandleCSV object to 
@@ -255,14 +243,8 @@ public class CreateAccount : MonoBehaviour
         CSVInfo newPINEntry = new CSVInfo(hashed); 
         // Append to CSV: 
         csvHandling.appendToCSV(newPINEntry); 
-        // Add this CSVInfo object to the internal memory
-        // ************ STAR 
+        // Add this CSVInfo object to the internal memory of HandleCSV 
         HandleCSV.currentCSV.Add(newPINEntry);
-        // ************
-
-        // Update UI for user so they can see it has been successful: 
-        // pinInstructions.text = "PIN successfully saved. Please go back and choose the option to login.";
     }
-
 
 }

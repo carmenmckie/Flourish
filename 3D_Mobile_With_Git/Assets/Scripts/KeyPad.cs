@@ -5,12 +5,10 @@ using UnityEngine;
 using UnityEngine.UI; 
 
 // Class used to create a keypad object
-// This is to have re-usable code, because 
-// a Keypad is needed in EnterPINPanel.cs and CreateAccount.cs 
+// This is to have re-usable code, because  a Keypad is needed in EnterPINPanel.cs and CreateAccount.cs 
 // This avoids code reptition and makes reusable / maintainable code. 
 public class KeyPad : MonoBehaviour
 {
-
     // References to the digit buttons used on the keypad 
     // button1 = button with value 1, button2 = button with value 2, ... 
     public Button button1; 
@@ -30,7 +28,7 @@ public class KeyPad : MonoBehaviour
 
     // 7 digits MAX:
     private string[] digitsEntered = new string[7];
-    // Make private again when everything working: 
+// !* Make Private 
     public int digitsEnteredCounter = 0; 
 
     // Used to display feedback to the user (whether their pin is correct / incorrect): 
@@ -48,7 +46,7 @@ public class KeyPad : MonoBehaviour
         // Pass this value to updateDigitsEntered(): 
         updateDigitsEntered(value); 
         // ^ This updates the instance variable digitsEntered (string[] )
-        // Now call array to string to set the UI element of the updated 
+        // Call arrayToString() to set the UI element of the updated 
         // value to the user
          enteredDigits.text = arrayToString(digitsEntered); 
     }
@@ -70,7 +68,7 @@ public class KeyPad : MonoBehaviour
         // from the pattern 'digit-digit-digit-digit'
         for (int i = 0; i < digitsEntered.Length; i++){
             // '- - - -' pattern <-- numbers entered in even pattern 
-            // So add even entries, ignore odd (they contain - dashes)
+            // So add even entries, ignore odd (odd contain '-' dashes)
             if (i % 2 == 0){
                 extractedPin += digitsEntered[i]; 
             }

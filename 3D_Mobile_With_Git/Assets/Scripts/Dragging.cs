@@ -1,16 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-
-// ***** Class was originally written for use with Mouse
-// Needs changed / updated the fact now touch is being used
-// A lot can be deleted from .fixedUpdate() 
-
+// Class written to enable touch as an input throughout the game
 public class Dragging : MonoBehaviour {
 
     private GameObjectsManager gameObjectsManager = new GameObjectsManager(); 
 
-    public string taggedObject;
+    // public string taggedObject;
     public Camera cameraObject;
 
     // Private variables for calculations within this class: 
@@ -25,7 +21,7 @@ public class Dragging : MonoBehaviour {
     private Rigidbody toDragRigidbody;
     private Vector3 previousPosition;
 
-    //To store references to all the GameObject objects in the scene 
+    //To store references to all the GameObject objects in the scene: 
     private GameObject[] gardenObjectsInScene = new GameObject[4]; 
 
     private void Start() {
@@ -33,15 +29,15 @@ public class Dragging : MonoBehaviour {
         // From GameObjectsManager
         // This is so that other objects can be made non-moveable when 
         // one object is being moved, to avoid objects being able to bump into each other
-        // and fly off screen 
+        // and fly off screen: 
         gardenObjectsInScene = gameObjectsManager.getGardenObjectsInScene();
     }
 
+
+// *** Could be split up into smaller methods 
     // FixedUpdate is called at a different rate to .Update(): 
     // Useful in this case where the moving of objects needs
     // to be smooth: 
-    // !!! Should be split up into smaller methods 
-    // And use a control method such as in Settings 
     void FixedUpdate () {
         // If there isn't at least one finger touch on the screen: 
         if (Input.touchCount != 1) {
@@ -49,18 +45,15 @@ public class Dragging : MonoBehaviour {
             objectTouched = false;
             if (toDragRigidbody) {
                 // Call .objectReleased just to make sure that no changes were made to any object 
-                // ********
                 objectReleased(toDragRigidbody);
-                // *******
             }
-            // exit 
+            // exit - touchinput not valid 
             return;
         }
         // If there is at least one touch, get the first (0th) touch:
         Touch fingerTouch = Input.touches[0];
         // Store the position of the touch in a vector: 
         Vector3 positionOfTouch = fingerTouch.position;
-
         // If the Touch has Began (just started): 
         if (fingerTouch.phase == TouchPhase.Began) {
             RaycastHit hit;
@@ -125,11 +118,12 @@ public class Dragging : MonoBehaviour {
             for(int i=0; i < gardenObjectsInScene.Length; i++ ){
                 // Find the objects that are NOT this object 
                 // currently being dragged: 
+                // (will be null if Destroyed, e.g. if already dragged to Port by user): 
                 if (gardenObjectsInScene[i] == null){
                     continue; 
                 }
+                // freeze the other objects that don't have the applicable tag: 
                 else if(rb.tag != gardenObjectsInScene[i].tag)  {
-                    // freeze the other objects 
                     // This is to rectify the issue that if dragging an object, and it bumped into 
                     // another object, that other object might fly off the screen and be irretrievable due to the collision
                     gardenObjectsInScene[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -144,38 +138,31 @@ public class Dragging : MonoBehaviour {
     // (this pause would account for the fact the object may be really near 
     // the Port target, by waiting 1 second, it may float to the area and 
     // then activate the trigger)
-    // ********************** MissingReferenceException issue 
     IEnumerator objectReleased(Rigidbody rb){ 
-            // To fix "MissingReferenceException" 
+            // To fix "MissingReferenceException" (if the Rigidbody has already been destroyed)
             if (rb == null || rb.GetComponent<GardenObject>() == null){
                 yield break; 
             }
             rb.drag = 2;
             rb.useGravity = false;
-            // DO NOT MAKE .isKinematic true (causes the bug of saying "woops that's not soil" as soon as plant pot is dragged etc) 
-            // rb.isKinematic = true; 
+            // Wait 1 second
             yield return new WaitForSeconds(1); 
-            // When an object enters the port successfully, .getIsMatchedToPort() 
-            // will return true 
-            // Without this check, an object may snap back to its original position 
-            // before it is Destroyed by the Port. 
-
             // To fix "MissingReferenceException" 
             if (rb == null || rb.GetComponent<GardenObject>() == null){
                 yield break; 
             }
+            // When an object enters the port successfully, .getIsMatchedToPort() 
+            // will return true 
+            // Without this check, an object may snap back to its original position 
+            // before it is Destroyed by the Port. 
             if (!rb.GetComponent<GardenObject>().getIsMatchedToPort()){
                 rb.GetComponent<GardenObject>().moveBackToStartPosition(); 
             }
-            // else {
-            //     // If the object is matchedToPort, then destroy the object
-            //     // Has to be placed here otherwise can get a MissingReferenceException
-            //     Destroy(rb.gameObject,1f); 
-            // }
             // Reset the constraints for each object in the game back to normal 
             // (other objects are frozen when one object is being dragged, now the object 
             // is released, constraints can go back to normal)
             foreach (GameObject obj in gardenObjectsInScene){
+                // (an object will be null if it has been destroyed) 
                 if (obj == null){
                     continue; 
                 }
@@ -187,30 +174,3 @@ public class Dragging : MonoBehaviour {
         }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

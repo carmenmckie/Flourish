@@ -52,8 +52,7 @@ public class PauseMenu : MonoBehaviour
     // 3. Set boolean to true (so upon clicking resume, 
     // the game is unpaused)
     public void Pause(){
-        // Display the pause menu: 
-        // (Otherwise, it is hidden)
+        // Display the pause menu: (Otherwise, it is hidden)
         pauseMenuCanvas.SetActive(true); 
         // Set the time to 0 to completely freeze the game: 
         Time.timeScale = 0f; 
@@ -62,34 +61,16 @@ public class PauseMenu : MonoBehaviour
 
     // **** Create variable name for all scenes 
     public void GoBackToHome(){
-        // Calling .Resume() isn't closing the pauseMenuCanvas quite so fast enough
+        // Reset time back to normal etc by calling Resume(): 
         Resume(); 
-        // pauseMenu
-
+        // Go back to the LandingPage: 
         loadingBar.LoadNewScene("NewLandingPage");
-        // Resume(); 
-            // Made comment Thurs cuz LoadingBar .LoadNewScene is already doing this 
-            // SceneManager.LoadScene("LandingPage");
-        // Call Resume() - if 'Go to Home' was pressed
-        // from Pause, the game will still 
-        // technically be paused. This resets: 
-        // Debug.Log("Loading menu"); 
     }
 
-    // *** Need to add a Quit Game scene 
-    public void QuitGame(){
-        Debug.Log("Quitting game");
-        // Application.Quit(); 
-    }
-
-
-
-
-
-
-
-
-
-
+    // // *** Need to add a Quit Game scene 
+    // public void QuitGame(){
+    //     Debug.Log("Quitting game");
+    //     // Application.Quit(); 
+    // }
 
 }

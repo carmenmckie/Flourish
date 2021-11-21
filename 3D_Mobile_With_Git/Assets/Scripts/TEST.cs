@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 // Attached to TestPanel object to test behaviour by printng Debug.Log() statements
 
+// Class that was purely used to test different functionalities. 
 public class TEST : MonoBehaviour
 {
     public Text textField; 

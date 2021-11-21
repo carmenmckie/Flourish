@@ -6,8 +6,8 @@ public class SoundEffects : MonoBehaviour
 {
     // By default, turn sound effects on at the start of the game
     // They can be turned off by the Player if desired: 
-    // Static as this bool is accessed from various scenes - it cannot go back to its default value when a
-    // scene is reloaded!
+    // Static as this bool is accessed from various scenes - it shouldn't go back to its default value when a
+    // scene is reloaded
     public static bool areSoundEffectsOn = true; 
     public AudioSource gameFinishedSound; 
     public AudioSource correctChoiceSound; 
@@ -18,7 +18,7 @@ public class SoundEffects : MonoBehaviour
         if(areSoundEffectsOn){
             gameFinishedSound.Play(); 
         } else {
-            Debug.Log("'areSoundEffectsOn is false!");
+            Debug.Log("'areSoundEffectsOn is false! - gameFinishedSound being played");
         }
     }
 
@@ -27,7 +27,7 @@ public class SoundEffects : MonoBehaviour
         if(areSoundEffectsOn){
             correctChoiceSound.Play(); 
         } else {
-            Debug.Log("'areSoundEffectsOn is false!");
+            Debug.Log("'areSoundEffectsOn is false! - correctChoiceSound being played");
         }
     }
 

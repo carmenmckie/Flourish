@@ -11156,7 +11156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ae7414d0aa4f6bb4f532d548130d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successfulLoginPanel: {fileID: 996803480}
   successfulPanelTestCalledFromEnterPin: {fileID: 996803480}
   keypadRef: {fileID: 115377197}
   countdownTimer: {fileID: 912142318}
@@ -13750,8 +13749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc3a9d9fcae648bb8e4a940e7e3109d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successfulLoginPanel: {fileID: 996803480}
   numberOfStarsSelected: 0
+  successfulLoginPanel: {fileID: 996803480}
 --- !u!1 &998755547
 GameObject:
   m_ObjectHideFlags: 0
@@ -16357,7 +16356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ae7414d0aa4f6bb4f532d548130d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successfulLoginPanel: {fileID: 996803480}
   successfulPanelTestCalledFromEnterPin: {fileID: 0}
   keypadRef: {fileID: 0}
   countdownTimer: {fileID: 332484433}

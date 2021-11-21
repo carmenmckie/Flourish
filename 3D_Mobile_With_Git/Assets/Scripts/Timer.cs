@@ -49,6 +49,7 @@ public class Timer : MonoBehaviour {
 
 
     void Start() {
+        // Reset values when script loaded: 
         Restart(); 
     }
 
@@ -56,10 +57,11 @@ public class Timer : MonoBehaviour {
 
     // Method created to 'restart' a Timer object 
     public void Restart(){ 
-        // Testing Friday: made 60 
+        // Timer currently set to 60 seconds 
         this.secondsLeft = 60; 
         takingAwaySecond = false;
         timerStillRunning = true; 
+// *? repeating code?         
         if (secondsLeft < 10){
             // if the countdown gets into single digits, add an extra 0 
             // so that it doesn't say 00:3, 00:2, etc. Now says 00.03, 00.02... 
@@ -79,22 +81,20 @@ public class Timer : MonoBehaviour {
         if (timerStillRunning){ 
             Debug.Log("Got under timerStillRunning"); 
             timerComplete = false; 
-            // ^^^^^ Don't think it made a difference 
             Debug.Log("TimerComplete: " + timerComplete); 
             // If there is still at least 1 second left 
             if (takingAwaySecond == false && secondsLeft > 0){
                 StartCoroutine(timerTakeAway());
                 Debug.Log("Got under startCoroutine"); 
-
             } if (secondsLeft <= 0) { 
                 Debug.Log("Got under secondsLeft <= 0"); 
-
                 // When timer is complete, set bool to true 
                 timerComplete = true; 
                 timerStillRunning = false;
                 Debug.Log("Got to timerComplete being made true");
                 // Test below: 
                 takingAwaySecond = false; 
+// * needed?                 
                 this.setSecondsLeft(5); 
             }
         }

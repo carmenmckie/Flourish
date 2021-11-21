@@ -11,6 +11,7 @@ public class SceneNavigation : MonoBehaviour
 {
     // Constants declared because the names of the scenes
     // Will not change for the life of the program: 
+// **** Shouldn't be public? 
     public const string ChooseMiniGame = "ChooseMiniGame";
     public const string NewLandingPage = "NewLandingPage"; 
 

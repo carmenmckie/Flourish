@@ -21,7 +21,6 @@ public class LoadingBar : MonoBehaviour {
   // Method to test 
   public void LoadDragDropTest(){
     LoadNewScene("DragDropTest"); 
-    // StartCoroutine(LoadAsynchronously("DragDropTest"));
   }
 
 
@@ -29,10 +28,10 @@ public class LoadingBar : MonoBehaviour {
 
 
    public void LoadNewScene(string sceneName){
-     // Didn't fix it 
-    //  loadingScreen.SetActive(true);
      StartCoroutine(LoadAsynchronously(sceneName));
    }
+
+
 
     // Whenever this CoRoutine is called: 
     // 1. Load a scene asynchronously
@@ -46,7 +45,7 @@ public class LoadingBar : MonoBehaviour {
        // The other Unity method 'SceneManager.LoadScene()' pauses
        // The entire game while loading a new scene. 
        // '.LoadSceneAsync' loads the scene asynchronously in 
-       // The background. So we can get information about the 
+       // The background. So can get information about the 
        // Progress of the operation while it's loading 
        // This 'AsyncOperation' object returns information about the progress
        // of the operation 

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// https://docs.unity3d.com/ScriptReference/CreateAssetMenuAttribute.html
-// CreateAssetMenu: ScriptableObject types 
-// will be available in Assets/Create 
+
+// CreateAssetMenu: 
+// ScriptableObject types will be available in Assets/Create
 // This enables ScriptableObject types to be 
 // created and stored as .asset files 
 [CreateAssetMenu]
@@ -23,8 +23,8 @@ public class CAPTCHAGenerator : ScriptableObject
     public static int captchaIndex = 0; 
 
 
-    public CAPTCHA generateCAPTCHA(){
-        // captchaIndex++ % gameCaptchas.Length
+    public CAPTCHA generateNextCAPTCHA(){
+        // "captchaIndex++ % gameCaptchas.Length"
         // = Make sure the index never is greater than or equal to the array length
         // = When captchaIndex equals the Length, it will jump back to being 0 
         return gameCaptchas[(captchaIndex++ % gameCaptchas.Length)];
@@ -32,7 +32,7 @@ public class CAPTCHAGenerator : ScriptableObject
 
 
     // Method to be called from "Submit" when the user enters their CAPTCHA input
-    // Bool returned will highlight whether the CAPTCHA is correct     
+    // Bool returned will highlight whether the CAPTCHA is correct or not 
     public bool checkCAPTCHAInput(string userInput, CAPTCHA captchaObject){
         // Shortcut for, return true if userInput equals the value of that 
         // captchaObject, and false if not. 

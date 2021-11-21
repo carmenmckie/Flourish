@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI; 
 
 
-// The ability for the player to view how many stars thy have during the game 
+// The ability for the player to view how many stars they have during the game 
 // By clicking the 'View Stars' button 
 public class ViewStars : MonoBehaviour
 {

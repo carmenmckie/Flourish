@@ -4,34 +4,16 @@ using UnityEngine;
 // To use DateTime: 
 using System; 
 
-// Not a MonoBehaviour class, purely informational class 
+// Not a MonoBehaviour class, purely informational class: 
 public class CSVInfo {
 
-    // SE said not to: control (?) coupling 
-    // public CSVInfo(int account_id, string username, string password
-
-// From video two .... mucked up the initial code 
-//     public int accountNumber { get; set; }
-//     public string username { get; set; }
-//     public string password { get; set; }
-//     public int date_created { get; set; }
-
-
-    // _______________
-    // From Video One 
-    // _______________
-    // // The information in the csv files column headers as instance variables:
-    // // (column headers for PGInfo.csv are: account_id,username,password,date_created)
-    // // Since this is a general information class, need to be public: 
-    
-
-    // Keeping it as a string BECAUSE someone might want to include letters / characters
-    // in their pin, not just numbers. and doesn't matter if they do 
+    // PIN chosen by user (only saved in hashed form)
     public string pin; 
+    // Date PIN was made by the user, so the parent / guardian is made aware when their PIN was changed
+    // as a security measure: 
     public string date_created; 
 
-    // Constructor for if an entry is created 
-    // From the game (date will be generated):
+    // Constructor for if an entry is created from the game (date will be generated):
     public CSVInfo(string pin){
         this.pin = pin; 
         // Get the current date (returns string): 
@@ -45,26 +27,6 @@ public class CSVInfo {
         this.pin = pin; 
         this.date_created = date_created; 
     }
-
-
-    // Only a testing method at the moment - isn't used properly anywhere 
-    public string printCSVInfo(){
-        string value = ""; 
-        value += this.pin + ","; 
-        value += this.date_created; 
-        return value; 
-    }
-
-        // toString method needed? 
-
-
-    // // Method to print a CSVInfo object's date 
-    // public string returnCSVDate(){
-    //         return this.date_created; 
-    // }
-
-
-
 
 
      // Method to return the last CSVInfo's date from a List<CSVInfo>: 
@@ -86,95 +48,13 @@ public class CSVInfo {
     }
 
 
-
-    // * Didn't work because there is no instantiated csvInfo object in ForgottenPIN 
-    // // Method to return string of dates 
-    // public string returnCSVDates(List<CSVInfo> list){
-    //     String result = ""; 
-    //     foreach (CSVInfo x in list)
-    //     {
-    //         result += x.date_created + " "; 
-    //     }
-    //     return result; 
+    // // Only a testing method at the moment 
+    // public string printCSVInfo(){
+    //     string value = ""; 
+    //     value += this.pin + ","; 
+    //     value += this.date_created; 
+    //     return value; 
     // }
-
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ************************
-// Before changing to just two values 
- 
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-
-// // Not a MonoBehaviour class, purely informational class 
-// public class CSVInfo {
-
-//     // SE said not to: control (?) coupling 
-//     // public CSVInfo(int account_id, string username, string password
-
-// // From video two .... mucked up the initial code 
-// //     public int accountNumber { get; set; }
-// //     public string username { get; set; }
-// //     public string password { get; set; }
-// //     public int date_created { get; set; }
-
-
-//     // _______________
-//     // From Video One 
-//     // _______________
-//     // // The information in the csv files column headers as instance variables:
-//     // // (column headers for PGInfo.csv are: account_id,username,password,date_created)
-//     // // Since this is a general information class, need to be public: 
-//     public int account_id; 
-//     public string username; 
-//     public string password; 
-//     public int date_created; 
-
-
-
-//     public string printCSVInfo(){
-//         string value = ""; 
-//         value += this.account_id + "- "; 
-//         value += this.username + "- ";
-//         value += this.password + "- "; 
-//         value += this.date_created + "- "; 
-//         return value; 
-//     }
-
-//         // toString method needed? 
-// }
