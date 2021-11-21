@@ -131,15 +131,6 @@ public class GPLogIn : MonoBehaviour
         }
     }
 
-    // ____________________________________________
-    // Controlling EnterPINPanel Above ^ 
-    // ____________________________________________
-
-
-
-
-
-
 
     // ____________________________________________
     // Controlling CreateAccountPanel Below 
@@ -193,14 +184,6 @@ public class GPLogIn : MonoBehaviour
 
 
     // ____________________________________________
-    // Controlling CreateAccountPanel Above ^  
-    // ____________________________________________ 
-
-
-
-
-
-    // ____________________________________________
     // Controlling ForgottenPINPanel Below  
     // ____________________________________________
  
@@ -237,27 +220,74 @@ public class GPLogIn : MonoBehaviour
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // ____________________________________________
-    // Controlling ForgottenPINPanel Above ^   
+    // Controlling CAPTCHAPanel Below  
     // ____________________________________________
+
+    // Default = it will be closed until opened (if necessary)
+    private bool isCAPTCHAPanelOpen = false; 
+    // Ref to the Panel GameObject: 
+    public GameObject captchaPanel; 
+
+    
+    // Method that will be attached as an onClick() event 
+    // ForgottenPINPanel > YesResetPINButton > To take to CAPTCHAPanel 
+    // And 
+    // CAPTCHAPanel > GoBack (To go back to ForgottenPINPanel)
+    public void controlCAPTCHAPanelOnClick(){
+        // If the panel is to be opened: 
+        // E.g. "YesResetPINButton" is pressed 
+        if (!isCAPTCHAPanelOpen){ 
+            // Open CAPTCHAPanel: 
+            openCaptchaPanel(); 
+            // And also close ForgottenPINPanel:
+            closeForgottenPINPanel(); 
+            // return so no later blocks are entered as a result of bool changes:
+            return; 
+        } if (isCAPTCHAPanelOpen){
+            // Getting here means CAPTCHAPanel is to be closed: 
+            closeCaptchaPanel(); 
+            // Also open ForgottenPINPanel 
+            openForgottenPINPanel();         }
+    }
+
+// Seperate method will be needed for when a CAPTCHA is successful 
+// Will need to close CAPTCHA and open another panel, unless
+// Just a pop-up window appears from captchaPanel 
+
+    private void openCaptchaPanel(){
+        // Update bool 
+        isCAPTCHAPanelOpen = true; 
+        // Set CAPTCHAPanel to be active (open it): 
+        captchaPanel.SetActive(true); 
+    }
+
+    
+    private void closeCaptchaPanel(){
+        // Update bool 
+        isCAPTCHAPanelOpen = false;
+        // Set CAPTCHAPanel to not be active (close it): 
+        captchaPanel.SetActive(false); 
+    }
+
+
+    // If the user successfully enters the CAPTCHA: 
+    // 1. CaptchaPanel needs to close
+    // 2. CreateAccountPanel needs to open (as they are
+    // directed to create a new PIN):
+    public void successfulCaptchaNavigation(){
+        // Close CAPTCHA:
+        closeCaptchaPanel(); 
+        // Open CreateAccountPanel: 
+        openCreateAccountPanel(); 
+    }
+
+
+
+
+
+
+
 
 
 

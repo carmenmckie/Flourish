@@ -5,16 +5,17 @@ using System.IO;
 // Allow class to access Binary Formatter: 
 using System.Runtime.Serialization.Formatters.Binary; 
 using UnityEngine;
-// 
+// To throw a SerializationException (if necessary): 
 using System.Runtime.Serialization; 
 
 // Static class = class that can't be instantiated (only ever want ONE SaveSystem)
 public static class SaveSystem {  
 
-    // Path to save to 
+    // Path to save to: 
     private static string path = Application.persistentDataPath + "/player.fun";
 
-
+    // Called when data needs to be saved 
+    // E.g. when a player earns a new star 
     public static void savePlayerData(Player player){
         // 1. Create a BinaryFormatter and a FileStream outside try / catch 
         BinaryFormatter formatter = new BinaryFormatter(); 
@@ -44,6 +45,10 @@ public static class SaveSystem {
         }
     }
 
+
+
+
+    // Try / catch block? 
      public static PlayerData loadPlayerData(Player player){
         if (File.Exists(path)){
             BinaryFormatter formatter = new BinaryFormatter(); 
@@ -52,12 +57,13 @@ public static class SaveSystem {
             stream.Close(); 
             return data;  
         } else {
-            // ****
-            // Should do some sort of creating a file here? 
-            // If one doesn't exist? 
+            // Getting here means a file doesn't exist 
+            // (e.g. first time game is opened on a device)
+            // So create a new PlayerData object:
             PlayerData data = new PlayerData(player); 
+            // And save it to file: 
+            // (So that next time, it can be loaded) 
             savePlayerData(player);
-            // 
             Debug.Log("Got to : file not found in SaveSystem.loadPlayerData()");
             Debug.LogError("Save file not found in " + path); 
             return null; 

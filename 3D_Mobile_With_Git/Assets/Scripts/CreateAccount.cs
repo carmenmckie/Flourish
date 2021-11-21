@@ -56,8 +56,59 @@ public class CreateAccount : MonoBehaviour
         // But then the user deletes a digit to match this, remove the error message: 
         if (createAccountKeypadRef.digitsEnteredCounter == 6){
             createAccountKeypadRef.pinFeedback.text = ""; 
+        }
+        checkIfPINAlreadyMade(); 
+    }
+
+// ______________ Saturday 20 November _______________________
+    // Empty GameObject grouping together the gameobjects that 
+    // are involved in creating a PIN. 
+    // (E.g. KeyPad object, creating PIN instructions)
+    // Set to be visible if a user hasn't created a custom PIN yet. 
+    // Default = visible until not applicable 
+    public GameObject generalCreateAccountArea; 
+
+    // GameObject that will be set to visible if a PIN has already
+    // Been created, so the user is informed of the update, and the 
+    // fact they have already creasted a PIN. 
+    // Default = not visible until applicable 
+    public GameObject PINAlreadyCreatedText; 
+
+
+
+    // Method to decide whether generalCreateAccountArea
+    // Should be visible to the user or not. 
+    // If the user has not already made a custom PIN, 
+    //      it will be visible to the user (ask them
+    //      to choose their PIN)
+    // If the user has already made a PIN, it will NOT 
+    //      be visible to the user, as only one custom PIN 
+    //      is to be made per device in this prototype game.
+    //      And instead, help them by saying if they have 
+    //      forgotten their PIN, they can reset it from 
+    //      "Forgotten PIN". 
+    public void checkIfPINAlreadyMade(){ 
+        // Condition check is less than 2 because 
+        // 1st entry = test PIN (1111) 
+        // 2nd entry will be filled with custom PIN 
+        if (HandleCSV.csvLineCounter < 2){
+                    // Custom PIN not already made, display option to create a PIN 
+                    generalCreateAccountArea.SetActive(true); 
+                    PINAlreadyCreatedText.SetActive(false); 
+        } if (HandleCSV.csvLineCounter == 2){
+                    // If a PIN has already been created, csvLineCounter will be equal
+                    // to 2.
+                    // If this is the case, do not display the option to create another PIN: 
+                    generalCreateAccountArea.SetActive(false); 
+                    // Notify the user of the update by displaying the explanation Text 
+                    PINAlreadyCreatedText.SetActive(true); 
         }    
     }
+
+
+
+
+// ______________ Saturday 20 November ________________________
     
    
     // Method to be called from .Start() (whenevr the class is loaded)
@@ -180,6 +231,10 @@ public class CreateAccount : MonoBehaviour
     // .Start() method to run when this script is first loaded: 
     private void Start() {
         restart(); 
+        // Call .checkIfPINAlreadyMade() to know whether the option 
+        // To create a PIN should be displayed to the user, or whether 
+        // IT should be communicated to the user that they have already made a PIN. 
+        checkIfPINAlreadyMade(); 
         // Make sure firstEnteredPIN and secondEnteredPIN are null 
         // to begin with, e.g. doesn't remember a PIN 
         // previously entered, for security reasons
@@ -208,4 +263,6 @@ public class CreateAccount : MonoBehaviour
         // Update UI for user so they can see it has been successful: 
         // pinInstructions.text = "PIN successfully saved. Please go back and choose the option to login.";
     }
+
+
 }

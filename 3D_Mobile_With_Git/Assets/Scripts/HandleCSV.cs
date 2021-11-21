@@ -4,123 +4,83 @@ using UnityEngine;
 // Needed to use File class methods: 
 using System.IO; 
 
+
 // Class to load PGInfo.csv (which will contain the parental / guardian info to adjust 
 // user settings and set goals for stars)
 public class HandleCSV : MonoBehaviour
 {
 
-    // Testing Monday - public for now, but change
+    // Could be made non public with getter 
     public static List<CSVInfo> currentCSV = new List<CSVInfo>(); 
-
-
-
-    // Testing Monday above 
-
-    // ________________
-    // FROM VIDEO ONE
-    // _________________
+    // To keep track of how many lines are in the CSV file 
+    // There should only be max 2
+    // (1st line on .csv is not added to List - data columns / human readible info)
+    // 2nd = PIN for testing purposes (1111) (wouldn't be there in a real life app) 
+    // 3rd = PIN set by the user <-- this is the one rewritten if the user forgets their PIN 
+// ? Does it need to be static? 
+    public static int csvLineCounter = 0; 
     // Can reference PGInfo.csv as a TextAsset: 
-    TextAsset pgInfo; 
     // "pgInfo" will be how Unity will now reference the information 
     // contained in PGInfo.csv 
-
-// ********* 10 Nov - changed it to .readCSV returning a List<CSVInfo> instead 
-                        // // To store the CSV information after being parsed: 
-                        // List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
-//______________________________________
-//______________________________________
-//______________________________________
-// Original before being changed MONDAY: 
+    TextAsset pgInfo; 
 
     private void Start() {
-        // readCSV(); 
-        // appendToCSV(); 
-        // readCSV(); 
-        // MOnday : 
-        currentCSV.AddRange(readCSV()); 
+        // Fill the internal memory collection (currentCSV) 
+        // With the contents from the CSV file 
+        // So the CSV information can be accessed in real time 
+        // Workaround for the fact that in Unity, a file that is written to 
+        // Cannot then be read from, until the game is finished
+        // SO instead, read from and write to the internal List 
+        // That then is appended to the CSV when the game is closed and then
+        // can be read from when the game is opened again. 
+        currentCSV.AddRange(readCSV(1)); 
     }
 
-// Could be static? 
-    public List<CSVInfo> readCSV(){ 
-        // 10 Nov: moved here 
+    // Method to fill the internal memory collection (currentCSV) with contents from the
+    // .csv file; 
+    public List<CSVInfo> readCSV(int indexToReadFrom){ 
+        // List to be filled with the information from the .csv file: 
          List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
-
         // Upon Start, initialize pgInfo to be from PGInfo.csv
         // Location is: /Assets/Resources/CSVResources/PGInfo.csv 
         // Resources.Load assumes location is within /Assets/Resources/... 
         // So just add the last half pf the extension 
-        pgInfo = Resources.Load<TextAsset>("CSVResources/PGInfo");
-                                                // Debug.Log("RIGHT NOW" + pgInfo); 
+        pgInfo = Resources.Load<TextAsset>("CSVResources/PGInfo");                                    
         // TextAsset class automatically loads the text from the .csv file 
-        // into this TextAsset object 'pgInfo.text' 
-        
+        // into this TextAsset object 'pgInfo.text'.
         // Each line on CSV = new entry 
-        // First row on CSV can be ignored as it's human information (columns)
-        // To split this data, we can use an array 
-            // Splitting on newline: 
-            // Creates an array of the elements from the .csv 
+        // First row on CSV can be ignored as it's human information (columns headers)
+        // To split this data, use an array 
+        // Splitting on newline: 
+        // Creates an array of the elements from the .csv 
         string[] csvData = pgInfo.text.Split(new char[] { '\n' });
-        // // Testing - added LoadCSV.cs to MainCamera for now (as a test)
-                        // Debug.Log(csvData.Length); // Printed 4, which is correct (considering top column headers counts as one)
-
-        // Now, ignoring the first line as it's column headers, split the csv file on commas:
-        // int i = 1 (ignoring the 0th entry)
-
-
-// *****************
-// i < csvData.Length - 1 gets rid of OutOfBoundsException but causes a blank line at the end of the csv file 
-// *****************        
-        for(int i = 1; i < csvData.Length; i++){
-            // Going to create an array for each one of these column values 
+        // LoadCSV.cs added to MainCamera so it is called when game started 
+        // indexToReadFrom will either be 0 (to include column headers when rewritting the .csv when a PIN 
+        // Is reset)
+        // or 1 = to ignore the first column headers if only searching if the PIN exists from EnterPinPanel.cs 
+        for(int i = indexToReadFrom; i < csvData.Length; i++){
+            // Initialise csvLineCounter to how many PINs are stored: 
+            csvLineCounter = csvData.Length; 
+            Debug.Log("<color=red> csvLineCounter = " + csvLineCounter + "</color>");
+            // Create an array for each one of these column values: 
             string[] row = csvData[i].Split(new char[] { ',' } );
-
-            // This showed it was 4 which is correct 
-            Debug.Log("**** Called from Handle.CSV - csvData.length: " + csvData.Length);
-
-            // If the number of items on the row is correct, then proceed: 
-            // (This will help if the CSV file is developed further with a database, ensuring 
-            // that the data has the correct number of fields)
-                                                    // if (row.Length == csvData.Length){
-                // If there is an empty row, no point parsing it (empty user slot)
-                // If row[1] (username) is empty, don't parse it (no point) 
-                // So only include those that are NOT empty: 
-                // if(row[1] != ""){
-
-                    // Fill in the instance variables of the csvInfo object with those from the array: 
-                    // TryParse is used to try parse as int 
-                    // If there's no data there, instead of causing exception, it will just leave default value 
-                    // If there is data, it will fill out csvInfo.account_id with it 
-                    // int.TryParse(row[0], out int pinEntry); <--- original before changing to string 
-                    
-                    string pinEntry = row[0]; 
-                     // Create a new CSVInfo object 
-                    string dateCreatedEntry = row[1]; // username is a string anyway - no conversion needed
-                    CSVInfo csvInfo = new CSVInfo(pinEntry, dateCreatedEntry); 
-
-    
-
-                    // Add to the List<CSVInfo> csvReadInfo for reference: 
-                    csvReadInfo.Add(csvInfo); 
-                                                        // }
-            // }
+            // Fill in the instance variables of the csvInfo object with those from the array: 
+            string pinEntry = row[0]; 
+            string dateCreatedEntry = row[1]; 
+            // Create a new CSVInfo object using these values: 
+            CSVInfo csvInfo = new CSVInfo(pinEntry, dateCreatedEntry); 
+            // Add to the List<CSVInfo> csvReadInfo for reference: 
+            csvReadInfo.Add(csvInfo); 
         }
- // *** WHAT WAS PRINTING THE HASH IN THE CONSOLE:        
-        // // To test it worked
-        // foreach (CSVInfo z in csvReadInfo){
-        //     Debug.Log(z.pin); 
-        // }
-        // May need to check when receiving this that it's not null 
-        // ****
-        // ****
-        // // currentCSV.AddRange(csvReadInfo); 
-        // currentCSV = csvReadInfo; 
-        // ****
-        // ****
+        // Return the List<CSVInfo> representing a copy of the .csv file contents: 
         return csvReadInfo; 
     }
 
- // Could be static?    
-    // Method to take a CSVInfo object and add it to the csv file 
+
+
+
+
+    // Method to take a CSVInfo object and append it to the csv file: 
     public void appendToCSV(CSVInfo newCSVEntry){
         // Using string interpolation to save to the CSV file in the Resources folder: 
         // *** Adds to a new line ($"\n....)
@@ -128,451 +88,56 @@ public class HandleCSV : MonoBehaviour
     }
 
 
-// Testing 
-private void Update() {
-    Debug.Log("Called from HandleCSV.cs = currentCSV = " + currentCSV.Count); 
-}
-
-
-// Above is original 
-// Below is Monday 15 Nov work 
-//____________________________
-//____________________________
-//____________________________
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Could be static? 
-//     public void readCSV(){ 
-//                   List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
+    // Called from CaptchaPanel.cs when a user 
+    // wants to reset their PIN. 
+    // What it does is create a temporary .csv file 
+    // With the contents of the original .csv file (MINUS THE PIN 
+    // BEING RESET), and then 
+    // replace the old CSV file with this new updated 
+    // CSV file. The internal memory collection List<CSVInfo> currentCSV
+    // Which other classes access as a copy of the .csv file contents
+    // is also updated to reflect the changes  
+    public void removeLastPIN(){
+        // 1. Get a copy of the current CSV: 
+        List<CSVInfo> oldCSV =  readCSV(0); 
+        // 2. Make a filePath to a temporary file: 
+        string temporaryFile = Application.dataPath + "/Resources/CSVResources/Test.csv";
+        // 3. If the file doesn't already exist
+        // (it shouldn't, but just in case) 
+        if(!File.Exists(temporaryFile)){
+            // Add the column headings to the .csv file (pin, date_created): 
+            File.WriteAllText(temporaryFile, $"{oldCSV[0].pin},{oldCSV[0].date_created}\n");
+        }
+        // 4. Append the test PIN (1111) to this file. The user's custom PIN is not entered
+        // Because they have asked for it to be reset so it is removed: 
+        File.AppendAllText(temporaryFile, $"{oldCSV[1].pin},{oldCSV[1].date_created}");
+        // 5. Delete the existing csv file (PGInfo.cs)
+        string originalFilePath = Application.dataPath + "/Resources/CSVResources/PGInfo.csv";
+        File.Delete(originalFilePath); 
+        // 6. Move new file to where this old CSV file was: 
+        System.IO.File.Move(temporaryFile, originalFilePath); 
+        // 7. Update the internal memory collection of HandleCSV to contain the updated 
+        // CSV copy with this PIN entry deleted. Custom PIN is always last entry, 
+        // so delete the last entry in the List<CSVInfo>: 
+        HandleCSV.currentCSV.RemoveAt(currentCSV.Count - 1); 
+    }
 
         
 
-//         // Upon Start, initialize pgInfo to be from PGInfo.csv
-//         // Location is: /Assets/Resources/CSVResources/PGInfo.csv 
-//         // Resources.Load assumes location is within /Assets/Resources/... 
-//         // So just add the last half pf the extension 
-//         pgInfo = Resources.Load<TextAsset>("CSVResources/PGInfo");
-//                                                 // Debug.Log("RIGHT NOW" + pgInfo); 
-//         // TextAsset class automatically loads the text from the .csv file 
-//         // into this TextAsset object 'pgInfo.text' 
-        
-//         // Each line on CSV = new entry 
-//         // First row on CSV can be ignored as it's human information (columns)
-//         // To split this data, we can use an array 
-//             // Splitting on newline: 
-//             // Creates an array of the elements from the .csv 
-//         string[] csvData = pgInfo.text.Split(new char[] { '\n' });
-//         // // Testing - added LoadCSV.cs to MainCamera for now (as a test)
-//                         // Debug.Log(csvData.Length); // Printed 4, which is correct (considering top column headers counts as one)
 
-//         // Now, ignoring the first line as it's column headers, split the csv file on commas:
-//         // int i = 1 (ignoring the 0th entry)
-
-
-// // *****************
-// // i < csvData.Length - 1 gets rid of OutOfBoundsException but causes a blank line at the end of the csv file 
-// // *****************        
-//         for(int i = 1; i < csvData.Length; i++){
-//             // Going to create an array for each one of these column values 
-//             string[] row = csvData[i].Split(new char[] { ',' } );
-
-//             // This showed it was 4 which is correct 
-//             Debug.Log("**** " + csvData.Length);
-
-//             // If the number of items on the row is correct, then proceed: 
-//             // (This will help if the CSV file is developed further with a database, ensuring 
-//             // that the data has the correct number of fields)
-//                                                     // if (row.Length == csvData.Length){
-//                 // If there is an empty row, no point parsing it (empty user slot)
-//                 // If row[1] (username) is empty, don't parse it (no point) 
-//                 // So only include those that are NOT empty: 
-//                 // if(row[1] != ""){
-
-//                     // Fill in the instance variables of the csvInfo object with those from the array: 
-//                     // TryParse is used to try parse as int 
-//                     // If there's no data there, instead of causing exception, it will just leave default value 
-//                     // If there is data, it will fill out csvInfo.account_id with it 
-//                     // int.TryParse(row[0], out int pinEntry); <--- original before changing to string 
-                    
-//                     string pinEntry = row[0]; 
-//                      // Create a new CSVInfo object 
-//                     string dateCreatedEntry = row[1]; // username is a string anyway - no conversion needed
-//                     CSVInfo csvInfo = new CSVInfo(pinEntry, dateCreatedEntry); 
 
     
-
-//                     // Add to the List<CSVInfo> csvReadInfo for reference: 
-//                     csvReadInfo.Add(csvInfo); 
-//                                                         // }
-//             // }
-//         }
-//  // *** WHAT WAS PRINTING THE HASH IN THE CONSOLE:        
-//         // // To test it worked
-//         // foreach (CSVInfo z in csvReadInfo){
-//         //     Debug.Log(z.pin); 
-//         // }
-//         // May need to check when receiving this that it's not null 
-//         // return csvReadInfo; 
-//         // currentCSV = csvReadInfo; 
-//         currentCSV.AddRange(csvReadInfo); 
-//         Debug.Log("currentCSV length: ... " + currentCSV.Count); 
-//     }
-
-//     // Access the contents of the CSV in real time 
-//     public List<CSVInfo> returnCurrentCSV(){
-//         return currentCSV; 
-//     }
-
-
-
-//  // Could be static?    
-//     // Method to take a CSVInfo object and add it to the csv file 
-//     public void appendToCSV(CSVInfo newCSVEntry){
-//         // Using string interpolation to save to the CSV file in the Resources folder: 
-//         // *** Adds to a new line ($"\n....)
-//         File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newCSVEntry.pin},{newCSVEntry.date_created}");
-//     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// //     // Test method to see if writing to the csv works 
-// //     // Could pass it a CSVInfo object 
-//     public void appendToCSV(){ 
-// // Could maybe be split into two methods  
-// // 1. Get the info to be added to the CSV:    
-//         // Need to make a new CSVInfo object 
-//         // Containing the values 
-//        CSVInfo newInfo = new CSVInfo(); 
-//        newInfo.account_id = 4; 
-//        newInfo.username = "testUsername"; 
-//        newInfo.password = "testPassword"; 
-//        // Non-sensical test: 
-//        newInfo.date_created = 09112021; 
-// // 2. Save to the CSV 
-//         // Using string interpolation
-//         // pgInfo upon .Start() is initialised to path of the .csv file: 
-//                         //    File.AppendAllText(pgInfo.text, $"{newInfo.account_id},{newInfo.username},{newInfo.password},{newInfo.date_created}\n");
-//                         //    Debug.Log("Done now");
-//     // ********************
-//     // \n before the values needed to print this on a new line 
-//     // ******************** TAKING AWAY \n from ...crated}\n"); <-- stopped a blank line being printed at the end of a new CSV entry 
-//          File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newInfo.account_id},{newInfo.username},{newInfo.password},{newInfo.date_created}");
-//        Debug.Log("Done now"); 
-
-// //     }
-   
-
-
-
-
+    private void Update() {
+        // Set csvLineCounter to be equal to the length of the internal copy of the csv file 
+        // So that the program will behave dynamically for the user, e.g. if a PIN is already
+        // created, next time the user goes to "CreateAccount", don't show the option to 
+        // create a PIN, as there already is a PIN. 
+        csvLineCounter = currentCSV.Count; 
+    }
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Original Methods, before being changed 10 Nov 
-// public void readCSV(){ 
-//         // Upon Start, initialize pgInfo to be from PGInfo.csv
-//         // Location is: /Assets/Resources/CSVResources/PGInfo.csv 
-//         // Resources.Load assumes location is within /Assets/Resources/... 
-//         // So just add the last half pf the extension 
-//         pgInfo = Resources.Load<TextAsset>("CSVResources/PGInfo");
-//                                                 // Debug.Log("RIGHT NOW" + pgInfo); 
-//         // TextAsset class automatically loads the text from the .csv file 
-//         // into this TextAsset object 'pgInfo.text' 
-        
-//         // Each line on CSV = new entry 
-//         // First row on CSV can be ignored as it's human information (columns)
-//         // To split this data, we can use an array 
-//             // Splitting on newline: 
-//             // Creates an array of the elements from the .csv 
-//         string[] csvData = pgInfo.text.Split(new char[] { '\n' });
-//         // // Testing - added LoadCSV.cs to MainCamera for now (as a test)
-//                         // Debug.Log(csvData.Length); // Printed 4, which is correct (considering top column headers counts as one)
-
-//         // Now, ignoring the first line as it's column headers, split the csv file on commas:
-//         // int i = 1 (ignoring the 0th entry)
-
-
-// // *****************
-// // i < csvData.Length - 1 gets rid of OutOfBoundsException but causes a blank line at the end of the csv file 
-// // *****************        
-//         for(int i = 1; i < csvData.Length; i++){
-//             // Going to create an array for each one of these column values 
-//             string[] row = csvData[i].Split(new char[] { ',' } );
-//             // Create a new CSVInfo object 
-//             CSVInfo csvInfo = new CSVInfo(); 
-
-//             // This showed it was 4 which is correct 
-//             Debug.Log("**** " + csvData.Length);
-
-//             // If the number of items on the row is correct, then proceed: 
-//             // (This will help if the CSV file is developed further with a database, ensuring 
-//             // that the data has the correct number of fields)
-//                                                     // if (row.Length == csvData.Length){
-//                 // If there is an empty row, no point parsing it (empty user slot)
-//                 // If row[1] (username) is empty, don't parse it (no point) 
-//                 // So only include those that are NOT empty: 
-//                 // if(row[1] != ""){
-
-//                     // Fill in the instance variables of the csvInfo object with those from the array: 
-//                     // TryParse is used to try parse as int 
-//                     // If there's no data there, instead of causing exception, it will just leave default value 
-//                     // If there is data, it will fill out csvInfo.account_id with it 
-//                     int.TryParse(row[0], out csvInfo.account_id); 
-//                     csvInfo.username = row[1]; // username is a string anyway - no conversion needed
-//                     // MIGHT CHANGE TO PIN: 
-//                     csvInfo.password = row[2]; // username is a string anyway - no conversion needed
-//                     // csvInfo.date_created is an int, so use int.TryParse: 
-//                     int.TryParse(row[3], out csvInfo.date_created); 
-
-//                     // Add to the List<CSVInfo> csvReadInfo for reference: 
-//                     csvReadInfo.Add(csvInfo); 
-//                                                         // }
-//             // }
-//         }
-//         // To test it worked
-//         foreach (CSVInfo z in csvReadInfo){
-//             Debug.Log(z.account_id); 
-//         }
-//     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ____________________________-
-// 10 Nov, 2.40pm 
-
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// // Needed to use File class methods: 
-// using System.IO; 
-
-// // Class to load PGInfo.csv (which will contain the parental / guardian info to adjust 
-// // user settings and set goals for stars)
-// public class HandleCSV : MonoBehaviour
-// {
-
-//     // ________________
-//     // FROM VIDEO ONE
-//     // _________________
-//     // Can reference PGInfo.csv as a TextAsset: 
-//     TextAsset pgInfo; 
-//     // "pgInfo" will be how Unity will now reference the information 
-//     // contained in PGInfo.csv 
-
-// // ********* 10 Nov - changed it to .readCSV returning a List<CSVInfo> instead 
-//                         // // To store the CSV information after being parsed: 
-//                         // List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
-
-//     private void Start() {
-//         // readCSV(); 
-//         // appendToCSV(); 
-//         // readCSV(); 
-//     }
-
-
-//     public List<CSVInfo> readCSV(){ 
-//         // 10 Nov: moved here 
-//          List<CSVInfo> csvReadInfo = new List<CSVInfo>(); 
-
-//         // Upon Start, initialize pgInfo to be from PGInfo.csv
-//         // Location is: /Assets/Resources/CSVResources/PGInfo.csv 
-//         // Resources.Load assumes location is within /Assets/Resources/... 
-//         // So just add the last half pf the extension 
-//         pgInfo = Resources.Load<TextAsset>("CSVResources/PGInfo");
-//                                                 // Debug.Log("RIGHT NOW" + pgInfo); 
-//         // TextAsset class automatically loads the text from the .csv file 
-//         // into this TextAsset object 'pgInfo.text' 
-        
-//         // Each line on CSV = new entry 
-//         // First row on CSV can be ignored as it's human information (columns)
-//         // To split this data, we can use an array 
-//             // Splitting on newline: 
-//             // Creates an array of the elements from the .csv 
-//         string[] csvData = pgInfo.text.Split(new char[] { '\n' });
-//         // // Testing - added LoadCSV.cs to MainCamera for now (as a test)
-//                         // Debug.Log(csvData.Length); // Printed 4, which is correct (considering top column headers counts as one)
-
-//         // Now, ignoring the first line as it's column headers, split the csv file on commas:
-//         // int i = 1 (ignoring the 0th entry)
-
-
-// // *****************
-// // i < csvData.Length - 1 gets rid of OutOfBoundsException but causes a blank line at the end of the csv file 
-// // *****************        
-//         for(int i = 1; i < csvData.Length; i++){
-//             // Going to create an array for each one of these column values 
-//             string[] row = csvData[i].Split(new char[] { ',' } );
-//             // Create a new CSVInfo object 
-//             CSVInfo csvInfo = new CSVInfo(); 
-
-//             // This showed it was 4 which is correct 
-//             Debug.Log("**** " + csvData.Length);
-
-//             // If the number of items on the row is correct, then proceed: 
-//             // (This will help if the CSV file is developed further with a database, ensuring 
-//             // that the data has the correct number of fields)
-//                                                     // if (row.Length == csvData.Length){
-//                 // If there is an empty row, no point parsing it (empty user slot)
-//                 // If row[1] (username) is empty, don't parse it (no point) 
-//                 // So only include those that are NOT empty: 
-//                 // if(row[1] != ""){
-
-//                     // Fill in the instance variables of the csvInfo object with those from the array: 
-//                     // TryParse is used to try parse as int 
-//                     // If there's no data there, instead of causing exception, it will just leave default value 
-//                     // If there is data, it will fill out csvInfo.account_id with it 
-//                     int.TryParse(row[0], out csvInfo.account_id); 
-//                     csvInfo.username = row[1]; // username is a string anyway - no conversion needed
-//                     // MIGHT CHANGE TO PIN: 
-//                     csvInfo.password = row[2]; // username is a string anyway - no conversion needed
-//                     // csvInfo.date_created is an int, so use int.TryParse: 
-//                     int.TryParse(row[3], out csvInfo.date_created); 
-
-//                     // Add to the List<CSVInfo> csvReadInfo for reference: 
-//                     csvReadInfo.Add(csvInfo); 
-//                                                         // }
-//             // }
-//         }
-//         // To test it worked
-//         foreach (CSVInfo z in csvReadInfo){
-//             Debug.Log(z.account_id); 
-//         }
-//         // May need to check when receiving this that it's not null 
-//         return csvReadInfo; 
-//     }
-
-
-
-
-
-//     // Test method to see if writing to the csv works 
-//     // Could pass it a CSVInfo object 
-//     public void appendToCSV(){ 
-// // Could maybe be split into two methods  
-// // 1. Get the info to be added to the CSV:    
-//         // Need to make a new CSVInfo object 
-//         // Containing the values 
-//        CSVInfo newInfo = new CSVInfo(); 
-//        newInfo.account_id = 4; 
-//        newInfo.username = "testUsername"; 
-//        newInfo.password = "testPassword"; 
-//        // Non-sensical test: 
-//        newInfo.date_created = 09112021; 
-// // 2. Save to the CSV 
-//         // Using string interpolation
-//         // pgInfo upon .Start() is initialised to path of the .csv file: 
-//                         //    File.AppendAllText(pgInfo.text, $"{newInfo.account_id},{newInfo.username},{newInfo.password},{newInfo.date_created}\n");
-//                         //    Debug.Log("Done now");
-//     // ********************
-//     // \n before the values needed to print this on a new line 
-//     // ******************** TAKING AWAY \n from ...crated}\n"); <-- stopped a blank line being printed at the end of a new CSV entry 
-//          File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newInfo.account_id},{newInfo.username},{newInfo.password},{newInfo.date_created}");
-//        Debug.Log("Done now"); 
-
-//     }
-   
-
-
-
-
-// }
