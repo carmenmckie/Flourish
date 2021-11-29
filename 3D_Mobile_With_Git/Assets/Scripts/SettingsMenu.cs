@@ -115,7 +115,6 @@ public class SettingsMenu : MonoBehaviour
         // Which then is checked from the methods in SoundEffects 
         // to decide whether a sound is to be played or not 
         soundEffectsRef.setAreSoundEffectsOn(false); 
-        // soundSettingsText = "Sound effects are: OFF";
         sfxOnTick.SetActive(false); 
         sfxOffTick.SetActive(true); 
     }
@@ -124,7 +123,6 @@ public class SettingsMenu : MonoBehaviour
     public void soundsOn(){ 
         // Set the bool areSoundEffectsOn to be true
         soundEffectsRef.setAreSoundEffectsOn(true); 
-        // soundSettingsText = "Sound effects are: ON";
         sfxOffTick.SetActive(false); 
         sfxOnTick.SetActive(true); 
     }
@@ -157,7 +155,7 @@ public class SettingsMenu : MonoBehaviour
         // the indexes are not a direct match to the argument passed
         // to QualitySettings.SetQualityLevel()
         // This workaround is due to Unity making the label
-        // the first drop-down choice by default 
+        // the first drop-down choice by default in Unity
         switch(dropDownChoiceIndex){
             case 1:
                 // Second drop-down choice (index 1) is "Very Low"
