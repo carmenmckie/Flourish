@@ -9226,8 +9226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5087b1a35bed04e9e8e673c50e72d8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textField: {fileID: 396481312}
-  testText: Initial test
 --- !u!1 &662337409
 GameObject:
   m_ObjectHideFlags: 0
@@ -10406,8 +10404,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 523.26, y: -125.28}
-  m_SizeDelta: {x: 76.7337, y: 68.1261}
+  m_AnchoredPosition: {x: 523.26, y: -124.02}
+  m_SizeDelta: {x: 76.7337, y: 70.648}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &740745964
 Animator:
@@ -16713,8 +16711,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -187.22, y: -128.99}
-  m_SizeDelta: {x: 87.93, y: 75.543}
+  m_AnchoredPosition: {x: -197.59, y: -126.51}
+  m_SizeDelta: {x: 76.376, y: 70.644}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1305865610
 Animator:
@@ -17971,8 +17969,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -810.73987, y: -45.863}
-  m_SizeDelta: {x: 76.734, y: 78.069}
+  m_AnchoredPosition: {x: -832.68, y: -45.863}
+  m_SizeDelta: {x: 76.734, y: 70.826}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1423025128
 Animator:
@@ -22885,7 +22883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577.93, y: -50.489}
+  m_AnchoredPosition: {x: 570.00006, y: -50.489}
   m_SizeDelta: {x: 75.5262, y: 78.069}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1855078209
@@ -25643,8 +25641,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 1146.8, y: -47.465}
-  m_SizeDelta: {x: 96.4, y: 81.273}
+  m_AnchoredPosition: {x: 1156.7991, y: -45.988003}
+  m_SizeDelta: {x: 76.398, y: 71.076}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &2029457207
 Animator:

@@ -52,30 +52,30 @@ public class Dragging : MonoBehaviour {
         }
         // If there is at least one touch, get the first (0th) touch:
         Touch fingerTouch = Input.touches[0];
-        // Store the position of the touch in a vector: 
+        // Store the position of the touch in a 3D vector: 
         Vector3 positionOfTouch = fingerTouch.position;
-        // If the Touch has Began (just started): 
+        // If the Touch has just started): 
         if (fingerTouch.phase == TouchPhase.Began) {
             RaycastHit hit;
             // Ray calculated from camera with .ScreenPointToRay() method:
             Ray ray = cameraObject.ScreenPointToRay(positionOfTouch);
             // If the Ray hits something that is a GardenObject: 
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.GetComponent<GardenObject>()){
-                // Indicate transform of hitted object 
+                // Indicate transform of hitted object: 
                 toDrag = hit.transform;
                 // Get the object's position: 
                 previousPosition = toDrag.position;
-                // Get the object's rigidBody 
+                // Get the object's rigidBody:
                 toDragRigidbody = toDrag.GetComponent<Rigidbody>();
-                // Calculate backwards from World point to Screen point from previous position
+                // Calculate backwards from World point to Screen point from previous position:
                 distanceVector = cameraObject.WorldToScreenPoint(previousPosition);
-                // Calculate X position
+                // Calculate X position:
                 posX = Input.GetTouch(0).position.x - distanceVector.x;
-                // Calculate Y position 
+                // Calculate Y position: 
                 posY = Input.GetTouch(0).position.y - distanceVector.y;
-                // Pass the RigidBody to draggingObject()
+                // Pass the RigidBody to draggingObject():
                 draggingObject(toDragRigidbody);
-                // Set objectTouched bool to true 
+                // Set objectTouched bool to true:
                 objectTouched = true;
             }
         }
