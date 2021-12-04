@@ -8,7 +8,7 @@ using System.Text;
 
 
 // Class designed to contain a method that can hash 
-// a PIN entered by the user. 
+// a PIN entered by the user.  
 public static class HashClass {
 
     // Static method able to be called from any class in this game, to hash a String using 
