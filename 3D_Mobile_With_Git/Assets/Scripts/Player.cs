@@ -92,5 +92,11 @@ public class Player : MonoBehaviour {
     }
 
 
+    // TEST to return the number of stars held by the player
+    public int returnStars(){
+        return this.numberOfStars; 
+    }
+
+
 }
 
