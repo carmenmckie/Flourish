@@ -126,6 +126,12 @@ public class GameObjectsManager : MonoBehaviour
        }
    }
 
+    // Getter to complete Unit Testing in GameObjectsManagerTests.cs 
+    public List<Vector3> getGardenObjectsPositions(){
+        return gardenObjectsPositions; 
+    }
+
+
 }
 
 

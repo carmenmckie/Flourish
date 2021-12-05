@@ -4,7 +4,7 @@ using UnityEngine;
 // For testing
 using NUnit.Framework; 
 
-public class PlayerTest {
+public class PlayerTests {
 
     
 
@@ -12,7 +12,7 @@ public class PlayerTest {
     // time (and so a new Player object is created) 
     // That the star values are 0 
     [Test]
-    public void confirm_new_player_0_stars_test(){
+    public void confirm_new_player_0_stars_TEST(){
         // ARRANGE 
         Player testPlayer = new Player(); 
         int expectedStars = 0; 
@@ -27,7 +27,7 @@ public class PlayerTest {
     // Test to check that the adding star functionality works 
     // When called 10 times in a row 
     [Test]
-    public void adding_10_stars_test(){
+    public void adding_10_stars_TEST(){
         // ARRANGE 
         Player testPlayer = new Player(); 
         int expectedStars = 10; 

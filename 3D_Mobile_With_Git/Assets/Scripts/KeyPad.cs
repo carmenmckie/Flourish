@@ -194,6 +194,10 @@ public class KeyPad : MonoBehaviour
             return "0"; 
         }
     }
+
+    public int getDigitsEnteredCounter(){
+        return this.digitsEnteredCounter; 
+    }
 }
 
 
