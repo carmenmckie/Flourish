@@ -19070,7 +19070,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1882941575}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CaptchaPanel, Assembly-CSharp
         m_MethodName: Submit
         m_Mode: 1
