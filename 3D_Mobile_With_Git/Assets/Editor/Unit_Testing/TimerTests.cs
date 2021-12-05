@@ -30,7 +30,7 @@ public void confirm_no_seconds_left_TEST(){
 public void confirm_timer_complete_TEST(){
     // ARRANGE
     Timer testTimer = new Timer(); 
-    bool expectedResult = testTimer.getTimerComplete(); 
+    bool expectedResult = false;
     // ACT 
     bool actualResult = testTimer.getTimerComplete(); 
     // ASSERT 
