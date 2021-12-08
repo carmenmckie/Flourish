@@ -8,7 +8,7 @@ public class GameAudio : MonoBehaviour
     // Make one static instance so that multiple objects 
     // Playing the same audio aren't created (for example if 
     // the game restarts)
-    public static GameAudio instance; 
+    private static GameAudio instance; 
     
     // So audio is carried through between scenes (rather than turning on and off between scenes)
     public void Awake(){

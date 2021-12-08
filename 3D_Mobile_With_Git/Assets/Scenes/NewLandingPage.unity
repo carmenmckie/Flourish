@@ -9855,10 +9855,10 @@ RectTransform:
   m_Father: {fileID: 434830762}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -464, y: 685.26}
-  m_SizeDelta: {x: -1096.5487, y: 86.165}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 214, y: -70}
+  m_SizeDelta: {x: 261.4513, y: 86.16498}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &699128097
 Animator:
@@ -12908,10 +12908,10 @@ RectTransform:
   m_Father: {fileID: 434830762}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 523.59, y: 676.85}
-  m_SizeDelta: {x: -1047.1748, y: 94.503}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -160, y: -70}
+  m_SizeDelta: {x: 310.8252, y: 94.50299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &956111664
 Animator:
@@ -21960,7 +21960,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Flourish!
+  m_Text: Flourish
 --- !u!222 &1795312182
 CanvasRenderer:
   m_ObjectHideFlags: 0
