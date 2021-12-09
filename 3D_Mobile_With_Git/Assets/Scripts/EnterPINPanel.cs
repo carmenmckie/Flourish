@@ -14,27 +14,29 @@ public class EnterPINPanel : MonoBehaviour
 
     // Reference to the successfulLoginPanel so that it can be made visible to the user 
     // If they enter a correct PIN:
-    public GameObject successfulPanelTestCalledFromEnterPin; 
+    [SerializeField]
+    private GameObject successfulPanelTestCalledFromEnterPin; 
 
     // KeyPad object so user can enter their PIN via the KeyPad buttons: 
-    public KeyPad keypadRef = new KeyPad(); 
+    [SerializeField]
+    private KeyPad keypadRef = new KeyPad(); 
 
     // _______ Timer Specific _______
 
     private bool isTimerStarted = false; 
     // Timer object: 
-    public Timer countdownTimer; 
+    private Timer countdownTimer; 
     // Reference to the General KeyPad area (KeypadBackground) which 
     // Contains multiple children objects, (keypad, buttons, pin entered, etc...)
     // To be made not visible when the user is under the countdown time-out: 
-    public GameObject keypadBackground; 
+    [SerializeField]
+    private GameObject keypadBackground; 
     private bool newTimerNeeded = false; 
     private GameObject testTimer; 
 
 
 
 
-// * M? 
     // Method that controls locking the user out of the entering PIN area
     // If they enter the incorrect PIN too many times (5) before
     // showing the PIN again after 60 seconds 
@@ -83,7 +85,7 @@ public class EnterPINPanel : MonoBehaviour
 
 
     // Method to display error messages to user: 
-    public void displayPINError(){
+    private void displayPINError(){
         // Debug.Log("displayPinError() bug checking ... " + loginErrorCountdown);
         // If the user is not locked out yet 
         if (loginErrorCountdown > 1){
@@ -107,7 +109,7 @@ public class EnterPINPanel : MonoBehaviour
 
      // Method to check whether the PIN entered by the user is valid: 
      // string userInput that is passed is the HASHED version of what the user entered 
-     public void loginCheck(string userInput){
+     private void loginCheck(string userInput){
          bool PINfound = false; 
         // Re-set pattern back to '- - - -' so that 
         // the user doesn't have to delete the digits themselves 
@@ -139,9 +141,8 @@ public class EnterPINPanel : MonoBehaviour
     }
 
 
-// * M?  
     // Called from "Submit" button as an onClick event
-    public void submitPIN(){
+    private void submitPIN(){
         Debug.Log(keypadRef.digitsEnteredCounter); 
         // 1. Need to check PIN is long enough before going any further
         //***6 digits means the counter is at 8 
