@@ -14,19 +14,20 @@ using UnityEngine.UI;
 public class GameObjectsManager : MonoBehaviour
 {
     // The arrow in the game pointing from the target object to the Port: 
-    public Transform arrowBackground; 
-    public Transform arrow; 
+    [SerializeField]
+    private Transform arrowBackground; 
+    [SerializeField]
+    private Transform arrow; 
     // Port = target area for the user to drag the object to: 
-    public Port objective; 
+    [SerializeField]
+    private Port objective; 
     
-    // ***? Does it have to be static 
     private static GameObject[] gardenObjectsInScene = new GameObject[4]; 
 
-    // ***? Does it have to be static 
-    static List<Vector3> gardenObjectsPositions;
+    private static List<Vector3> gardenObjectsPositions;
 
     // Method to deactivate the arrow when the game is complete - no more objects to be dragged 
-    public void deActivateArrow(){ 
+    private void deActivateArrow(){ 
         arrowBackground.gameObject.SetActive(false); 
     }
 
@@ -90,7 +91,7 @@ public class GameObjectsManager : MonoBehaviour
     // Method that randomises the positions of the garden objects
     // With the goal of making the game more interesting: each time the player 
     // plays, the objects to be dragged aren't always going to be in the same position: 
-   void randomiseGardenObjectPositions(){
+   private void randomiseGardenObjectPositions(){
        // List to store the positions of the GardenObjects: 
        // Stored in a Vector 3 object because it's (x,y,z): 
        List<Vector3> gardenObjectsPositions = new List<Vector3>(); 
