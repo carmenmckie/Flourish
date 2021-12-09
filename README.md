@@ -4,16 +4,16 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
   <h3 align="center">Flourish iOS Projetc</h3>
 
   <p align="center">
+    <br />
     Proof-of-concept video game design and development for children with Autism Spectrum Disorder
     <br />
+    <br />
     <strong>Game .cs scripts created for this Unity project are in /3D_Mobile_With_Git/Assets/Scripts</strong>
+    <br />
     <br />
     <strong>Unit testing .cs scripts created for testing are in /3D_Mobile_With_Git/Assets/Editor/Unit_Testing</strong>
     <br />
