@@ -75,7 +75,7 @@ Carmen McKie - [https://github.com/carmenmckie](https://github.com/carmenmckie/)
 Assets that have been used within this project: 
 
 * [Garden Realistic Tools](https://assetstore.unity.com/packages/3d/garden-realistic-tools-68960)
-* [Nature Sounds Pack Free] (https://assetstore.unity.com/packages/audio/sound-fx/nature-sounds-pack-free-202076)
+* [Nature Sounds Pack Free](https://assetstore.unity.com/packages/audio/sound-fx/nature-sounds-pack-free-202076)
 * [Flower Pot](https://assetstore.unity.com/packages/3d/props/exterior/pbr-floweringpot-01-167368)
 * [Fantasy Skybox Free](https://assetstore.unity.com/packages/2d/textures-materials/sky/fantasy-skybox-free-18353)
 * [Free Casual Game Sfx Pack](https://assetstore.unity.com/packages/audio/sound-fx/free-casual-game-sfx-pack-54116)
