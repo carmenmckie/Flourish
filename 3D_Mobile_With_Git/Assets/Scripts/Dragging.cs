@@ -6,8 +6,8 @@ public class Dragging : MonoBehaviour {
 
     private GameObjectsManager gameObjectsManager = new GameObjectsManager(); 
 
-    // public string taggedObject;
-    public Camera cameraObject;
+    [SerializeField]
+    private Camera cameraObject;
 
     // Private variables for calculations within this class: 
     private Vector3 distanceVector;

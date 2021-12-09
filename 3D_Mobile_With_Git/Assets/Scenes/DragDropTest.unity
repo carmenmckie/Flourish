@@ -2132,7 +2132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335211969}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.41, y: -0.058, z: -9.97}
+  m_LocalPosition: {x: 7.41, y: -0.058, z: -11.86}
   m_LocalScale: {x: 1, y: 1.2839, z: 1}
   m_Children: []
   m_Father: {fileID: 1824654581}
@@ -2165,7 +2165,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &335211973
 MeshRenderer:
@@ -2187,7 +2187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f36a222811073946936cf1cdeb78f9c, type: 2}
+  - {fileID: 2100000, guid: 142edd7e82d6a534bae6b5f387c8c00d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3495,8 +3495,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Sliding the circle on this bar can adjust how loud the music is within
-    the game: '
+  m_Text: 'Sliding the circle on this bar can adjust the level of background audio
+    within the game: '
 --- !u!222 &669836227
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4377,7 +4377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811350488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.8427, y: 0.3449, z: -10.7}
+  m_LocalPosition: {x: 18.8427, y: 0.3449, z: -11.81}
   m_LocalScale: {x: 2.985831, y: 3.3446767, z: 0.41843623}
   m_Children:
   - {fileID: 1052995146}
@@ -5585,7 +5585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 441386, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.072
+      value: 8.96
       objectReference: {fileID: 0}
     - target: {fileID: 441386, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6734,7 +6734,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Turn Music On: '
+  m_Text: 'Turn Audio On: '
 --- !u!222 &1091992415
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7745,7 +7745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479256, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.74
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 479256, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7865,7 +7865,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Turn Music Off: '
+  m_Text: 'Turn Audio Off: '
 --- !u!222 &1325368426
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8642,10 +8642,10 @@ RectTransform:
   m_Father: {fileID: 1847003080}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.7173, y: 317}
-  m_SizeDelta: {x: 188.744, y: 91.2131}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -57}
+  m_SizeDelta: {x: 456.8082, y: 91.213104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1491939155
 MonoBehaviour:
@@ -8680,7 +8680,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Music '
+  m_Text: Background Audio
 --- !u!222 &1491939156
 CanvasRenderer:
   m_ObjectHideFlags: 0

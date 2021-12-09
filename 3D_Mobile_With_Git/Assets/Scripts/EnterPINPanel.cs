@@ -117,7 +117,7 @@ public class EnterPINPanel : MonoBehaviour
         // Check the copy of the .csv file held in HandleCSV's internal memory collection 
         // To see if this hash (userInput) matches any hashes in the .csv: 
          foreach (CSVInfo x in HandleCSV.currentCSV){
-             if (x.pin.Equals(userInput)){
+             if (x.getPin().Equals(userInput)){
                  Debug.Log("found pin");
                  // Clear any existing error messages: 
                  keypadRef.pinFeedback.text = ""; 

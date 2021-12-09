@@ -9,10 +9,20 @@ using System;
 // Class to make a CAPTCHA object: 
 public class CAPTCHA
 {
+    
     // The Image containing the CAPTCHA: 
-    public Sprite Image; 
+    private Sprite Image; 
     // The correct value of the CAPTCHA: 
-    public string Value; 
+    private string Value; 
 
-   
+    
+    public Sprite getImage(){
+        return this.Image; 
+    }
+
+    public String getValue(){
+        return this.Value; 
+    }
+
+
 }

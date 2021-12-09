@@ -7,11 +7,13 @@ using System;
 // Not a MonoBehaviour class, purely informational class: 
 public class CSVInfo {
 
+
+
     // PIN chosen by user (only saved in hashed form)
-    public string pin; 
+    private string pin; 
     // Date PIN was made by the user, so the parent / guardian is made aware when their PIN was changed
     // as a security measure: 
-    public string date_created; 
+    private string date_created; 
 
     // Constructor for if an entry is created from the game (date will be generated):
     public CSVInfo(string pin){
@@ -47,14 +49,14 @@ public class CSVInfo {
         return lastDate; 
     }
 
+    public string getPin(){
+        return this.pin;
+    }
 
-    // // Only a testing method at the moment 
-    // public string printCSVInfo(){
-    //     string value = ""; 
-    //     value += this.pin + ","; 
-    //     value += this.date_created; 
-    //     return value; 
-    // }
+    public string getDateCreated(){
+        return this.date_created; 
+    }
+
 
 }
 

@@ -16,11 +16,12 @@ using UnityEngine;
 // Instead ScriptableObjects are in Project folders. 
 public class CAPTCHAGenerator : ScriptableObject
 {
+    
     // Array of CAPTCHA objects within the game: 
-    public CAPTCHA[] gameCaptchas; 
+    private CAPTCHA[] gameCaptchas; 
     
     // Static so that the index is the same between scenes: 
-    public static int captchaIndex = 0; 
+    private static int captchaIndex = 0; 
 
 
     public CAPTCHA generateNextCAPTCHA(){
@@ -36,7 +37,7 @@ public class CAPTCHAGenerator : ScriptableObject
     public bool checkCAPTCHAInput(string userInput, CAPTCHA captchaObject){
         // Shortcut for, return true if userInput equals the value of that 
         // captchaObject, and false if not. 
-        return (userInput == captchaObject.Value); 
+        return (userInput == captchaObject.getValue()); 
     }
 
 }

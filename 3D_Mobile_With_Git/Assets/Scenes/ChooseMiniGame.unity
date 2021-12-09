@@ -258,7 +258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &40966674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,19 +348,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40966673}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1750047785}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 579527090}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 667, y: 375}
+  m_SizeDelta: {x: 1334, y: 750}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &48340530
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Turn Music Off: '
+  m_Text: 'Turn Audio Off: '
 --- !u!222 &107841884
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1571,7 +1571,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Turn Music On: '
+  m_Text: 'Turn Audio On: '
 --- !u!222 &330117437
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2111,7 +2111,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Sound Effects\n "
+  m_Text: Sound Effects
 --- !u!222 &512861427
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2447,6 +2447,7 @@ RectTransform:
   - {fileID: 552733104}
   - {fileID: 242089887}
   - {fileID: 9857183}
+  - {fileID: 40966678}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7009,7 +7010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1750047785
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7333,8 +7334,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Sliding the circle on this bar can adjust how loud the music is within
-    the game: '
+  m_Text: 'Sliding the circle on this bar can adjust the level of background audio
+    within the game: '
 --- !u!222 &1928896593
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7916,10 +7917,10 @@ RectTransform:
   m_Father: {fileID: 1750047785}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.7173, y: 317}
-  m_SizeDelta: {x: 188.744, y: 91.2131}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -59}
+  m_SizeDelta: {x: 454.8514, y: 91.2131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063334522
 MonoBehaviour:
@@ -7954,7 +7955,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Music '
+  m_Text: Background Audio
 --- !u!222 &2063334523
 CanvasRenderer:
   m_ObjectHideFlags: 0

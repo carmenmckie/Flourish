@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/NewLandingPage.unity
+    guid: 9dda7975a171c42a1af0aaca3f0e5c79
+  - enabled: 1
     path: Assets/Scenes/LandingPage.unity
     guid: e9d420ac2a9a94f8d8dd786b945e4698
   - enabled: 1
@@ -32,7 +35,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DragDropTest.unity
     guid: a5ad1e147ed7f495fb7907f0a2743df0
-  - enabled: 1
-    path: Assets/Scenes/NewLandingPage.unity
-    guid: 9dda7975a171c42a1af0aaca3f0e5c79
   m_configObjects: {}

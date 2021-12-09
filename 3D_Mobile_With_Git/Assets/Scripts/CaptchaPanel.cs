@@ -7,31 +7,38 @@ using UnityEngine.UI;
 // Class controlling CAPTCHAPanel  
 public class CaptchaPanel : MonoBehaviour
 {   
+   
     // Reference to a KeyPad object needed so the user can enter input: 
-    public KeyPad keypadRef; 
+    [SerializeField]
+    private KeyPad keypadRef; 
 
     // Reference to the CAPTCHA object that will be displayed on the UI to the user
-    public Image captchaImage; 
+    [SerializeField]
+    private Image captchaImage; 
 
-    // Button to refresh the CAPTCHA displayed to the user 
-    public Button refreshCAPTCHAButton; 
+    // Button to refresh the CAPTCHA displayed to the user
+    [SerializeField] 
+    private Button refreshCAPTCHAButton; 
 
     // Submit button on KeyPad UI 
-    public Button submitCAPTCHAButton; 
+    [SerializeField]
+    private Button submitCAPTCHAButton; 
 
     // Reference to a CAPTCHAGenerator object so that 
     // .generateCAPTCHA() and .checkCAPTCHAInput() can be called: 
-   public CAPTCHAGenerator captchaGeneratorRef; 
+    [SerializeField]
+   private CAPTCHAGenerator captchaGeneratorRef; 
 
     // Reference to the currentCAPTCHA object, used to check if the user 
     // Entered the correct matching string value for the CAPTCHA 
    private CAPTCHA currentCAPTCHA; 
 
    // Reference to a GPLogIn object so that .successfulCaptchaNavigation() can be called: 
-   public GPLogIn gpLogInRef; 
+   [SerializeField]
+   private GPLogIn gpLogInRef; 
 
    // Reference to a HandleCSV object so that .appendCSV() can be called:
-   HandleCSV csvHandling = new HandleCSV(); 
+   private HandleCSV csvHandling = new HandleCSV(); 
 
     private void Start() {
         // Updates UI so CAPTCHA displaeyd to user: 
@@ -50,7 +57,7 @@ public class CaptchaPanel : MonoBehaviour
     private void generateCAPTCHA(){
         currentCAPTCHA = captchaGeneratorRef.generateNextCAPTCHA(); 
         // Update UI for user: 
-        captchaImage.sprite = currentCAPTCHA.Image; 
+        captchaImage.sprite = currentCAPTCHA.getImage(); 
     }
 
    // Clicked by the user when they want to submit their CAPTCHA they enter

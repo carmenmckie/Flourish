@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // Script to control the panel that is displayed when a parent/ guaridan clicks "ForgottenPIN?" from InitialGuardianLogInPanel 
 public class ForgottenPIN : MonoBehaviour {
-    
+
     // Reference to the Text UI element which notifies user when the PIN was last changed: 
     public Text pinLastChangedText; 
 

@@ -10,7 +10,6 @@ using System.IO;
 public class HandleCSV : MonoBehaviour
 {
 
-//? Could be made non public with getter 
     public static List<CSVInfo> currentCSV = new List<CSVInfo>(); 
     // To keep track of how many lines are in the CSV file 
     // There should only be max 2
@@ -82,7 +81,7 @@ public class HandleCSV : MonoBehaviour
     public void appendToCSV(CSVInfo newCSVEntry){
         // Using string interpolation to save to the CSV file in the Resources folder: 
         // *** Adds to a new line ($"\n....)
-        File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newCSVEntry.pin},{newCSVEntry.date_created}");
+        File.AppendAllText("Assets/Resources/CSVResources/PGInfo.csv", $"\n{newCSVEntry.getPin()},{newCSVEntry.getDateCreated()}");
     }
 
 
@@ -107,11 +106,11 @@ public class HandleCSV : MonoBehaviour
         // (it shouldn't, but just in case) 
         if(!File.Exists(temporaryFile)){
             // Add the column headings to the .csv file (pin, date_created): 
-            File.WriteAllText(temporaryFile, $"{oldCSV[0].pin},{oldCSV[0].date_created}\n");
+            File.WriteAllText(temporaryFile, $"{oldCSV[0].getPin()},{oldCSV[0].getDateCreated()}\n");
         }
         // 4. Append the test PIN (1111) to this file. The user's custom PIN is not entered
         // Because they have asked for it to be reset so it is removed: 
-        File.AppendAllText(temporaryFile, $"{oldCSV[1].pin},{oldCSV[1].date_created}");
+        File.AppendAllText(temporaryFile, $"{oldCSV[1].getPin()},{oldCSV[1].getDateCreated()}");
         // 5. Delete the existing csv file (PGInfo.cs)
         string originalFilePath = Application.dataPath + "/Resources/CSVResources/PGInfo.csv";
         File.Delete(originalFilePath); 
