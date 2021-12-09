@@ -48,7 +48,7 @@ Flourish is a proof-of-concept video game designed and developed for children wi
 
 ### Built With
 
-* [C#](https://www.google.com/search?client=safari&rls=en&q=C%23&ie=UTF-8&oe=UTF-8)
+* [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 * [Unity3D](https://unity.com)
 * [.NET Framework](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 * [Mono](https://www.mono-project.com)
