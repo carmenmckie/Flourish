@@ -10,10 +10,10 @@
   <p align="center">
     <br />
     <br />
-    <strong>[Game .cs Scripts >>](https://github.com/carmenmckie/Flourish/tree/main/3D_Mobile_With_Git/Assets/Scripts)
+    [Game .cs Scripts >>](https://github.com/carmenmckie/Flourish/tree/main/3D_Mobile_With_Git/Assets/Scripts)
     <br />
     <br />
-    <strong>[Unit Test .cs Scripts >>](https://github.com/carmenmckie/Flourish/tree/main/3D_Mobile_With_Git/Assets/Editor/Unit_Testing)
+    [Unit Test .cs Scripts >>](https://github.com/carmenmckie/Flourish/tree/main/3D_Mobile_With_Git/Assets/Editor/Unit_Testing)
     <br />
   </p>
 </div>
