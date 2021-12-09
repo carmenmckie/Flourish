@@ -56,24 +56,6 @@ Flourish is a proof-of-concept video game designed and developed for children wi
 
 
 
-<!-- GETTING STARTED -->
-## Getting Started
-
-Flourish is a proof-of-concept video game designed and developed for children with Autism Spectrum Disorder. 
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
 <!-- LICENCE -->
 ## Licence 
 
