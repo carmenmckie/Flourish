@@ -11,7 +11,7 @@ public class GameAudio : MonoBehaviour
     private static GameAudio instance; 
     
     // So audio is carried through between scenes (rather than turning on and off between scenes)
-    public void Awake(){
+    private void Awake(){
         if (instance == null) {
             instance = this; 
             DontDestroyOnLoad(transform.gameObject);
