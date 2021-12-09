@@ -8,14 +8,16 @@ using UnityEngine.UI;
 public class ForgottenPIN : MonoBehaviour {
 
     // Reference to the Text UI element which notifies user when the PIN was last changed: 
-    public Text pinLastChangedText; 
+    [SerializeField]
+    private Text pinLastChangedText; 
 
     // PIN NOT already created? = GameObject set to not visible
     //      E.g. Text that says "Would you like to reset your PIN? > Yes > No" 
     //      If the user has not already created a PIN, do not display an option 
     //      to reset the PIN - doesn't make sense. 
     // PIN already created? = Display the option to reset their PIN. 
-    public GameObject optionsVisibleIfPINCreated; 
+    [SerializeField]
+    private GameObject optionsVisibleIfPINCreated; 
 
 
     private void Start() {
@@ -30,7 +32,7 @@ public class ForgottenPIN : MonoBehaviour {
 
     // Checks whether the option to reset a PIN is displayed to the user (if they have created a PIN)
     // Or not (if they haven't created a PIN already - no point asking to reset a PIN if they don't have one)
-    public void displayCorrectForgottenPINOutput(){
+    private void displayCorrectForgottenPINOutput(){
         // Error checking, if no date is returned, it means no PIN has been set - update UI accordingly
         if (CSVInfo.returnLastDate(HandleCSV.currentCSV) == null) {
             // If a PIN has not been created by the user, do not display information about resetting their PIN 
