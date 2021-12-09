@@ -15,12 +15,14 @@ public class CreateAccount : MonoBehaviour
     private bool firstPINSubmitted = false; 
 
     // Used to display instructions, e.g. enter your PIN, re-enter your PIN... 
-    public Text pinInstructions; 
+    [SerializeField]
+    private Text pinInstructions; 
 
     // Reference to the General KeyPad area (KeypadBackground) which 
     // Contains multiple children objects, (keypad, buttons, pin entered, etc...)
     // To be made not visible when the user is under the countdown time-out: 
-    public GameObject keypadBackground; 
+    [SerializeField]
+    private GameObject keypadBackground; 
 
     // Instance variable to hold first entered PIN: 
     private string firstEnteredPIN; 
@@ -28,28 +30,32 @@ public class CreateAccount : MonoBehaviour
     private string secondEnteredPIN; 
 
     // False until made true if the user incorrectly enters two different PINs: 
-    public bool PINsDontMatch = false;
+    private bool PINsDontMatch = false;
 
     // Reference to a HandleCSV object so that new information can be appended to the .CSV: 
-    HandleCSV csvHandling = new HandleCSV(); 
+    private HandleCSV csvHandling = new HandleCSV(); 
 
     // Reference to the pop-up window that is displayed if a PIN is created successfully: 
-    public GameObject popUpWindow; 
+    [SerializeField]
+    private GameObject popUpWindow; 
 
     // Reference to a KeyPad object, with methods and functionality: 
-    public KeyPad createAccountKeypadRef = new KeyPad(); 
+    [SerializeField]
+    private KeyPad createAccountKeypadRef = new KeyPad(); 
 
      // Empty GameObject grouping together the gameobjects that 
     // are involved in creating a PIN. 
     // (E.g. KeyPad object, creating PIN instructions)
     // Set to be visible if a user hasn't created a custom PIN yet. 
     // When custom PIN has been created, set to not visible. 
-    public GameObject generalCreateAccountArea; 
+    [SerializeField]
+    private GameObject generalCreateAccountArea; 
 
     // GameObject that will be set to visible if a PIN has already
     // Been created, so the user is informed of the update, and the 
     // fact they have already created a PIN. 
-    public GameObject PINAlreadyCreatedText; 
+    [SerializeField]
+    private GameObject PINAlreadyCreatedText; 
 
 
 
@@ -87,7 +93,7 @@ public class CreateAccount : MonoBehaviour
     //      And instead, help them by saying if they have 
     //      forgotten their PIN, they can reset it from 
     //      "Forgotten PIN". 
-    public void checkIfPINAlreadyMade(){ 
+    private void checkIfPINAlreadyMade(){ 
         // Condition check is less than 2 because 
         // 1st entry = test PIN (1111) 
         // 2nd entry will be filled with custom PIN 
@@ -143,7 +149,7 @@ public class CreateAccount : MonoBehaviour
 
 
     // Called from "Submit" button as an onClick event
-    public void submitPIN(){
+    private void submitPIN(){
         // If this is the first time submitPIN() has been called
         // from this session:
         if (!firstPINSubmitted){
@@ -206,7 +212,7 @@ public class CreateAccount : MonoBehaviour
     // Alerting the user that creating their PIN 
     // was successful, called only if their PIN meets 
     // the requirements: 
-    IEnumerator displayPopUpWindow() 
+    private IEnumerator displayPopUpWindow() 
     {
         popUpWindow.SetActive(true); 
         // Show for 3 seconds
@@ -234,7 +240,7 @@ public class CreateAccount : MonoBehaviour
     // Method that is only called if the PINs meet the requirements of: 
     // - Being the correct length (4 digits)
     // - PINs are identical 
-    public void savePIN(){
+    private void savePIN(){
         // Since both PINs are the same, just hash the first one cuz the second will be the same value
         string hashed = HashClass.toSHA256(firstEnteredPIN); 
         // Create a new CSVInfo object with the hashed PIN 
