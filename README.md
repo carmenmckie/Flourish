@@ -9,13 +9,11 @@
 
   <p align="center">
     <br />
-    Proof-of-concept video game design and development for children with Autism Spectrum Disorder
+    <br />
+    <strong>[Game .cs Scripts >>](https://github.com/carmenmckie/Flourish/tree/main/3D_Mobile_With_Git/Assets/Scripts)
     <br />
     <br />
-    <strong>Game .cs scripts are in /3D_Mobile_With_Git/Assets/Scripts</strong>
-    <br />
-    <br />
-    <strong>Unit testing .cs scripts are in /3D_Mobile_With_Git/Assets/Editor/Unit_Testing</strong>
+    <strong>[Unit Test .cs Scripts >>](https://github.com/carmenmckie/Flourish/tree/main/3D_Mobile_With_Git/Assets/Editor/Unit_Testing)
     <br />
   </p>
 </div>
