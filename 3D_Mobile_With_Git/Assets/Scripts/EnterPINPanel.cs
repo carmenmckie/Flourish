@@ -25,7 +25,7 @@ public class EnterPINPanel : MonoBehaviour
 
     private bool isTimerStarted = false; 
     // Timer object: 
-    private Timer countdownTimer; 
+    private Timer countdownTimer = new Timer(); 
     // Reference to the General KeyPad area (KeypadBackground) which 
     // Contains multiple children objects, (keypad, buttons, pin entered, etc...)
     // To be made not visible when the user is under the countdown time-out: 

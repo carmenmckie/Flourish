@@ -2871,7 +2871,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 162399699}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1882941575}
+        m_TargetAssemblyTypeName: CaptchaPanel, Assembly-CSharp
+        m_MethodName: generateCAPTCHA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &162399699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9473,7 +9485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinInstructions: {fileID: 108987069}
   keypadBackground: {fileID: 1940227526}
-  PINsDontMatch: 0
   popUpWindow: {fileID: 1431046343}
   createAccountKeypadRef: {fileID: 1940227530}
   generalCreateAccountArea: {fileID: 2035051316}
@@ -12010,7 +12021,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   successfulPanelTestCalledFromEnterPin: {fileID: 996803480}
   keypadRef: {fileID: 115377197}
-  countdownTimer: {fileID: 912142318}
   keypadBackground: {fileID: 115377193}
 --- !u!114 &785099883
 MonoBehaviour:
@@ -14522,7 +14532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc3a9d9fcae648bb8e4a940e7e3109d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfStarsSelected: 0
   successfulLoginPanel: {fileID: 996803480}
 --- !u!1 &997389661
 GameObject:
@@ -17423,7 +17432,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   successfulPanelTestCalledFromEnterPin: {fileID: 0}
   keypadRef: {fileID: 0}
-  countdownTimer: {fileID: 332484433}
   keypadBackground: {fileID: 932538133}
 --- !u!1 &1280902640
 GameObject:
@@ -20215,7 +20223,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1882941575}
         m_TargetAssemblyTypeName: CaptchaPanel, Assembly-CSharp
         m_MethodName: Submit
         m_Mode: 1

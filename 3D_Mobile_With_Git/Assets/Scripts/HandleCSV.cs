@@ -16,8 +16,7 @@ public class HandleCSV : MonoBehaviour
     // (1st line on .csv is NOT ADDED to List - it's data columns / human readible info)
     // 2nd line = PIN for testing purposes (1111) (wouldn't be there in a real life app) 
     // 3rd line = PIN set by the user <-- this is the one rewritten if the user forgets their PIN 
-// ? Does it need to be static? 
-    public static int csvLineCounter = 0; 
+    private static int csvLineCounter = 0; 
     // Can reference PGInfo.csv as a TextAsset: "pgInfo" will be how Unity will now reference the information 
     // contained in PGInfo.csv: 
     TextAsset pgInfo; 
@@ -33,6 +32,13 @@ public class HandleCSV : MonoBehaviour
         // can be read from when the game is opened again. 
         currentCSV.AddRange(readCSV(1)); 
     }
+
+    public static int getCSVLineCounter(){
+        return csvLineCounter; 
+    }
+
+    
+
 
     // Method to fill the internal memory collection (currentCSV) with contents from the .csv file; 
     public List<CSVInfo> readCSV(int indexToReadFrom){ 

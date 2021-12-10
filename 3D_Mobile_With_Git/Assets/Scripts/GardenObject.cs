@@ -12,10 +12,10 @@ public class GardenObject : MonoBehaviour
     //x,y,z co-ordinates of the object's original position 
     // Has to be non static in order to be used with
     // other.GetComponent<GardenObject>().startPosition in Port.cs 
-    public Vector3 startPosition;
+    private Vector3 startPosition;
 
 
-    public void Start(){
+    private void Start(){
         // Set position of the GardenObject based on where they got shuffled to: 
         setPosition(); 
     }

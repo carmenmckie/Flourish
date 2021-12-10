@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
     // sets a goal from 'SuccessfulLogin.cs' 
     private static bool goalSet = false; 
     public static bool goalAchieved = false; 
-    public static int targetStars = 0; 
+    private static int targetStars = 0; 
 
     // Called from SuccessfulLogin.cs when the Parent / Guardian selects the star goal: 
     // From SuccessfulLogin panel, the parent / guardian can set a goal for how many stars

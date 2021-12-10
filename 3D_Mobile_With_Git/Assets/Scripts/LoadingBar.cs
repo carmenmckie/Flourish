@@ -9,11 +9,14 @@ using UnityEngine.UI;
 public class LoadingBar : MonoBehaviour {
 
     // Reference to LoadingScreen
-    public GameObject loadingScreen;
+    [SerializeField] 
+    private GameObject loadingScreen;
     // Reference to Progress Slider 
-    public Slider sliderBar; 
+    [SerializeField] 
+    private Slider sliderBar; 
     // Reference to the text on the slider bar:
-    public Text progressPercentage; 
+    [SerializeField] 
+    private Text progressPercentage; 
 
   
 

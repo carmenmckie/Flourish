@@ -18,7 +18,7 @@ public class CAPTCHAGenerator : ScriptableObject
 {
     
     // Array of CAPTCHA objects within the game: 
-    private CAPTCHA[] gameCaptchas; 
+    public CAPTCHA[] gameCaptchas; 
     
     // Static so that the index is the same between scenes: 
     private static int captchaIndex = 0; 

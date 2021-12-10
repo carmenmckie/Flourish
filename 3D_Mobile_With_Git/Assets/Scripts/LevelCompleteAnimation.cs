@@ -12,15 +12,17 @@ public class LevelCompleteAnimation : MonoBehaviour
     [SerializeField] private Image starImage1; 
 
     // The 'GameCompletePanel' UI Panel that will show the stars upon game completion 
-    public GameObject gameCompleteCanvas; 
+    [SerializeField]
+    private GameObject gameCompleteCanvas; 
 
-    public bool animationFinished = false; 
-
+    private bool animationFinished = false; 
     public Player player; 
-    public LoadingBar loading; 
+    [SerializeField]
+    private LoadingBar loading; 
 
     // Reference to the GameObject to be displayed if the user meets their star goal: 
-    public GameObject starGoalReached; 
+    [SerializeField]
+    private GameObject starGoalReached; 
 
 
 

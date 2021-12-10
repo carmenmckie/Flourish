@@ -9,10 +9,11 @@ public class SuccessfulLogin : MonoBehaviour
 {
 
     // Holds reference to the number of stars selected by the parent / guardian 
-    public int numberOfStarsSelected = 0; 
+    private int numberOfStarsSelected = 0; 
 
     // 'SuccessfulLoginPanel' object in Unity hierarchy, to be opened / closed: 
-    public GameObject successfulLoginPanel; 
+    [SerializeField]
+    private GameObject successfulLoginPanel; 
     // Used to control opening / closing of successfulLoginPanel: 
     private bool isSuccessfulLoginPanelOpen = false; 
 

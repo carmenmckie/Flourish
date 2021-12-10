@@ -15,20 +15,19 @@ using UnityEngine.UI;
 public class GPLogIn : MonoBehaviour
 { 
 
-
-
-
     // ____________________________________________
     // Controlling InitialGuardianLogInPanel 
     // ____________________________________________
 
     // * GeneralPanel, aka the LandingPage of the game 
-    public GameObject generalPanel; 
+    [SerializeField]
+    private GameObject generalPanel; 
     // when game starts, GeneralPanel is open: 
     private bool isGeneralPanelOpen = true; 
 
     // * To control the sub-panel, InitialGuardianLogInPanel:
-    public GameObject initialGuardianLogInPanel; 
+    [SerializeField]
+    private GameObject initialGuardianLogInPanel; 
     // When the game starts, it is not open:
     private bool isInitialGuardianLogInPanelOpen = false; 
 
@@ -99,7 +98,8 @@ public class GPLogIn : MonoBehaviour
 
     // So that enterPINPanel.restart() can be called 
     // when a user leaves enterPINPanel: 
-    public GameObject enterPINPanel; 
+    [SerializeField]
+    private GameObject enterPINPanel; 
 
 
     // For EnterPINPanel to be visible to the user, 
@@ -140,7 +140,8 @@ public class GPLogIn : MonoBehaviour
     // Panel to be opened / closed when CreateAccount is pressed
     // ("CreateAccountPanel" in Hierarchy)
     // By default, createAccountPanel is not Visible until user input asks for it to be opened. 
-    public GameObject createAccountPanel; 
+    [SerializeField]
+    private GameObject createAccountPanel; 
 
 
 
@@ -187,8 +188,8 @@ public class GPLogIn : MonoBehaviour
     //      Due to the Unity hierarchy: 
     // 1. Close InitialGuardianLogin
     // 2. Open ForgottenPINPanel 
-
-    public GameObject forgottenPINPanel; 
+    [SerializeField]
+    private GameObject forgottenPINPanel; 
     // By default, forgottenPINPanel is not open until 
     // User clicks "Forgotten PIN": 
     private bool forgottenPINPanelOpen = false; 
@@ -227,7 +228,8 @@ public class GPLogIn : MonoBehaviour
     // Default = it will be closed until opened (if necessary)
     private bool isCAPTCHAPanelOpen = false; 
     // Ref to the Panel GameObject: 
-    public GameObject captchaPanel; 
+    [SerializeField]
+    private GameObject captchaPanel; 
 
     
     // Method that is used as an onClick() event: 

@@ -11,9 +11,9 @@ public class CAPTCHA
 {
     
     // The Image containing the CAPTCHA: 
-    private Sprite Image; 
+    public Sprite Image; 
     // The correct value of the CAPTCHA: 
-    private string Value; 
+    public string Value; 
 
     
     public Sprite getImage(){

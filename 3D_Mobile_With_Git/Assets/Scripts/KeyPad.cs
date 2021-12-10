@@ -24,7 +24,8 @@ public class KeyPad : MonoBehaviour
  
     // Reference to the Text UI object which updates for the user on 
     // The digits they have entered 
-    public Text enteredDigits; 
+    [SerializeField]
+    private Text enteredDigits; 
 
     // 7 digits MAX:
     private string[] digitsEntered = new string[7];

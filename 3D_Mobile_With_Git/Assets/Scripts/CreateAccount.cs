@@ -93,15 +93,15 @@ public class CreateAccount : MonoBehaviour
     //      And instead, help them by saying if they have 
     //      forgotten their PIN, they can reset it from 
     //      "Forgotten PIN". 
-    private void checkIfPINAlreadyMade(){ 
+    public void checkIfPINAlreadyMade(){ 
         // Condition check is less than 2 because 
         // 1st entry = test PIN (1111) 
         // 2nd entry will be filled with custom PIN 
-        if (HandleCSV.csvLineCounter < 2){
+        if (HandleCSV.getCSVLineCounter() < 2){
             // Custom PIN not already made, display option to create a PIN 
             generalCreateAccountArea.SetActive(true); 
             PINAlreadyCreatedText.SetActive(false); 
-        } if (HandleCSV.csvLineCounter == 2){
+        } if (HandleCSV.getCSVLineCounter() == 2){
             // If a PIN has already been created, csvLineCounter will be equal
             // to 2.
             // If this is the case, do not display the option to create another PIN: 
@@ -149,7 +149,7 @@ public class CreateAccount : MonoBehaviour
 
 
     // Called from "Submit" button as an onClick event
-    private void submitPIN(){
+    public void submitPIN(){
         // If this is the first time submitPIN() has been called
         // from this session:
         if (!firstPINSubmitted){
@@ -212,7 +212,7 @@ public class CreateAccount : MonoBehaviour
     // Alerting the user that creating their PIN 
     // was successful, called only if their PIN meets 
     // the requirements: 
-    private IEnumerator displayPopUpWindow() 
+    IEnumerator displayPopUpWindow() 
     {
         popUpWindow.SetActive(true); 
         // Show for 3 seconds
@@ -240,7 +240,7 @@ public class CreateAccount : MonoBehaviour
     // Method that is only called if the PINs meet the requirements of: 
     // - Being the correct length (4 digits)
     // - PINs are identical 
-    private void savePIN(){
+    public void savePIN(){
         // Since both PINs are the same, just hash the first one cuz the second will be the same value
         string hashed = HashClass.toSHA256(firstEnteredPIN); 
         // Create a new CSVInfo object with the hashed PIN 

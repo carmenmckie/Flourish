@@ -10,14 +10,16 @@ public class PauseMenu : MonoBehaviour
 
     // public static so other scripts can access this
     // To know whether the game is paused or not 
-    public static bool gameIsPaused = false; 
+    private static bool gameIsPaused = false; 
 
     // Reference to the Canvas UI object the pause screen 
     // is made up of: 
-    public GameObject pauseMenuCanvas; 
+    [SerializeField]
+    private GameObject pauseMenuCanvas; 
 
     // Reference to a LoadingBar object
-    public LoadingBar loadingBar; 
+    [SerializeField]
+    private LoadingBar loadingBar; 
    
     // Used to determine what method is called 
     // E.g. Pause or Resume 
@@ -67,10 +69,5 @@ public class PauseMenu : MonoBehaviour
         loadingBar.LoadNewScene("NewLandingPage");
     }
 
-    // // *** Need to add a Quit Game scene 
-    // public void QuitGame(){
-    //     Debug.Log("Quitting game");
-    //     // Application.Quit(); 
-    // }
 
 }

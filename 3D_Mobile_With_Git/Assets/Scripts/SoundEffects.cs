@@ -8,9 +8,12 @@ public class SoundEffects : MonoBehaviour
     // They can be turned off by the Player if desired: 
     // Static as this bool is accessed from various scenes - it shouldn't go back to its default value when a
     // scene is reloaded
-    public static bool areSoundEffectsOn = true; 
-    public AudioSource gameFinishedSound; 
-    public AudioSource correctChoiceSound; 
+    private static bool areSoundEffectsOn = true; 
+    [SerializeField]
+    private AudioSource gameFinishedSound; 
+    
+    [SerializeField]
+    private AudioSource correctChoiceSound; 
 
     
     public void playGameFinishedSound(){

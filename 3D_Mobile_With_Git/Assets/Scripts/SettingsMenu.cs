@@ -15,41 +15,49 @@ public class SettingsMenu : MonoBehaviour
     // Setting to the user: 
     // The text has to be changed via a static string rather than 
     // making the text field Static otherwise Unity throws an error 
-    public Text currentResolution;
+    [SerializeField]
+    private Text currentResolution;
 
     // Reference to the Canvas UI object the gameplay Settings screen 
     // is made up of: 
-     public GameObject settingsMenuCanvas; 
+    [SerializeField]
+    private GameObject settingsMenuCanvas; 
 
     // The text that will be updated by user input and then used to set 
     // the 'Text currentResolution'. Static so it saves between scenes 
     // Based on the user's input
     //  By default at the start of the game, resolution is medium: 
-     public static string resolutionText = "The current resolution is: Medium";
+     private static string resolutionText = "The current resolution is: Medium";
 
      // ****
      // public static so other scripts can access this
     // To know whether the game has Settings open or not 
-    public static bool settingsOpen = false;
+    private static bool settingsOpen = false;
 
     // Reference to Slider so that if the user presses "music on" / "music off"
     // The slider updates so that the change is visible to the user
     // And the slider doesn't represent an old value 
-    public Slider musicSlider;
+    [SerializeField]
+    private Slider musicSlider;
 
 
     // Reference to SoundEffects class in order to change the bool areSoundEffectsOn, which is a condition check before 
     // sound effects are played 
-    public SoundEffects soundEffectsRef; 
+    [SerializeField]
+    private SoundEffects soundEffectsRef; 
 
 
     // Ticks to show which button is active  
     // At this point, music ON and sfx ON are default when the game begins 
     // So by default, musicOnTick and sfxOnTick are VISIBLE  
-    public GameObject musicOnTick; 
-    public GameObject musicOffTick; 
-    public GameObject sfxOnTick; 
-    public GameObject sfxOffTick; 
+    [SerializeField]
+    private GameObject musicOnTick; 
+    [SerializeField]
+    private GameObject musicOffTick; 
+    [SerializeField]
+    private GameObject sfxOnTick; 
+    [SerializeField]
+    private GameObject sfxOffTick; 
 
 
 
