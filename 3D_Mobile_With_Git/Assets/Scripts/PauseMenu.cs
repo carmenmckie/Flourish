@@ -36,7 +36,6 @@ public class PauseMenu : MonoBehaviour
    private void Start() {
        Time.timeScale = 1f; 
        gameIsPaused = false; 
-    //   Resume(); 
    }
 
     // Does the opposite of .Pause() to resume the game: 

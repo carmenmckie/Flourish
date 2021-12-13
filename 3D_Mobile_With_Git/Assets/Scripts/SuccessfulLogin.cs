@@ -100,12 +100,6 @@ public class SuccessfulLogin : MonoBehaviour
             // Navigate back off SuccessfulLogin.cs 
             controlSuccessfulLoginPanelTest(); 
             // Debug.Log("2nd ... numberOfStarsSelected = " + numberOfStarsSelected);
-// ! **********
-// ! **********
-// ! **********
-            // Reset values in this page, so if a user comes back on this page 
-            // and presses save and exit, no effect they didn't intend occurs 
-            // numberOfStarsSelected = 0; 
             return; 
         }
     }

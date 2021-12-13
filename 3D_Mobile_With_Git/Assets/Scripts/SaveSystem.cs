@@ -48,7 +48,7 @@ public static class SaveSystem {
 
 
 
-//*** Try / catch block? 
+    // Method to subsequently load (deserialize) binary data: 
      public static PlayerData loadPlayerData(Player player){
         if (File.Exists(path)){
             BinaryFormatter formatter = new BinaryFormatter(); 

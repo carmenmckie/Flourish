@@ -77,7 +77,6 @@ public class GameObjectsManager : MonoBehaviour
 
    void Start(){
         // Store references to the objects in the scene in a GameObject[] 
-// ***? Search GardenObject type rather than manually checking tags? 
         gardenObjectsInScene[0] = GameObject.FindGameObjectWithTag("Plant Pot");
         gardenObjectsInScene[1] = GameObject.FindGameObjectWithTag("Soil"); 
         gardenObjectsInScene[2] = GameObject.FindGameObjectWithTag("Seed"); 

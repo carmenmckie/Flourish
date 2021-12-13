@@ -65,9 +65,8 @@ public class Player : MonoBehaviour {
 
 
     public void LoadPlayer(){
-//*** ???? Pass this class to SaveSystem.loadPlayerData to make a file if it doesn't exist? 
         PlayerData data = SaveSystem.loadPlayerData(this); 
-       numberOfStars = data.numberOfStars;
+        numberOfStars = data.numberOfStars;
     }
 
 

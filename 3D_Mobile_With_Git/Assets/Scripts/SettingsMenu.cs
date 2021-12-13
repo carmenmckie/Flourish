@@ -29,8 +29,7 @@ public class SettingsMenu : MonoBehaviour
     //  By default at the start of the game, resolution is medium: 
      private static string resolutionText = "The current resolution is: Medium";
 
-     // ****
-     // public static so other scripts can access this
+    // public static so other scripts can access this
     // To know whether the game has Settings open or not 
     private static bool settingsOpen = false;
 

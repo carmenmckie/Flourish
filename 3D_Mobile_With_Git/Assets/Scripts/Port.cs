@@ -1,15 +1,11 @@
-// *Need Method for increasing turnRound 
-// That also sets all remaining objects back to normal
-// i.e. not greyed over, not kinematic
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 // To change the instructions UI element 
 using UnityEngine.UI; 
 
-// ***? Make singleton
+// Class that controls the mini-game functionality
+// Of dragging and dropping objects to the Port (FlowerBed)
 public class Port : MonoBehaviour
 {
     GardenObject currentObject; 
@@ -29,11 +25,9 @@ public class Port : MonoBehaviour
     // Made static so that portInstructionsText could use it 
      private static int turnRound = 1; 
 
-    // ***? Does it have to be static? 
     // The text that will be updated by user input and then used to set the 'Text portInstructions'. 
     // It's static so it saves between scenes Based on the user's input. 
-     public static string portInstructionsText; //= "Welcome to the game! Step " + turnRound + ": try drag the plant pot to the square!"; 
-
+     public static string portInstructionsText; 
 
     // Green banner given as background to text 
     public Image portInstructionsTextBanner; 
@@ -42,19 +36,13 @@ public class Port : MonoBehaviour
     // end of the game 
     bool starAdded = false; 
 
-
-
     // Text changed to display the current instructions
     // The text has to be changed via a static string rather than 
     // making the text field Static otherwise Unity throws an error 
     public Text portInstructions;
 
-
-
-    // MN Testing for sound effects 
+    // To play appropriate sound effects during the game: 
     public SoundEffects soundEffectsRef; 
-
-
 
     // To double check whether the game is complete to see whether the game complete sequences should begin
     private bool gameComplete = false; 
@@ -64,17 +52,6 @@ public class Port : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-    public bool getIsGameComplete(){
-        return gameComplete; 
-
-    }
 
     // Used to know which way the arrow has to point in GameObjectsManager.cs 
     public int getCurrentIndexOfGame(){
@@ -95,7 +72,6 @@ public class Port : MonoBehaviour
         // To begin with, starAdded is false (set to true when player completes game and wins a star)
         starAdded = false; 
     }
-
     
     // Called once per frame
     // Based on the gameplay, the string 'portInstructionsText' is assigned new values. So, as soon as the text is changed based on the game-play, 
@@ -113,7 +89,6 @@ public class Port : MonoBehaviour
         }
     } 
 
-
     // Called at the end of the level 
     public void endOfGame(bool starAdded){
         if (starAdded){
@@ -124,17 +99,6 @@ public class Port : MonoBehaviour
         }
         this.starAdded = true; 
     }
-
-
-
-
-
-
-
-
-
-
-
 
     // Working solution for testing if the objects have been dragged in the correct order;
      private void OnTriggerEnter(Collider other) {
@@ -205,6 +169,7 @@ public class Port : MonoBehaviour
             }
         }
      }
+
 }
 
 

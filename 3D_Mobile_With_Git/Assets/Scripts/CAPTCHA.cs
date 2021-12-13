@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System; 
 
-// Look up when it should extend MonoBehavior and when it shouldn't 
+// Serializable class: 
 [Serializable]
 
 // Class to make a CAPTCHA object: 

@@ -29,7 +29,8 @@ public class KeyPad : MonoBehaviour
 
     // 7 digits MAX:
     private string[] digitsEntered = new string[7];
-// !* Make Private 
+    // Keeps track of the number of digits the user has entered on the
+    // KeyPad object: 
     public int digitsEnteredCounter = 0; 
 
     // Used to display feedback to the user (whether their pin is correct / incorrect): 

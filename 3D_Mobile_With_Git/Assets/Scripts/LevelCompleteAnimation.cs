@@ -37,9 +37,7 @@ public class LevelCompleteAnimation : MonoBehaviour
 
 
   // Turned Method into INemurator 
-  // "You cannot stall the calling function unless it is an IEnumerator itself" 
-  // "WaitForSeconds() only works from within the coroutine" 
-  // https://answers.unity.com/questions/1497296/waitforseconds-not-working-13.html
+  // So that it can yield return new WaitForSeconds
    public IEnumerator displayStars() { 
             yield return new WaitForSeconds(0.2f);
             // Get the position of the original Star image: 
@@ -54,7 +52,6 @@ public class LevelCompleteAnimation : MonoBehaviour
             float starScaleX = starImage1.transform.localScale.x; 
             float starScaleY = starImage1.transform.localScale.y; 
             float starScaleZ = starImage1.transform.localScale.z; 
-// !* M?  
             if(!animationFinished){
                 starImage1.gameObject.SetActive(true); 
                 yield return new WaitForSeconds(0.2f); 

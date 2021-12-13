@@ -60,8 +60,7 @@ public class Timer : MonoBehaviour {
         // Timer currently set to 60 seconds 
         this.secondsLeft = 60; 
         takingAwaySecond = false;
-        timerStillRunning = true; 
-// *? repeating code?         
+        timerStillRunning = true;        
         if (secondsLeft < 10){
             // if the countdown gets into single digits, add an extra 0 
             // so that it doesn't say 00:3, 00:2, etc. Now says 00.03, 00.02... 
@@ -94,7 +93,6 @@ public class Timer : MonoBehaviour {
                 Debug.Log("Got to timerComplete being made true");
                 // Test below: 
                 takingAwaySecond = false; 
-// * needed?                 
                 this.setSecondsLeft(5); 
             }
         }

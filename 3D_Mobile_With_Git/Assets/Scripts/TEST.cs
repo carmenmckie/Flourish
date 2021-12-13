@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 
-// // Attached to TestPanel object to test behaviour by printng Debug.Log() statements
+// Attached to TestPanel object to test behaviour by printng Debug.Log() statements
 
-// // Class that was purely used to test different functionalities. 
+// Class that was purely used to test different functionalities. 
+// Various different methods and functionality were tested within this class which 
+// Was attached to a Test UI Panel. 
 public class TEST : MonoBehaviour
 {
 //     // public Text textField; 
