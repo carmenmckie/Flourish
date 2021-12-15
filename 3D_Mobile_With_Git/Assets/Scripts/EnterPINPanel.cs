@@ -63,7 +63,6 @@ public class EnterPINPanel : MonoBehaviour
             keypadBackground.SetActive(false); 
         }
         // If the Timer is complete, reset the locking out features 
-// * M? 
         if (countdownTimer.getTimerComplete() == true ) { 
             // Debug.Log("Got to Section 3"); 
             // 1. Make keypad area visible again: 

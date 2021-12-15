@@ -8,28 +8,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NewLandingPage.unity
     guid: 9dda7975a171c42a1af0aaca3f0e5c79
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LandingPage.unity
     guid: e9d420ac2a9a94f8d8dd786b945e4698
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameBegin.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ChoosePlayer.unity
     guid: be4d2dde27f894e4a85f453dfaf5de5a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GuardianPage.unity
     guid: 41fc6adee1a5d4eb0b05f085433b2160
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Settings.unity
     guid: fdb7a7b32ff7445d5bcb5fdf0f632c3e
   - enabled: 1
     path: Assets/Scenes/ChooseMiniGame.unity
     guid: 9fc07cb246ae1416fbc15f56be3dd425
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StartGame.unity
     guid: fd67ec06b4eb94a599908f22373b97ea
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene.unity
     guid: 13666d5979d4b4a74bb337c1a1eacb83
   - enabled: 1

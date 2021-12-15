@@ -59,7 +59,8 @@ public class LoadingBar : MonoBehaviour {
            // Loading values in Unity go from 0 - 0.9
            // This converts it so the loading goes from 0 - 1 
            // So it's easier to understand for the user: 
-           float progress = Mathf.Clamp01(operation.progress / 0.9f);
+          //  float progress = Mathf.Clamp01(operation.progress / 0.9f);
+          float progress = Mathf.Clamp01(operation.progress / 0.9f);
            Debug.Log("Progress is: " + progress);
            // Set the sliderBar element to display the current loading progress: 
           sliderBar.value = progress; 
