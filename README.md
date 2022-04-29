@@ -41,7 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Flourish is a proof-of-concept video game designed and developed for children with Autism Spectrum Disorder. 
+Flourish is a proof-of-concept video game designed and developed for children with Autism Spectrum Disorder. The current version is a prototype which will now be further developed into a minimum viable product. 
 
 
 ### Built With
